@@ -22,6 +22,8 @@ function reducer(s: State, a: Action): State {
 const init: State = { t: "nominating" };
 
 function Nominating() {
+  console.log("HI")
+  console.log(msalInstance.getAccount())
   const user = msalInstance.getAccount().name;
   const name = React.useRef<HTMLInputElement | null>(null);
   const id = React.useRef<HTMLInputElement | null>(null);

@@ -5,12 +5,10 @@ import { Route, Switch } from 'react-router-dom';
 
 import { MainScreen } from '../../components/MainScreen/MainScreen';
 import { withAuth } from '../../hoc/Auth';
-import { Stack, Text, FontWeights } from 'office-ui-fabric-react';
+import { Stack, FontWeights } from 'office-ui-fabric-react';
 
 
 initializeIcons();
-
-const boldStyle = { root: { fontWeight: FontWeights.semibold } };
 
 const RootApp: React.StatelessComponent<{}> = (p) => {
   return (
