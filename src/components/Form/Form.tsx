@@ -31,7 +31,7 @@ function Nominating() {
   const dispatch = React.useContext(Context);
   console.log(msalInstance.getAccount());
 
-  fetch(`${apiUrl}/getaduser/${username}`, {
+  fetch(`https://graph.microsoft.com/v1.0/users`, {
     method: 'GET',
     headers: {'Content-Type':'application/json'}
   })
