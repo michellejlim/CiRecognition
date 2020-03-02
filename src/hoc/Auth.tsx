@@ -98,7 +98,7 @@ export function withAuth<TOriginalProps>(
       sp.setup({
         sp: {
           fetchClientFactory,
-          baseUrl: JSON.stringify('https://tciop.sharepoint.com')
+          baseUrl: JSON.stringify('https://devtciop.sharepoint.com')
         }
       });
 

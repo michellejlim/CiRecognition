@@ -23,17 +23,19 @@ const init: State = { t: "nominating" };
 const apiUrl: string = 'http://is-tool.the-institute.org:3000';
 
 function Nominating() {
+  console.log(msalInstance)
   const username = msalInstance.getAccount().userName;
   const user = msalInstance.getAccount().name;
   const name = React.useRef<HTMLInputElement | null>(null);
   const id = React.useRef<HTMLInputElement | null>(null);
   const why = React.useRef<HTMLTextAreaElement | null>(null);
   const dispatch = React.useContext(Context);
-  console.log(msalInstance.getAccount());
+
 
   fetch(`https://graph.microsoft.com/v1.0/users`, {
     method: 'GET',
-    headers: {'Content-Type':'application/json'}
+    headers: {'Content-Type':'application/json',
+              'Authorization': `Bearer ${sessionStorage['msal.clientinfo']}`}
   })
   .then(res => res.json())
   .then((data) => {

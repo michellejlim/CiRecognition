@@ -9,7 +9,7 @@ export class PnPFetchClient extends BearerTokenFetchClient {
   public async fetch(url: string, options: FetchOptions = {}): Promise<Response> {
     if (!isUrlAbsolute(url)) {
       //throw new Error('You must supply absolute urls to PnPFetchClient.fetch.');
-      url ='https://tciop.sharepoint.com/teams/Help';
+      url ='https://devtciop.sharepoint.com/teams/Help';
     }
 
     const token = await this.getToken(this.getResource(url));
