@@ -1,6 +1,46 @@
 import * as React from "react";
 import "./Form.css";
 
+// import { msalInstance } from '../../hoc/Auth'; 
+import "@microsoft/mgt";  
+import { values } from 'office-ui-fabric-react';  
+
+declare global {  
+  // eslint-disable-next-line @typescript-eslint/no-namespace 
+  namespace JSX { 
+    interface IntrinsicElements { 
+      'mgt-people-picker': any; 
+    } 
+  } 
+} 
+
+declare global {  
+  // eslint-disable-next-line @typescript-eslint/no-namespace 
+  namespace JSX { 
+    interface IntrinsicElements { 
+      'mgt-person': any;  
+    } 
+  } 
+} 
+
+declare global {  
+  // eslint-disable-next-line @typescript-eslint/no-namespace 
+  namespace JSX { 
+    interface IntrinsicElements { 
+      'mgt-get': any; 
+    } 
+  } 
+} 
+
+declare global {  
+  // eslint-disable-next-line @typescript-eslint/no-namespace 
+  namespace JSX { 
+    interface IntrinsicElements { 
+      'template': any;  
+    } 
+  } 
+}
+
 type State =
   | { t: "nominating" }
   | { t: "confirming"; name: string; why: string }
@@ -65,13 +105,14 @@ function WithSidebar(props: JustChildren) {
 }
 function Nominating() {
   const name = React.useRef<HTMLInputElement | null>(null);
+  const id = React.useRef<HTMLInputElement | null>(null);
   const why = React.useRef<HTMLTextAreaElement | null>(null);
   const dispatch = React.useContext(Context);
 
   return (
     <Container>
       <WithSidebar>
-        <h1 id="header">Nominate a Fellow Employee </h1>
+        <h1>Nominate a Fellow Employee [CURRENTUSER]</h1>
         <form
           onSubmit={e => {
             e.preventDefault();
@@ -82,6 +123,7 @@ function Nominating() {
             });
           }}
         >
+          <mgt-people-picker></mgt-people-picker>
           <input ref={name} type="text" placeholder="Name" />
           <textarea
             ref={why}
