@@ -148,7 +148,7 @@ function Nominating() {
         <WithSidebar>
           <div className = 'NominationForm'>&nbsp;
             <h1>&nbsp;Nominate a Fellow Employee </h1>
-            <form className = 'kform'
+            <form
               onSubmit={e => {
                 e.preventDefault();
                 dispatch({
@@ -157,22 +157,31 @@ function Nominating() {
                   why: why.current!.value
                 });
               }}
-            >
-              <mgt-people-picker></mgt-people-picker>
-              <label className="k-form-field">
-                <span>First Name</span>
-                <input className="k-textbox" placeholder=" Name" />
-              </label>
+              >
 
-              <label className="k-form-field">
-                <textarea
-                  ref={why}
-                  placeholder="Why did you nominate this employee?"
-                ></textarea>
-              </label>
-                <input type="submit" value="Submit Nomination" />
+
+              <p>Your Name:</p>
+              <input 
+                type = 'text'
+                name = 'name'
+              />
+
+              <p>Employee Being Nominated</p>
+              <mgt-people-picker></mgt-people-picker>
+              
+                
+               
+              <p>Why did you nominate this employee?</p>
+              <textarea 
+                name = 'why'
+              />
+
+              <p></p>
+              <input type="submit" value="Submit Nomination" 
+              />
+
             </form>
-            </div>
+          </div>
         </WithSidebar>
   
       </Container>
