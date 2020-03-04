@@ -1,5 +1,9 @@
 import * as React from "react";
 import "./Form.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { Row, Col } from 'reactstrap';
+
 
 // import { msalInstance } from '../../hoc/Auth'; 
 import "@microsoft/mgt";  
@@ -68,22 +72,23 @@ type JustChildren = {
   children: React.ReactNode;
 };
 
-function Container(props: JustChildren) {
-  return (
-    <div className="Container">
-      <nav className="Container__Nav">
-        <a href="dashboard">Dashboard</a>
-        <a href="nomination">Nomination</a>
-        <a href="review">Review</a>
-      </nav>
-      <img
-        src="https://www.amazingkids.org/images/logo2.png"
-        className="Container__Logo"
-      />
-      <div className="Container__Content">{props.children}</div>
-    </div>
-  );
-}
+  function Container(props: JustChildren) {
+    return (
+      <div className="Container">
+        <nav className="Container__Nav">
+          <a href="dashboard">Dashboard</a>
+          <a href="nomination">Nomination</a>
+          <a href="review">Review</a>
+        </nav>
+        <img
+          src="https://www.amazingkids.org/images/logo2.png"
+          className="Container__Logo"
+        />
+        <div className="Container__Content">{props.children}</div>
+      </div>
+    );
+  }
+
 
 function WithSidebar(props: JustChildren) {
   return (
