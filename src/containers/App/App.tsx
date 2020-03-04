@@ -1,38 +1,20 @@
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-import * as React from 'react';
-import { hot } from 'react-hot-loader';
-import { Route, Switch } from 'react-router-dom';
-
-import { MainScreen } from '../../components/MainScreen/MainScreen';
-import { withAuth } from '../../hoc/Auth';
-import { Stack, FontWeights } from 'office-ui-fabric-react';
-
+import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
+import * as React from "react";
+import { hot } from "react-hot-loader";
+import { Route, Switch } from "react-router-dom";
+import { MainScreen } from "../../components/MainScreen/MainScreen";
 
 initializeIcons();
 
-const RootApp: React.StatelessComponent<{}> = (p) => {
+const RootApp: React.StatelessComponent<{}> = p => {
   return (
     <div>
-      <Stack
-        horizontalAlign="center"
-        verticalAlign="center"
-        verticalFill
-        styles={{
-          root: {
-            width: '960px',
-            margin: '0 auto',
-            textAlign: 'left',
-            color: '#605e5c'
-          }
-        }}
-        gap={15}>
-        <Switch>
-          <Route path="/" exact={true} render={(props) => <MainScreen />} />
-          <Route path="/ad" exact={true} render={(props) => <MainScreen />} />
-        </Switch>
-      </Stack>
+      <Switch>
+        <Route path="/" exact={true} render={props => <MainScreen />} />
+        <Route path="/ad" exact={true} render={props => <MainScreen />} />
+      </Switch>
     </div>
   );
 };
 
-export const App = hot(module)(withAuth(RootApp));
+export const App = hot(module)(RootApp);
