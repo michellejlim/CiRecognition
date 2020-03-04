@@ -30,3 +30,7 @@
 .WithSidebar__Content {
   grid-area: Content;
 }
+.NominationForm{
+  background-color:  white;
+  text-align: center;
+}

@@ -1,8 +1,27 @@
 import * as React from "react";
+import * as ReactDOM from 'react-dom';
+import '@progress/kendo-theme-default/dist/all.css';
+
 import "./Form.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Row, Col } from 'reactstrap';
+import { useState } from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText
+} from 'reactstrap';
+
 
 
 // import { msalInstance } from '../../hoc/Auth'; 
@@ -65,25 +84,37 @@ function reducer(s: State, a: Action): State {
   }
 }
 
+
 const init: State = { t: "nominating" };
 const apiUrl: string = "http://is-tool.the-institute.org:3000";
 
 type JustChildren = {
   children: React.ReactNode;
 };
-
   function Container(props: JustChildren) {
     return (
       <div className="Container">
-        <nav className="Container__Nav">
-          <a href="dashboard">Dashboard</a>
-          <a href="nomination">Nomination</a>
-          <a href="review">Review</a>
-        </nav>
-        <img
-          src="https://www.amazingkids.org/images/logo2.png"
-          className="Container__Logo"
-        />
+        <Col>
+          <img
+            src="https://www.amazingkids.org/images/logo2.png"
+            className="Container__Logo"/>
+        </Col>
+        <Col>
+          <Navbar color="white" light expand="md">
+                <Nav className="mr-auto" navbar>
+                  <NavItem>
+                    <NavLink href="dashboard">Dashboard</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="nomination">Nomination</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="review">Review</NavLink>
+                  </NavItem>
+                </Nav>
+          </Navbar>
+        </Col>
+        
         <div className="Container__Content">{props.children}</div>
       </div>
     );
@@ -92,54 +123,63 @@ type JustChildren = {
 
 function WithSidebar(props: JustChildren) {
   return (
+
     <div className="WithSidebar">
       <ul className="WithSidebar__Sidebar">
-        <li>
-          <a href="person1">person 1</a>
-        </li>
-        <li>
-          <a href="person2">person 2</a>
-        </li>
-        <li>
-          <a href="person3">person 3</a>
-        </li>
       </ul>
       <div className="WithSidebar__Content">{props.children}</div>
     </div>
   );
 }
-function Nominating() {
-  const name = React.useRef<HTMLInputElement | null>(null);
-  const id = React.useRef<HTMLInputElement | null>(null);
-  const why = React.useRef<HTMLTextAreaElement | null>(null);
-  const dispatch = React.useContext(Context);
 
-  return (
-    <Container>
-      <WithSidebar>
-        <h1>Nominate a Fellow Employee [CURRENTUSER]</h1>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            dispatch({
-              t: "submitNomination",
-              name: name.current!.value,
-              why: why.current!.value
-            });
-          }}
-        >
-          <mgt-people-picker></mgt-people-picker>
-          <input ref={name} type="text" placeholder="Name" />
-          <textarea
-            ref={why}
-            placeholder="Why did you nominate this employee?"
-          ></textarea>
-          <input type="submit" value="Submit Nomination" />
-        </form>
-      </WithSidebar>
-    </Container>
-  );
-}
+
+
+function Nominating() {
+
+    const name = React.useRef<HTMLInputElement | null>(null);
+    const id = React.useRef<HTMLInputElement | null>(null);
+    const why = React.useRef<HTMLTextAreaElement | null>(null);
+    const dispatch = React.useContext(Context);
+
+    return (
+      
+      <Container>&nbsp;
+      <br/>
+        <WithSidebar>
+          <div className = 'NominationForm'>&nbsp;
+            <h1>&nbsp;Nominate a Fellow Employee </h1>
+            <form className = 'kform'
+              onSubmit={e => {
+                e.preventDefault();
+                dispatch({
+                  t: "submitNomination",
+                  name: name.current!.value,
+                  why: why.current!.value
+                });
+              }}
+            >
+              <mgt-people-picker></mgt-people-picker>
+              <label className="k-form-field">
+                <span>First Name</span>
+                <input className="k-textbox" placeholder=" Name" />
+              </label>
+
+              <label className="k-form-field">
+                <textarea
+                  ref={why}
+                  placeholder="Why did you nominate this employee?"
+                ></textarea>
+              </label>
+                <input type="submit" value="Submit Nomination" />
+            </form>
+            </div>
+        </WithSidebar>
+  
+      </Container>
+      
+    );
+  }
+
 
 type ConfirmingProps = {
   name: string;
@@ -191,9 +231,6 @@ function switcher(s: State) {
   }
 }
 
-function Form() {
-  const [s, d] = React.useReducer(reducer, init);
-  return <Context.Provider value={d}>{switcher(s)}</Context.Provider>;
-}
 
-export default Form;
+
+export default Nominating;
