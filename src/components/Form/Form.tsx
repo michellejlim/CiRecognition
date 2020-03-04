@@ -147,11 +147,13 @@ function Nominating() {
     return (
       
       <Container>&nbsp;
+      
       <br/>
         &nbsp;
         <hr />
-        <WithSidebar>
 
+        <WithSidebar>
+          
           <div className = 'NominationForm'>&nbsp;
             <h1>&nbsp;Nominate a Fellow Employee </h1>
             <form
@@ -182,8 +184,9 @@ function Nominating() {
               <p></p>
             </form>
           </div>
+         
         </WithSidebar>
-     
+      
       </Container>
       
     );
