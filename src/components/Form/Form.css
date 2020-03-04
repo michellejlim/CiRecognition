@@ -2,8 +2,8 @@
   display: grid;
   grid:
     "Nav Logo" 3em
-    "Content Content" auto
-    / 1fr 1fr;
+    "Content Content" auto;
+
 }
 
 .Container__Nav {
@@ -12,6 +12,7 @@
 
 .Container__Logo {
   grid-area: Logo;
+
 }
 
 .Container__Content {
@@ -33,4 +34,17 @@
 .NominationForm{
   background-color:  white;
   text-align: center;
+}
+.outer{
+  background-color:  #5EAC2F;
+  text-align: center;
+}
+hr {
+    position: relative; 
+    height: 12px; 
+    background: grey; 
+    margin-bottom: 50px; 
+    background-color: grey; 
+    border-top: 10px;
+
 }

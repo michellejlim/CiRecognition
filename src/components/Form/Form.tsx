@@ -99,8 +99,8 @@ type JustChildren = {
             src="https://www.amazingkids.org/images/logo2.png"
             className="Container__Logo"/>
         </Col>
-        <Col>
-          <Navbar color="white" light expand="md">
+        <Col><p></p>
+          <p></p><Navbar color="white" light expand="md">
                 <Nav className="mr-auto" navbar>
                   <NavItem>
                     <NavLink href="dashboard">Dashboard</NavLink>
@@ -113,10 +113,12 @@ type JustChildren = {
                   </NavItem>
                 </Nav>
           </Navbar>
+           
         </Col>
-        
+     
         <div className="Container__Content">{props.children}</div>
       </div>
+
     );
   }
 
@@ -129,6 +131,7 @@ function WithSidebar(props: JustChildren) {
       </ul>
       <div className="WithSidebar__Content">{props.children}</div>
     </div>
+
   );
 }
 
@@ -145,7 +148,10 @@ function Nominating() {
       
       <Container>&nbsp;
       <br/>
+        &nbsp;
+        <hr />
         <WithSidebar>
+
           <div className = 'NominationForm'>&nbsp;
             <h1>&nbsp;Nominate a Fellow Employee </h1>
             <form
@@ -158,32 +164,26 @@ function Nominating() {
                 });
               }}
               >
-
-
               <p>Your Name:</p>
               <input 
                 type = 'text'
                 name = 'name'
               />
-
+              <p></p>
               <p>Employee Being Nominated</p>
-              <mgt-people-picker></mgt-people-picker>
-              
-                
-               
-              <p>Why did you nominate this employee?</p>
+              <mgt-people-picker></mgt-people-picker><p></p>
+              <p>Why did you nominate this employee?</p><p></p>
               <textarea 
                 name = 'why'
-              />
-
-              <p></p>
+              /><p></p>
+              <p></p><p></p>
               <input type="submit" value="Submit Nomination" 
               />
-
+              <p></p>
             </form>
           </div>
         </WithSidebar>
-  
+     
       </Container>
       
     );
