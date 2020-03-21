@@ -158,6 +158,7 @@ function Nominating() {
             <h1>&nbsp;Nominate a Fellow Employee </h1>
             <form
               onSubmit={e => {
+                debugger;
                 e.preventDefault();
                 dispatch({
                   t: "submitNomination",

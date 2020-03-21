@@ -49,10 +49,8 @@ const RootApp: React.StatelessComponent<{}> = (p) => {
         <mgt-login></mgt-login>
         <Switch>
           <Route path="/" exact={true} render={(props) => <MainScreen />} />
-          <Route path="/ad" exact={true} render={(props) => <MainScreen />} />
         </Switch>
       </Stack>
-      {/* <script src="node_modules/@microsoft/mgt/dist/es6/components.js"></script> */}
     </div>
   );
 };
