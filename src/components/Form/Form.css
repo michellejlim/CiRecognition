@@ -10,24 +10,22 @@
 .WithSidebar__Content {
   grid-area: Content;
 }
-.NominationForm{
-  background-color:  #BFD9AF;
+.NominationForm {
+  background-color: #bfd9af;
   text-align: center;
   border-radius: 10px;
 }
-.outer{
-  background-color:  #5EAC2F;
+.outer {
+  background-color: #5eac2f;
   text-align: center;
   width: 40;
   border-width: 100px;
-  
 }
 hr {
-    position: relative; 
-    height: 12; 
-    background: grey; 
-    margin-bottom: 50px; 
-    background-color: grey; 
-    border-top: 10px;
-
+  position: relative;
+  height: 12;
+  background: grey;
+  margin-bottom: 50px;
+  background-color: grey;
+  border-top: 10px;
 }
