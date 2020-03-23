@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Navbar, Nav, NavItem, NavLink } from "reactstrap";
+import "./Container.css";
 
 type Props = {
   children: React.ReactNode;

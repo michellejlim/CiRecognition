@@ -1,27 +1,3 @@
-.Container {
-  display: grid;
-  grid:
-    "Nav Logo" 3em
-    "Content Content" auto;
-
-}
-.div{
-  margin:0;
-}
-
-.Container__Nav {
-  grid-area: Nav;
-}
-
-.Container__Logo {
-  grid-area: Logo;
-
-}
-
-.Container__Content {
-  grid-area: Content;
-}
-
 .WithSidebar {
   display: grid;
   grid: "Sidebar Content" auto / auto;
