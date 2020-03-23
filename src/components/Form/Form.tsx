@@ -1,67 +1,44 @@
 import * as React from "react";
-import * as ReactDOM from 'react-dom';
-import '@progress/kendo-theme-default/dist/all.css';
-
+import Container from "../Container/Container";
+import "@progress/kendo-theme-default/dist/all.css";
 import "./Form.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@microsoft/mgt";
 
-import { Row, Col } from 'reactstrap';
-import { useState } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
-} from 'reactstrap';
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "mgt-people-picker": any;
+    }
+  }
+}
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "mgt-person": any;
+    }
+  }
+}
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "mgt-get": any;
+    }
+  }
+}
 
-// import { msalInstance } from '../../hoc/Auth'; 
-import "@microsoft/mgt";  
-import { values } from 'office-ui-fabric-react';  
-
-declare global {  
-  // eslint-disable-next-line @typescript-eslint/no-namespace 
-  namespace JSX { 
-    interface IntrinsicElements { 
-      'mgt-people-picker': any; 
-    } 
-  } 
-} 
-
-declare global {  
-  // eslint-disable-next-line @typescript-eslint/no-namespace 
-  namespace JSX { 
-    interface IntrinsicElements { 
-      'mgt-person': any;  
-    } 
-  } 
-} 
-
-declare global {  
-  // eslint-disable-next-line @typescript-eslint/no-namespace 
-  namespace JSX { 
-    interface IntrinsicElements { 
-      'mgt-get': any; 
-    } 
-  } 
-} 
-
-declare global {  
-  // eslint-disable-next-line @typescript-eslint/no-namespace 
-  namespace JSX { 
-    interface IntrinsicElements { 
-      'template': any;  
-    } 
-  } 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      template: any;
+    }
+  }
 }
 
 type State =
@@ -84,114 +61,68 @@ function reducer(s: State, a: Action): State {
   }
 }
 
-
 const init: State = { t: "nominating" };
 const apiUrl: string = "http://is-tool.the-institute.org:3000";
 
 type JustChildren = {
   children: React.ReactNode;
 };
-  function Container(props: JustChildren) {
-    return (
-      <div className="Container">
-        <Col>
-          <img
-            src="https://www.amazingkids.org/images/logo2.png"
-            className="Container__Logo"/>
-        </Col>
-        <Col><p></p>
-          <p></p><Navbar color="white" light expand="md">
-                <Nav className="mr-auto" navbar>
-                  <NavItem>
-                    <NavLink href="dashboard">Dashboard</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="nomination">Nomination</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="review">Review</NavLink>
-                  </NavItem>
-                </Nav>
-          </Navbar>
-           
-        </Col>
-     
-        <div className="Container__Content">{props.children}</div>
-      </div>
-
-    );
-  }
-
 
 function WithSidebar(props: JustChildren) {
   return (
-
     <div className="WithSidebar">
-      <ul className="WithSidebar__Sidebar">
-      </ul>
+      <ul className="WithSidebar__Sidebar"></ul>
       <div className="WithSidebar__Content">{props.children}</div>
     </div>
-
   );
 }
 
-
-
 function Nominating() {
+  const name = React.useRef<HTMLInputElement | null>(null);
+  const id = React.useRef<HTMLInputElement | null>(null);
+  const why = React.useRef<HTMLTextAreaElement | null>(null);
+  const dispatch = React.useContext(Context);
 
-    const name = React.useRef<HTMLInputElement | null>(null);
-    const id = React.useRef<HTMLInputElement | null>(null);
-    const why = React.useRef<HTMLTextAreaElement | null>(null);
-    const dispatch = React.useContext(Context);
-
-    return (
-      
-      <Container>&nbsp;
-      
-      <br/>
-        &nbsp;
-        <hr />
-
-        <WithSidebar>
-          
-          <div className = 'NominationForm'>&nbsp;
-            <h1>&nbsp;Nominate a Fellow Employee </h1>
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                dispatch({
-                  t: "submitNomination",
-                  name: name.current!.value,
-                  why: why.current!.value
-                });
-              }}
-              >
-              <p>Your Name:</p>
-              <input 
-                type = 'text'
-                name = 'name'
-              />
-              <p></p>
-              <p>Employee Being Nominated</p>
-              <mgt-people-picker></mgt-people-picker><p></p>
-              <p>Why did you nominate this employee?</p><p></p>
-              <textarea 
-                name = 'why'
-              /><p></p>
-              <p></p><p></p>
-              <input type="submit" value="Submit Nomination" 
-              />
-              <p></p>
-            </form>
-          </div>
-         
-        </WithSidebar>
-      
-      </Container>
-      
-    );
-  }
-
+  return (
+    <Container>
+      &nbsp;
+      <br />
+      &nbsp;
+      <hr />
+      <WithSidebar>
+        <div className="NominationForm">
+          &nbsp;
+          <h1>&nbsp;Nominate a Fellow Employee </h1>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              dispatch({
+                t: "submitNomination",
+                name: name.current!.value,
+                why: why.current!.value
+              });
+            }}
+          >
+            <p>Your Name:</p>
+            <input type="text" name="name" />
+            <p></p>
+            <p>Employee Being Nominated</p>
+            <mgt-people-picker></mgt-people-picker>
+            <p></p>
+            <p>Why did you nominate this employee?</p>
+            <p></p>
+            <textarea name="why" />
+            <p></p>
+            <p></p>
+            <p></p>
+            <input type="submit" value="Submit Nomination" />
+            <p></p>
+          </form>
+        </div>
+      </WithSidebar>
+    </Container>
+  );
+}
 
 type ConfirmingProps = {
   name: string;
@@ -242,7 +173,5 @@ function switcher(s: State) {
       );
   }
 }
-
-
 
 export default Nominating;
