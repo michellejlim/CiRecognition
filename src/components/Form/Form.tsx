@@ -1,46 +1,6 @@
 import * as React from "react";
 import Container from "../Container/Container";
-import "@progress/kendo-theme-default/dist/all.css";
 import "./Form.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@microsoft/mgt";
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      "mgt-people-picker": any;
-    }
-  }
-}
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      "mgt-person": any;
-    }
-  }
-}
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      "mgt-get": any;
-    }
-  }
-}
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      template: any;
-    }
-  }
-}
-
 type State =
   | { t: "nominating" }
   | { t: "confirming"; name: string; why: string }
