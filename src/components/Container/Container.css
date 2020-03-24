@@ -1,18 +1,16 @@
-.Container {
-  display: grid;
-  grid:
-    "Nav Logo" 3em
-    "Content Content" auto;
+.Container__Top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  height: 7em;
 }
 
 .Container__Nav {
-  grid-area: Nav;
+  font-family: Futura, sans-serif;
+  letter-spacing: 0.2em;
 }
 
-.Container__Logo {
-  grid-area: Logo;
-}
-
-.Container__Content {
-  grid-area: Content;
+.Container__NavItem--active {
+  border-bottom: 0.3em solid #5eac2f;
 }

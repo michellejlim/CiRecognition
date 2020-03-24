@@ -1,37 +1,42 @@
 import React from "react";
-import { Col, Navbar, Nav, NavItem, NavLink } from "reactstrap";
+import { Navbar, Nav, NavItem, NavLink } from "reactstrap";
 import "./Container.css";
 
 type Props = {
   children: React.ReactNode;
 };
 
+const navItems = ["dashboard", "nomination", "review"];
+
+function navItem(x: string) {
+  const pathname = `/${x}`;
+  const className =
+    window.location.pathname === pathname ? "Container__NavItem--active" : "";
+  return (
+    <NavItem key={x}>
+      <NavLink href={pathname} className={className}>
+        {x.toUpperCase()}
+      </NavLink>
+    </NavItem>
+  );
+}
+
 function Container(props: Props) {
   return (
     <div className="Container">
-      <Col>
+      <div className="Container__Top">
         <img
           src="https://www.amazingkids.org/images/logo2.png"
+          alt="logo"
           className="Container__Logo"
         />
-      </Col>
-      <Col>
-        <p></p>
-        <p></p>
-        <Navbar color="white" light expand="md">
+        <Navbar light expand="md" className="Container__Nav">
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="dashboard">Dashboard</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="nomination">Nomination</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="review">Review</NavLink>
-            </NavItem>
+            {navItems.map(navItem)}
           </Nav>
         </Navbar>
-      </Col>
+        <mgt-login></mgt-login>
+      </div>
       <div className="Container__Content">{props.children}</div>
     </div>
   );

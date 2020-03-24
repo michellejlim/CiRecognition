@@ -14,6 +14,8 @@
   background-color: #bfd9af;
   text-align: center;
   border-radius: 10px;
+  width: 600px;
+  margin: 50px;
 }
 .outer {
   background-color: #5eac2f;

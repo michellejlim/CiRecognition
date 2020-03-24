@@ -1,0 +1,36 @@
+.Dashboard {
+  display: flex;
+}
+
+.Dashboard__Left {
+  width: 300px;
+}
+
+.Dashboard__Right {
+  flex-grow: 1;
+}
+
+.Dashboard__Profile {
+  text-align: center;
+  margin: 20px;
+  border: 1px solid #f0f0f0;
+  border-bottom: 2px solid lightgrey;
+  background-color: white;
+}
+
+.Dashboard__ProfilePic {
+  padding: 10px;
+  border-bottom: 2px solid lightgrey;
+}
+
+.Dashboard__Leaderboard {
+  width: calc(100% - 40px);
+  margin: 20px;
+  border: 1px solid #f0f0f0;
+  border-bottom: 2px solid lightgrey;
+  background-color: white;
+}
+
+mgt-person {
+  --avatar-size-s: 60px;
+}
