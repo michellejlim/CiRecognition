@@ -1,27 +1,3 @@
-.Container {
-  display: grid;
-  grid:
-    "Nav Logo" 3em
-    "Content Content" auto;
-
-}
-.div{
-  margin:0;
-}
-
-.Container__Nav {
-  grid-area: Nav;
-}
-
-.Container__Logo {
-  grid-area: Logo;
-
-}
-
-.Container__Content {
-  grid-area: Content;
-}
-
 .WithSidebar {
   display: grid;
   grid: "Sidebar Content" auto / auto;
@@ -34,24 +10,24 @@
 .WithSidebar__Content {
   grid-area: Content;
 }
-.NominationForm{
-  background-color:  #BFD9AF;
+.NominationForm {
+  background-color: #bfd9af;
   text-align: center;
   border-radius: 10px;
+  width: 600px;
+  margin: 50px;
 }
-.outer{
-  background-color:  #5EAC2F;
+.outer {
+  background-color: #5eac2f;
   text-align: center;
   width: 40;
   border-width: 100px;
-  
 }
 hr {
-    position: relative; 
-    height: 12; 
-    background: grey; 
-    margin-bottom: 50px; 
-    background-color: grey; 
-    border-top: 10px;
-
+  position: relative;
+  height: 12;
+  background: grey;
+  margin-bottom: 50px;
+  background-color: grey;
+  border-top: 10px;
 }
