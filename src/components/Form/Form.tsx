@@ -1,38 +1,41 @@
 import * as React from "react";
-import Container from "../Container/Container";
 import "./Form.css";
 
 type State =
   | { t: "nominating" }
-  | { t: "confirming"; name: string; why: string; nominee: string }
+  | { t: "confirming"; why: string; nominees: string[] }
   | { t: "confirmed" };
 
 type Action =
-  | { t: "submitNomination"; name: string; why: string; nominees: string[] }
-  | { t: "confirmNomination" };
+  | { t: "submitNomination"; why: string; nominees: string[] }
+  | { t: "confirmNomination" }
+  | { t: "backNomination" };
 
 const Context = React.createContext<React.Dispatch<Action>>(() => {});
 
 function reducer(s: State, a: Action): State {
   switch (a.t) {
     case "submitNomination":
-      if (a.nominees.length !== 1) {
-        // TODO show an error to the user
+      if (a.nominees.length === 0) {
+        // TODO show an error
         return s;
       }
       return {
         t: "confirming",
-        name: a.name,
         why: a.why,
-        nominee: a.nominees[0]
+        nominees: a.nominees
       };
     case "confirmNomination":
       return { t: "confirmed" };
+    case "backNomination":
+      return { t: "nominating" };
   }
 }
 
 const init: State = { t: "nominating" };
 const apiUrl: string = "http://is-tool.the-institute.org:3000";
+
+const reasons = ["good leadership", "kindness outreach", "no absences"];
 
 type JustChildren = {
   children: React.ReactNode;
@@ -48,9 +51,8 @@ function WithSidebar(props: JustChildren) {
 }
 
 function Nominating() {
-  const name = React.useRef<HTMLInputElement | null>(null);
   const people = React.useRef<any | null>(null);
-  const why = React.useRef<HTMLTextAreaElement | null>(null);
+  const [why, setWhy] = React.useState<string | null>(null);
   const dispatch = React.useContext(Context);
   return (
     <WithSidebar>
@@ -58,24 +60,46 @@ function Nominating() {
         <h1>Nominate a Fellow Employee </h1>
         <form
           onSubmit={e => {
-            console.log({ HEUHEUEH: people.current });
             e.preventDefault();
+            // TODO do something if why is null
+            if (why === null) {
+              return;
+            }
             dispatch({
               t: "submitNomination",
-              name: name.current!.value,
-              why: why.current!.value,
+              why,
               nominees: people.current!.selectedPeople.map(
                 (x: any) => x.displayName
               )
             });
           }}
         >
-          <p>Your Name</p>
-          <input ref={name} type="text" name="name" />
-          <p>Employee Being Nominated</p>
+          <p>Employee(s) Being Nominated</p>
           <mgt-people-picker ref={people}></mgt-people-picker>
           <p>Why did you nominate this employee?</p>
-          <textarea ref={why} name="why" />
+          {reasons.map(r => (
+            <p key={r}>
+              <label>
+                <input
+                  type="radio"
+                  name="reason"
+                  onChange={() => setWhy(r)}
+                  checked={why === r}
+                />
+                {r}
+              </label>
+            </p>
+          ))}
+          <input
+            type="radio"
+            name="reason"
+            value="other"
+            checked={why !== null && !reasons.includes(why)}
+          />
+          <label>other</label>
+          <div>
+            <textarea name="why" onChange={e => setWhy(e.target.value)} />
+          </div>
           <div>
             <input type="submit" value="Submit Nomination" />
           </div>
@@ -86,19 +110,30 @@ function Nominating() {
 }
 
 type ConfirmingProps = {
-  name: string;
-  nominee: string;
+  nominees: string[];
   why: string;
 };
 
-function Confirming({ name, nominee, why }: ConfirmingProps) {
+function Confirming({ nominees, why }: ConfirmingProps) {
   const dispatch = React.useContext(Context);
   return (
     <WithSidebar>
       <h1 id="header">Confirm Nomination</h1>
-      <p>your name: {name}</p>
-      <p>nominee name: {nominee}</p>
+      <p>nominees selected: </p>
+      <ol>
+        {/* nominees ought not change, so it should be ok to use the index as the key */}
+        {nominees.map((n, idx) => (
+          <li key={idx}>{n}</li>
+        ))}
+      </ol>
       <p>why nominate: {why}</p>
+      <input
+        type="button"
+        value="Back"
+        onClick={e => {
+          dispatch({ t: "backNomination" });
+        }}
+      />
       <input
         type="button"
         value="Submit"
@@ -116,7 +151,7 @@ function switcher(s: State) {
     case "nominating":
       return <Nominating />;
     case "confirming":
-      return <Confirming name={s.name} nominee={s.nominee} why={s.why} />;
+      return <Confirming nominees={s.nominees} why={s.why} />;
     case "confirmed":
       return (
         <React.Fragment>
