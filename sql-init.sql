@@ -1,3 +1,4 @@
+DROP DATABASE CIEmployeeRecognitionSystem;
 CREATE DATABASE CIEmployeeRecognitionSystem;
 USE CIEmployeeRecognitionSystem;
 CREATE TABLE tblEmployee(
@@ -47,7 +48,7 @@ CREATE TABLE Nomination (
 -- Table: Nomination_Award
 CREATE TABLE Nomination_Award (
     id int NOT NULL,
-    name int NOT NULL,
+    name varchar(255) NOT NULL,
     award_amount int NOT NULL,
     CONSTRAINT Nomination_Award_pk PRIMARY KEY (id)
 );
@@ -66,3 +67,13 @@ ALTER TABLE Nomination ADD CONSTRAINT Nomination_Employee_Nominee FOREIGN KEY No
 -- Reference: Nomination_Nomination_Award (table: Nomination)
 ALTER TABLE Nomination ADD CONSTRAINT Nomination_Nomination_Award FOREIGN KEY Nomination_Nomination_Award (award)
     REFERENCES Nomination_Award (id);
+    
+INSERT INTO Nomination_Award
+  VALUES(1, "Exceptional Teaching", 10);
+
+INSERT INTO Nomination_Award
+  VALUES(2, "Kindness", 10);
+    
+INSERT INTO Nomination_Award
+  VALUES(3, "Perfect Attendence (Monthly)", 10);
+    
