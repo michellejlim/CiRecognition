@@ -15,9 +15,9 @@
 4. Open the MySQLWorkbench and create a new schema called 'ci_employee_recognition_schema'
 5. Under the 'Database' navigation item click 'Manage Connections' -> 'New'
 6. Name the new connection CI Server, you'll need to input your root credentials
-7. Copy the contents of the file sql-init.sql (found in project directory root) into the Workbench. On line 1, change <username> to whatever your username and run the results. Leave the password blank
+7. Copy the contents of the file sql-init.sql (found in project directory root) into the Workbench. On line 1, change `username` to whatever you want and run the results. Leave the password blank
 8. Clone the api [https://github.com/JarrekRHolmes/CIRecognitionAPI](https://github.com/JarrekRHolmes/CIRecognitionAPI) into a seperate folder.
-9. In CIRecognitionAPI/server/datasources.json change line 9 "user": "<username>" with the username to the one you used above
+9. In CIRecognitionAPI/server/datasources.json change line 9 "user": "jrholmes" the the `username` you used above
 
 
 ### To run
