@@ -1,6 +1,11 @@
+CREATE USER '<username>'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO '<username>'@'%';
+FLUSH PRIVILEGES;
+
 DROP DATABASE CIEmployeeRecognitionSystem;
 CREATE DATABASE CIEmployeeRecognitionSystem;
 USE CIEmployeeRecognitionSystem;
+
 CREATE TABLE tblEmployee(
   id int NOT NULL,
   employeeId int NOT NULL,
