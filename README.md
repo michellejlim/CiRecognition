@@ -8,7 +8,7 @@
 3. Using the MySQL installer, get the latest version of MySQL workbench and the MySQL server version 8.0.19. Make sure to create a root user and remember the password.
 
 #### MacOS:
-2. Install the MySQl 8.0.19 server [here](https://dev.mysql.com/downloads/mysql/)
+2. Install the MySQl 8.0.19 server [here](https://dev.mysql.com/downloads/mysql/). If you are unsure, choose the DMG Archive option and follow the instructions [here](https://dev.mysql.com/doc/mysql-osx-excerpt/5.7/en/osx-installation-pkg.html).
 3. Install the latest MySQL Workbench [here](https://dev.mysql.com/downloads/workbench/)
 
 #### Windows & MacOS
