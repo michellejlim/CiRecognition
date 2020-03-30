@@ -1,5 +1,6 @@
-CREATE USER '<username>'@'%' IDENTIFIED BY '';
-GRANT ALL PRIVILEGES ON *.* TO '<username>'@'%';
+CREATE USER 'ci-dev'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'ci-dev'@'%';
+ALTER USER 'ci-dev' IDENTIFIED WITH mysql_native_password BY '';
 FLUSH PRIVILEGES;
 
 DROP DATABASE CIEmployeeRecognitionSystem;
