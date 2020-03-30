@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import { MainScreen } from "../../components/MainScreen/MainScreen";
 import Container from "../../components/Container/Container";
 import Form from "../../components/Form/Form";
+import Fetch from "../../components/Fetch/Fetch";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import { Stack } from "office-ui-fabric-react";
 import "@microsoft/mgt";
@@ -38,6 +39,7 @@ const RootApp: React.StatelessComponent<{}> = p => {
           <Route path="/" exact render={props => <MainScreen />} />
           <Route path="/nomination" exact render={props => <Form />} />
           <Route path="/dashboard" exact render={props => <Dashboard />} />
+          <Route path="/fetch" exact render={props => <Fetch />} />
         </Switch>
       </Stack>
     </div>
