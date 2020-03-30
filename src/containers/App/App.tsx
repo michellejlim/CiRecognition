@@ -1,59 +1,47 @@
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-import * as React from 'react';
-import { hot } from 'react-hot-loader';
-import { Route, Switch } from 'react-router-dom';
-
-import { MainScreen } from '../../components/MainScreen/MainScreen';
-import { Stack, FontWeights } from 'office-ui-fabric-react';
-import '@microsoft/mgt';
-import { Provider } from 'react-redux';
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      'mgt-msal-provider': any;
-    }
-  }
-}
+import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
+import * as React from "react";
+import { hot } from "react-hot-loader";
+import { Route, Switch } from "react-router-dom";
+import { MainScreen } from "../../components/MainScreen/MainScreen";
+import Container from "../../components/Container/Container";
+import Form from "../../components/Form/Form";
+import Dashboard from "../../components/Dashboard/Dashboard";
+import { Stack } from "office-ui-fabric-react";
+import "@microsoft/mgt";
+import "@progress/kendo-theme-default/dist/all.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      'mgt-login': any;
+      "mgt-people-picker": any;
+      "mgt-person": any;
+      "mgt-get": any;
+      "mgt-msal-provider": any;
+      "mgt-login": any;
+      template: any;
     }
   }
 }
 
 initializeIcons();
 
-const RootApp: React.StatelessComponent<{}> = (p) => {
-  
+const RootApp: React.StatelessComponent<{}> = p => {
   return (
     <div>
-      <Stack
-        horizontalAlign="center"
-        verticalAlign="center"
-        verticalFill
-        styles={{
-          root: {
-            width: '960px',
-            margin: '0 auto',
-            textAlign: 'left',
-            color: '#605e5c'
-          }
-        }}
-        gap={15}>
+      <Stack>
         <mgt-msal-provider client-id="27bc12d5-b60b-41a2-b62a-8ccdeac6363f"></mgt-msal-provider>
-        <mgt-login></mgt-login>
+        <Container> </Container>
         <Switch>
-          <Route path="/" exact={true} render={(props) => <MainScreen />} />
+          <Route path="/" exact render={props => <MainScreen />} />
+          <Route path="/nomination" exact render={props => <Form />} />
+          <Route path="/dashboard" exact render={props => <Dashboard />} />
         </Switch>
       </Stack>
     </div>
   );
 };
-
 
 export const App = hot(module)(RootApp);
