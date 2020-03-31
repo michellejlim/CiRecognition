@@ -1,5 +1,6 @@
 .Dashboard {
   display: flex;
+  font-family: Geneva;
 }
 
 .Dashboard__Left {
@@ -9,6 +10,14 @@
 .Dashboard__Right {
   flex-grow: 1;
 }
+thead{
+  border-bottom: 5px solid lightgrey;
+
+}
+hr.grey {
+  border: 10;
+  border-top:7px solid rgba(0,0,0,.1)
+}
 
 .Dashboard__Profile {
   text-align: center;
@@ -17,16 +26,29 @@
   border-bottom: 2px solid lightgrey;
   background-color: white;
 }
-
+.filtering {
+  text-align: center;
+  margin: 20px;
+  border: 1px  lightgrey;
+  background-color:  #f0f0f0;
+  padding:10px;
+  padding-top:10px;
+}
 .Dashboard__ProfilePic {
   padding: 10px;
   border-bottom: 2px solid lightgrey;
 }
 
+.greyline {
+  border-top:5px solid lightgrey;
+
+}
 .Dashboard__Leaderboard {
   width: calc(100% - 40px);
   margin: 20px;
-  border: 1px solid #f0f0f0;
+  padding:30px;
+  text-align:center;
+  border: 10px solid white;
   border-bottom: 2px solid lightgrey;
   background-color: white;
 }
@@ -34,3 +56,33 @@
 mgt-person {
   --avatar-size-s: 60px;
 }
+
+.dashboard-img{
+  border: 10px solid #f0f0f0;
+  width:740px;
+  height:300px;
+  align:center;
+}
+
+.person-img{
+  border: 10px;
+  width:80px;
+  height:80px;
+  align:left;
+  padding:10px;
+}
+ 
+ .message-img{
+  border: 10px;
+  width:60px;
+  height:60px;
+  align:right;
+  padding:10px;
+ }
+.mid_contain {
+  margin: 20px;
+  padding:30px;
+  width:800px;
+  background-color: white;
+}
+

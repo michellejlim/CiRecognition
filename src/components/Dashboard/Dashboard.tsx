@@ -13,9 +13,9 @@ type GoodDeed = {
 };
 
 const goodDeeds: GoodDeed[] = [
-  { who: "stephanie", what: "good leadership", dept: "accounting" },
-  { who: "mary", what: "kindness outreach", dept: "programming" },
-  { who: "sam", what: "no absences", dept: "sales" }
+  { who: "Stephanie", what: "good leadership", dept: "accounting" },
+  { who: "Mary", what: "kindness outreach", dept: "programming" },
+  { who: "Sam", what: "no absences", dept: "sales" }
 ];
 
 type LeaderboardItem = {
@@ -24,9 +24,9 @@ type LeaderboardItem = {
 };
 
 const leaderboard: LeaderboardItem[] = [
-  { who: "karen anne", points: 456456 },
-  { who: "adam smith", points: 234234 },
-  { who: "caleb keen", points: 123123 }
+  { who: "Karen Anne", points: 456456 },
+  { who: "Adam Smith", points: 234234 },
+  { who: "Caleb Keen", points: 123123 }
 ];
 
 function Dashboard() {
@@ -35,17 +35,19 @@ function Dashboard() {
       <div className="Dashboard__Left">
         <div className="Dashboard__Profile">
           <div className="Dashboard__ProfilePic">
-            <mgt-person person-query="me"></mgt-person>
+            <p></p><mgt-person person-query="me"></mgt-person><p></p>
           </div>
-          <p>You have x CI bucks</p>
+          <p><p></p>You have x CI bucks</p>
         </div>
+      
         <table className="Dashboard__Leaderboard">
+
           <thead>
             <tr>
-              <th>rank</th>
-              <th>who</th>
-              <th>points</th>
-            </tr>
+              <th>Rank</th>
+              <th>Who</th>
+              <th>Points</th>
+            </tr><p></p>
           </thead>
           <tbody>
             {leaderboard.map((x, idx) => (
@@ -54,29 +56,54 @@ function Dashboard() {
                 <td>{x.who}</td>
                 <td>{x.points}</td>
               </tr>
-            ))}
+            ))}<p></p>
           </tbody>
         </table>
       </div>
-      <div className="Dashboard__Right">
-        <div>
-          <label htmlFor="departments">Filter By:</label>
-          <select id="departments">
-            <option>All Departments</option>
-            {departments.map(x => (
-              <option key={x}>{x}</option>
+      <br></br>
+
+      <div className = "mid_contain">
+      <img
+          src="http://www.amazingkids.org/images/Our_approach.jpg"
+          alt="logo"
+          className="dashboard-img"
+        />
+
+        <div className="Dashboard__Right">
+          <div><p></p>
+          <div className = "filtering">
+            <label htmlFor="departments">Filter By:</label>
+              <select id="departments">
+                <option>All Departments</option>
+                {departments.map(x => (
+                  <option key={x}>{x}</option>
+                ))}
+              </select>
+              <select>
+                <option>Recent</option>
+              </select>
+          </div>
+          <hr className = "greyline"></hr>
+          </div>
+
+          <div className = "students">
+            {goodDeeds.map((x, idx) => (
+              <div key={idx}>
+                <img
+                  src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
+                  alt="logo"
+                  className="person-img"
+                />
+                {x.who} from {x.dept} has been recognized for {x.what}!
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
+                  alt="logo"
+                  className="message-img"
+                />
+                
+              </div>
             ))}
-          </select>
-          <select>
-            <option>Recent</option>
-          </select>
-        </div>
-        <div>
-          {goodDeeds.map((x, idx) => (
-            <div key={idx}>
-              {x.who} from {x.dept} has been recognized for {x.what}!
-            </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
