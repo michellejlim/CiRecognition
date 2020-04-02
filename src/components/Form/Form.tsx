@@ -2,6 +2,10 @@ import * as React from "react";
 import Container from "../Container/Container";
 import "./Form.css";
 
+type Reason = "Good Sportsmanship" | "Extra Hours" | "Act of Kindness";
+
+const reasons: Reason[] = ["Good Sportsmanship", "Extra Hours", "Act of Kindness"];
+
 type State =
   | { t: "nominating" }
   | { t: "confirming"; name: string; why: string; nominee: string }
@@ -55,7 +59,8 @@ function Nominating() {
   return (
     <WithSidebar>
       <div className="NominationForm">
-        <h1>Nominate a Fellow Employee </h1>
+   
+        <h1>Nominate a Fellow Employee </h1><br></br>
         <form
           onSubmit={e => {
             console.log({ HEUHEUEH: people.current });
@@ -70,14 +75,26 @@ function Nominating() {
             });
           }}
         >
-          <p>Your Name</p>
-          <input ref={name} type="text" name="name" />
-          <p>Employee Being Nominated</p>
-          <mgt-people-picker ref={people}></mgt-people-picker>
-          <p>Why did you nominate this employee?</p>
-          <textarea ref={why} name="why" />
+         <div className = "nom-form">
+          <h5>Employee Being Nominated</h5><br></br>
+            <mgt-people-picker ref={people}></mgt-people-picker>
+          <br></br><br></br>
+          <h5>Why did you nominate this employee?</h5><br></br>
+    
+          <label htmlFor="reasons">Select Reason:</label>
+              <select id="reasons" >
+                <option>Choose One</option>
+                {reasons.map(x => (
+                  <option key={x}>{x}</option>
+                ))}
+              </select>
+          <br></br><br></br><br></br>
+          <h5>Elaborate on Reason (Optional)</h5><br></br>
+          <textarea />
+          <br></br><br></br>
           <div>
             <input type="submit" value="Submit Nomination" />
+          </div>
           </div>
         </form>
       </div>

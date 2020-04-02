@@ -14,8 +14,9 @@
   background-color: #bfd9af;
   text-align: center;
   border-radius: 10px;
-  width: 600px;
+  width: 700px;
   margin: 50px;
+  padding:50px;
 }
 .outer {
   background-color: #5eac2f;
@@ -30,4 +31,25 @@ hr {
   margin-bottom: 50px;
   background-color: grey;
   border-top: 10px;
+}
+
+h1{
+  font-family: Geneva;
+  color: white;
+  text-align: center;
+  margin: 20px;
+  border-bottom: 8px solid white;
+  
+}
+h5{
+  font-family: Geneva;
+  color: grey;
+  text-align: center;
+  margin: 20px;
+  
+}
+.nom-form{
+  background-color:#f0f0f0;
+  padding: 50px;
+  border-radius: 10px;
 }
