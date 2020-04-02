@@ -2,9 +2,9 @@ import * as React from "react";
 import "./Dashboard.css";
 import { StringifyOptions } from "querystring";
 
-type Dept = "accounting" | "sales" | "programming";
+type Dept = "Accounting" | "Sales" | "Programming";
 
-const departments: Dept[] = ["accounting", "sales", "programming"];
+const departments: Dept[] = ["Accounting", "Sales", "Programming"];
 
 type GoodDeed = {
   who: string;
@@ -13,9 +13,9 @@ type GoodDeed = {
 };
 
 const goodDeeds: GoodDeed[] = [
-  { who: "Stephanie", what: "good leadership", dept: "accounting" },
-  { who: "Mary", what: "kindness outreach", dept: "programming" },
-  { who: "Sam", what: "no absences", dept: "sales" }
+  { who: "Stephanie", what: "good leadership", dept: "Accounting" },
+  { who: "Mary", what: "kindness outreach", dept: "Programming" },
+  { who: "Sam", what: "no absences", dept: "Sales" }
 ];
 
 type LeaderboardItem = {
