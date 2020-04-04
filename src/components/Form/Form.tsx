@@ -1,13 +1,19 @@
 import * as React from "react";
 import "./Form.css";
 
+const reasons: string[] = [
+  "Good Sportsmanship",
+  "Extra Hours",
+  "Act of Kindness",
+];
+
 type State =
   | { t: "nominating" }
-  | { t: "confirming"; why: string; nominees: string[] }
+  | { t: "confirming"; why: string; nominees: string[]; other: string }
   | { t: "confirmed" };
 
 type Action =
-  | { t: "submitNomination"; why: string; nominees: string[] }
+  | { t: "submitNomination"; why: string; nominees: string[]; other: string }
   | { t: "confirmNomination" }
   | { t: "backNomination" };
 
@@ -23,7 +29,8 @@ function reducer(s: State, a: Action): State {
       return {
         t: "confirming",
         why: a.why,
-        nominees: a.nominees
+        nominees: a.nominees,
+        other: a.other,
       };
     case "confirmNomination":
       return { t: "confirmed" };
@@ -34,8 +41,6 @@ function reducer(s: State, a: Action): State {
 
 const init: State = { t: "nominating" };
 const apiUrl: string = "http://is-tool.the-institute.org:3000";
-
-const reasons = ["good leadership", "kindness outreach", "no absences"];
 
 type JustChildren = {
   children: React.ReactNode;
@@ -52,53 +57,45 @@ function WithSidebar(props: JustChildren) {
 
 function Nominating() {
   const people = React.useRef<any | null>(null);
-  const [why, setWhy] = React.useState<string | null>(null);
+  const other = React.useRef<null | HTMLTextAreaElement>(null);
+  const [why, setWhy] = React.useState<string>(reasons[0]);
   const dispatch = React.useContext(Context);
   return (
     <WithSidebar>
       <div className="NominationForm">
         <h1>Nominate a Fellow Employee </h1>
+        <br></br>
         <form
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
-            // TODO do something if why is null
-            if (why === null) {
-              return;
-            }
             dispatch({
               t: "submitNomination",
               why,
               nominees: people.current!.selectedPeople.map(
                 (x: any) => x.displayName
-              )
+              ),
+              other: other.current!.value,
             });
           }}
         >
-          <p>Employee(s) Being Nominated</p>
-          <mgt-people-picker ref={people}></mgt-people-picker>
-          <p>Why did you nominate this employee?</p>
-          {reasons.map(r => (
-            <p key={r}>
-              <label>
-                <input
-                  type="radio"
-                  name="reason"
-                  onChange={() => setWhy(r)}
-                  checked={why === r}
-                />
-                {r}
-              </label>
-            </p>
-          ))}
-          <input
-            type="radio"
-            name="reason"
-            value="other"
-            checked={why !== null && !reasons.includes(why)}
-          />
-          <label>other</label>
-          <div>
-            <textarea name="why" onChange={e => setWhy(e.target.value)} />
+          <div className="nom-form">
+            <h5>Employee(s) Being Nominated</h5>
+            <br />
+            <mgt-people-picker ref={people}></mgt-people-picker>
+            <h5>Why did you nominate this employee?</h5>
+            <br />
+            <select value={why} onChange={(e) => setWhy(e.target.value)}>
+              {reasons.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+              <option value="other">Other</option>
+            </select>
+            <div style={{ display: why === "other" ? "block" : "none" }}>
+              <br />
+              <textarea ref={other} />
+            </div>
           </div>
           <div>
             <input type="submit" value="Submit Nomination" />
@@ -112,9 +109,10 @@ function Nominating() {
 type ConfirmingProps = {
   nominees: string[];
   why: string;
+  other: string;
 };
 
-function Confirming({ nominees, why }: ConfirmingProps) {
+function Confirming({ nominees, why, other }: ConfirmingProps) {
   const dispatch = React.useContext(Context);
   return (
     <WithSidebar>
@@ -126,18 +124,18 @@ function Confirming({ nominees, why }: ConfirmingProps) {
           <li key={idx}>{n}</li>
         ))}
       </ol>
-      <p>why nominate: {why}</p>
+      <p>why nominate: {why === "other" ? other : why}</p>
       <input
         type="button"
         value="Back"
-        onClick={e => {
+        onClick={(e) => {
           dispatch({ t: "backNomination" });
         }}
       />
       <input
         type="button"
         value="Submit"
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           dispatch({ t: "confirmNomination" });
         }}
@@ -151,7 +149,7 @@ function switcher(s: State) {
     case "nominating":
       return <Nominating />;
     case "confirming":
-      return <Confirming nominees={s.nominees} why={s.why} />;
+      return <Confirming nominees={s.nominees} why={s.why} other={s.other} />;
     case "confirmed":
       return (
         <React.Fragment>

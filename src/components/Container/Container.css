@@ -4,13 +4,19 @@
   align-items: center;
   background-color: white;
   height: 7em;
+  
 }
 
 .Container__Nav {
   font-family: Futura, sans-serif;
   letter-spacing: 0.2em;
+  padding:50px;
 }
 
 .Container__NavItem--active {
   border-bottom: 0.3em solid #5eac2f;
+}
+
+.Container__Logo {
+	padding:30px;
 }

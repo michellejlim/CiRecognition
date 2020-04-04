@@ -1,58 +1,31 @@
-This is a Create React App based repo that comes with UI Fabric pre-installed!
+# CI Employee Recognition Service
 
-## Available Scripts
+### Installation:
+1. First, install NodeJS [here](https://nodejs.org/en/download/)
 
-In the project directory, you can run:
+#### Windows:
+2. Get the MySQl 8.0.19 installer [here](https://dev.mysql.com/downloads/installer/)
+3. Using the MySQL installer, get the latest version of MySQL workbench and the MySQL server version 8.0.19. Make sure to create a root user and remember the password.
 
-### `npm start`
+#### MacOS:
+2. Install the MySQl 8.0.19 server [here](https://dev.mysql.com/downloads/mysql/). If you are unsure, choose the DMG Archive option and follow the instructions [here](https://dev.mysql.com/doc/mysql-osx-excerpt/5.7/en/osx-installation-pkg.html).
+3. Install the latest MySQL Workbench [here](https://dev.mysql.com/downloads/workbench/)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Windows & MacOS
+4. Open the MySQLWorkbench and create a new schema called 'ci_employee_recognition_schema'
+5. Under the 'Database' navigation item click 'Manage Connections' -> 'New'
+6. Name the new connection CI Server, you'll need to input your root credentials
+7. Copy the contents of the file sql-init.sql (found in project directory root) into the Workbench.
+8. Clone the api [https://github.com/JarrekRHolmes/CIRecognitionAPI](https://github.com/JarrekRHolmes/CIRecognitionAPI) into a seperate folder.
+9. In CIRecognitionAPI/server/datasources.json change line 9 "user": "jrholmes" the the `username` you used above
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
+### To run
+First, in the CIRecognitionAPI root directory run: `npm start` <br>
+Then in the project directory, you can run: `npm start` <br>
+When prompted, change the port to 3001 <br>
+Open [http://localhost:3000](http://localhost:3001) to view it in the browser. <br>
+The page will reload if you make edits.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-# Contributing
-
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.microsoft.com.
-
-When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
