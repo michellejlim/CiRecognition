@@ -1,12 +1,6 @@
 import * as React from "react";
 import "./Form.css";
 
-const reasons: string[] = [
-  "Good Sportsmanship",
-  "Extra Hours",
-  "Act of Kindness",
-];
-
 type State =
   | { t: "nominating" }
   | { t: "confirming"; why: string; nominees: string[]; other: string }
@@ -40,7 +34,7 @@ function reducer(s: State, a: Action): State {
 }
 
 const init: State = { t: "nominating" };
-const apiUrl: string = "http://is-tool.the-institute.org:3000";
+const apiUrl: string = "http://localhost:3000/api";
 
 type JustChildren = {
   children: React.ReactNode;
@@ -58,8 +52,23 @@ function WithSidebar(props: JustChildren) {
 function Nominating() {
   const people = React.useRef<any | null>(null);
   const other = React.useRef<null | HTMLTextAreaElement>(null);
-  const [why, setWhy] = React.useState<string>(reasons[0]);
+  const [reasons, setReasons] = React.useState<string[] | null>(null);
+  const [why, setWhy] = React.useState<string | null>(null);
   const dispatch = React.useContext(Context);
+  React.useEffect(() => {
+    fetch(`${apiUrl}/Nomination_Awards`)
+      .then((data) => data.json())
+      .then((xs) => {
+        const whys = xs.map((x: any) => x.name);
+        setReasons(whys);
+        setWhy(whys[0]);
+      })
+      .catch((err) => console.error({ err }));
+    console.log("doing an effect");
+  }, [setReasons]);
+  if (reasons === null || why === null) {
+    return <p>loading</p>;
+  }
   return (
     <WithSidebar>
       <div className="NominationForm">
