@@ -9,12 +9,58 @@ h4{
   font-family: Arial;
   color: grey;
   text-align: left;
-  margin: 20px;
   
+}
+h4.status{
+  font-family: Arial;
+  color: black;
+  text-align: center;
+  font-style: italic;
   
+}
+.APPROVED{
+	background-color: #cce8d3;
+	border-radius: 10px;
+}
+
+.DENIED{
+	background-color: #ffcccc;
+	border-radius: 10px;
 }
 
 .pendingItem{
 	background-color: lightgrey;
+	border-radius: 10px;
+}
+
+.approve-button{
+	padding: 30px;
+	text-align: center;
+}
+.nom-text{
+	padding: 30px;
+	text-align: center;
+	margin: 20px;
+}
+
+
+.girl-img {
+	border: 10px;
+	width:90px;
+	height:90px;
+	align:left;
+	padding:10px;
+}
+
+.confirm-button{
+	 font-size: 18px;
+	 height: 65px;
+	 width: 250px;
+	 border-radius: 10px;
+	 border: none;
+	 box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
+	 background: grey;
+	 cursor: pointer;
+	 color: white;
 }
 

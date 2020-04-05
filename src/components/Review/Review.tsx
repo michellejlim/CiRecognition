@@ -12,7 +12,7 @@ type ReviewData = {
   reason: string;
 };
 
-type Status = "approved" | "denied";
+type Status = "APPROVED" | "DENIED";
 type DoneReviewData = ReviewData & { status: Status };
 
 type Response = {
@@ -42,21 +42,21 @@ function getResponse(): Promise<Response> {
         nominator: "vivian huang",
         nominee: "jarrek holmes",
         reason: "helpful guy",
-        status: "approved",
+        status: "APPROVED",
       },
       {
         id: 456456,
         nominator: "andrew carnegie",
         nominee: "andrew mellon",
         reason: "good at art",
-        status: "approved",
+        status: "APPROVED",
       },
       {
         id: 567567,
         nominator: "donald duck",
         nominee: "thanos",
         reason: "big and purple",
-        status: "denied",
+        status: "DENIED",
       },
     ],
   });
@@ -77,40 +77,70 @@ function Review() {
   }
   return (
     <div className="noms">
-      <h4>Nominations Pending Approval ({response.pending.length} Remaining)</h4>
+
+      <h4>Nominations Pending Approval ({response.pending.length} Remaining)</h4><br></br>
       {response.pending.map((x) => (
         <div key={x.id} className="pendingItem">
           <div className = "ind-pending">
-         
             <Row>
-              <Col s={3}>
-                <button onClick={confirm}>APPROVE</button><br></br>
-                <button onClick={confirm}>DENY</button>
+              <Col s={3} className = "approve-button">
+                <br></br>
+                <button className = "confirm-button" onClick={confirm}>APPROVE</button><br></br>
+                <br></br>
+                <button className = "confirm-button" onClick={confirm}>DENY</button>
               </Col>
-              <Col s={3}>
-                <p> Nominee: <br></br>
-                Nominator: <br></br>
-                Review: </p>
+              <Col s={3} className = "nom-text">
+                <br></br>
+                <p> NOMINEE:  {x.nominee}<br></br><br></br>
+                    NOMINATOR: {x.nominator}<br></br><br></br>
+                    REVIEW:  {x.reason}
+                </p>
               </Col>
-              <Col s={3}>
-                {x.nominee}<br></br>
-                {x.nominator}<br></br>
-                {x.reason}
+              <Col s={3} className = "approve-button">
+                <br></br>
+                <img 
+                    src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
+                    alt="logo"
+                    className="girl-img"
+                  />
               </Col>
-              
             </Row>
             <hr></hr>
           </div>
 
         </div>
       ))}
-      <p>Past Nominations ({response.past.length})</p>
+      <br></br>
+      <h4>Past Nominations ({response.past.length})</h4><br></br>
+      
       {response.past.map((x) => (
-        <div key={x.id} className="pendingItem">
-          <p>Nominee: {x.nominee}</p>
-          <p>Nominator: {x.nominator}</p>
-          <p>Review: {x.reason}</p>
-          <p>{x.status}</p>
+        <div key={x.id} className={ x.status == 'APPROVED'? 'APPROVED' : 'DENIED' }>
+          <div className = "ind-pending">
+            <Row>
+
+              <Col s={3} className = "approve-button">
+                <br></br>
+                <img 
+                    src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
+                    alt="logo"
+                    className="girl-img"
+                  />
+              </Col>
+
+              <Col className = "approve-button">
+                <br></br>
+                <p>NOMINEE: {x.nominee}</p>
+                <p>NOMINATOR: {x.nominator}</p>
+                <p>REVIEW: {x.reason}</p>
+              </Col>
+
+              <Col className = "approve-button">
+                <br></br><br></br><br></br>
+                <h4 className = "status">{x.status}</h4>
+              </Col>
+            </Row>
+            <hr></hr>
+          </div>
         </div>
       ))}
     </div>
