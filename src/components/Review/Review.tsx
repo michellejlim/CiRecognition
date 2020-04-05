@@ -60,6 +60,10 @@ function getResponse(): Promise<Response> {
   });
 }
 
+function confirm() {
+  window.confirm("Are you sure? This action can't be undone.");
+}
+
 function Review() {
   const [response, setResponse] = React.useState<Response | null>(null);
   React.useEffect(() => {
@@ -74,8 +78,8 @@ function Review() {
       <p>Nominations Pending Approval ({response.pending.length} Remaining)</p>
       {response.pending.map((x) => (
         <div key={x.id} className="pendingItem">
-          <button>APPROVE</button>
-          <button>DENY</button>
+          <button onClick={confirm}>APPROVE</button>
+          <button onClick={confirm}>DENY</button>
           <p>Nominee: {x.nominee}</p>
           <p>Nominator: {x.nominator}</p>
           <p>Review: {x.reason}</p>
