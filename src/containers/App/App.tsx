@@ -5,8 +5,8 @@ import { Route, Switch } from "react-router-dom";
 import { MainScreen } from "../../components/MainScreen/MainScreen";
 import Container from "../../components/Container/Container";
 import Form from "../../components/Form/Form";
-import Fetch from "../../components/Fetch/Fetch";
 import Dashboard from "../../components/Dashboard/Dashboard";
+import Review from "../../components/Review/Review";
 import { Stack } from "office-ui-fabric-react";
 import "@microsoft/mgt";
 import "@progress/kendo-theme-default/dist/all.css";
@@ -29,17 +29,17 @@ declare global {
 
 initializeIcons();
 
-const RootApp: React.StatelessComponent<{}> = p => {
+const RootApp: React.StatelessComponent<{}> = (p) => {
   return (
     <div>
       <Stack>
         <mgt-msal-provider client-id="27bc12d5-b60b-41a2-b62a-8ccdeac6363f"></mgt-msal-provider>
         <Container> </Container>
         <Switch>
-          <Route path="/" exact render={props => <MainScreen />} />
-          <Route path="/nomination" exact render={props => <Form />} />
-          <Route path="/dashboard" exact render={props => <Dashboard />} />
-          <Route path="/fetch" exact render={props => <Fetch />} />
+          <Route path="/" exact render={(props) => <MainScreen />} />
+          <Route path="/nomination" exact render={(props) => <Form />} />
+          <Route path="/dashboard" exact render={(props) => <Dashboard />} />
+          <Route path="/review" exact render={(props) => <Review />} />
         </Switch>
       </Stack>
     </div>

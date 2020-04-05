@@ -23,6 +23,7 @@
     "@types/reactstrap": "^8.4.2",
     "@uifabric/fluent-theme": "^0.16.7",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "leankit-client": "^2.4.0",
     "moment": "^2.24.0",
