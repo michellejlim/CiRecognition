@@ -1,5 +1,7 @@
 import * as React from "react";
 import "./Review.css";
+import 'materialize-css';
+import { Button, Card, Row, Col } from 'react-materialize';
 
 const apiUrl: string = "http://localhost:3000/api";
 
@@ -75,14 +77,31 @@ function Review() {
   }
   return (
     <div className="noms">
-      <p>Nominations Pending Approval ({response.pending.length} Remaining)</p>
+      <h4>Nominations Pending Approval ({response.pending.length} Remaining)</h4>
       {response.pending.map((x) => (
         <div key={x.id} className="pendingItem">
-          <button onClick={confirm}>APPROVE</button>
-          <button onClick={confirm}>DENY</button>
-          <p>Nominee: {x.nominee}</p>
-          <p>Nominator: {x.nominator}</p>
-          <p>Review: {x.reason}</p>
+          <div className = "ind-pending">
+         
+            <Row>
+              <Col s={3}>
+                <button onClick={confirm}>APPROVE</button><br></br>
+                <button onClick={confirm}>DENY</button>
+              </Col>
+              <Col s={3}>
+                <p> Nominee: <br></br>
+                Nominator: <br></br>
+                Review: </p>
+              </Col>
+              <Col s={3}>
+                {x.nominee}<br></br>
+                {x.nominator}<br></br>
+                {x.reason}
+              </Col>
+              
+            </Row>
+            <hr></hr>
+          </div>
+
         </div>
       ))}
       <p>Past Nominations ({response.past.length})</p>

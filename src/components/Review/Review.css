@@ -1,0 +1,20 @@
+.noms {
+	font-family: Arial;
+	padding:40px;
+	background-color: white;
+	/*background-color:  #f0f0f0;*/
+}
+
+h4{
+  font-family: Arial;
+  color: grey;
+  text-align: left;
+  margin: 20px;
+  
+  
+}
+
+.pendingItem{
+	background-color: lightgrey;
+}
+
