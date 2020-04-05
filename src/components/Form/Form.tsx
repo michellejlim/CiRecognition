@@ -88,11 +88,11 @@ function Nominating() {
           }}
         >
           <div className="nom-form">
-            <h5>Employee(s) Being Nominated</h5>
-            <br />
+            <h5>* Employee(s) Being Nominated</h5>
+            
             <mgt-people-picker ref={people}></mgt-people-picker>
+            <br></br><br></br>
             <h5>Why did you nominate this employee?</h5>
-            <br />
             <select value={why} onChange={(e) => setWhy(e.target.value)}>
               {reasons.map((r) => (
                 <option key={r} value={r}>
@@ -105,9 +105,10 @@ function Nominating() {
               <br />
               <textarea ref={other} />
             </div>
-          </div>
+          <br></br><br></br><br></br><br></br>
           <div>
             <input type="submit" value="Submit Nomination" />
+          </div>
           </div>
         </form>
       </div>

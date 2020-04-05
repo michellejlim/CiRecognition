@@ -91,10 +91,10 @@ function Review() {
               </Col>
               <Col s={3} className = "nom-text">
                 <br></br>
-                <p> NOMINEE:  {x.nominee}<br></br><br></br>
+                <h5> NOMINEE:  {x.nominee}<br></br><br></br>
                     NOMINATOR: {x.nominator}<br></br><br></br>
                     REVIEW:  {x.reason}
-                </p>
+                </h5>
               </Col>
               <Col s={3} className = "approve-button">
                 <br></br>
@@ -129,9 +129,9 @@ function Review() {
 
               <Col className = "approve-button">
                 <br></br>
-                <p>NOMINEE: {x.nominee}</p>
-                <p>NOMINATOR: {x.nominator}</p>
-                <p>REVIEW: {x.reason}</p>
+                <h5>NOMINEE: {x.nominee}<br></br><br></br>
+                NOMINATOR: {x.nominator}<br></br><br></br>
+                REVIEW: {x.reason}</h5>
               </Col>
 
               <Col className = "approve-button">

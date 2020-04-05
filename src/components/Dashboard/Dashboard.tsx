@@ -53,8 +53,8 @@ function Dashboard() {
               <th>Who</th>
               <th>Points</th>
             </tr>
-            <p></p>
           </thead>
+        
           <tbody>
             {leaderboard.map((x, idx) => (
               <tr key={idx}>
@@ -63,7 +63,7 @@ function Dashboard() {
                 <td>{x.points}</td>
               </tr>
             ))}
-            <p></p>
+          
           </tbody>
         </table>
       </div>
@@ -71,29 +71,13 @@ function Dashboard() {
 
       <div className="mid_contain">
         <img
-          src="http://www.amazingkids.org/images/Our_approach.jpg"
+          src="https://prostaff.com/wp-content/uploads/sites/8/2017/11/Atterro-11-17_WhyEmployeeAppreciationMatters.jpg"
           alt="logo"
           className="dashboard-img"
         />
 
         <div className="Dashboard__Right">
-          <div>
-            <p></p>
-            <div className="filtering">
-              <label htmlFor="departments">Filter By:</label>
-              <select id="departments">
-                <option>All Departments</option>
-                {departments.map((x) => (
-                  <option key={x}>{x}</option>
-                ))}
-              </select>
-              <select>
-                <option>Recent</option>
-              </select>
-            </div>
-            <hr className="greyline"></hr>
-          </div>
-
+          <br></br>
           <div className="students">
             {goodDeeds.map((x, idx) => (
               <div key={idx}>
