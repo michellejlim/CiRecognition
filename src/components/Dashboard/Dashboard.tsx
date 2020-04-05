@@ -2,6 +2,8 @@ import * as React from "react";
 import "./Dashboard.css";
 import { StringifyOptions } from "querystring";
 
+const apiUrl: string = "http://localhost:3000/api";
+
 type Dept = "Accounting" | "Sales" | "Programming";
 
 const departments: Dept[] = ["Accounting", "Sales", "Programming"];
@@ -15,7 +17,7 @@ type GoodDeed = {
 const goodDeeds: GoodDeed[] = [
   { who: "Stephanie", what: "good leadership", dept: "Accounting" },
   { who: "Mary", what: "kindness outreach", dept: "Programming" },
-  { who: "Sam", what: "no absences", dept: "Sales" }
+  { who: "Sam", what: "no absences", dept: "Sales" },
 ];
 
 type LeaderboardItem = {
@@ -26,7 +28,7 @@ type LeaderboardItem = {
 const leaderboard: LeaderboardItem[] = [
   { who: "Karen Anne", points: 456456 },
   { who: "Adam Smith", points: 234234 },
-  { who: "Caleb Keen", points: 123123 }
+  { who: "Caleb Keen", points: 123123 },
 ];
 
 function Dashboard() {
@@ -35,19 +37,23 @@ function Dashboard() {
       <div className="Dashboard__Left">
         <div className="Dashboard__Profile">
           <div className="Dashboard__ProfilePic">
-            <p></p><mgt-person person-query="me"></mgt-person><p></p>
+            <p></p>
+            <mgt-person person-query="me"></mgt-person>
+            <p></p>
           </div>
-          <p><p></p>You have x CI bucks</p>
+          <p>
+            <p></p>You have x CI bucks
+          </p>
         </div>
-      
-        <table className="Dashboard__Leaderboard">
 
+        <table className="Dashboard__Leaderboard">
           <thead>
             <tr>
               <th>Rank</th>
               <th>Who</th>
               <th>Points</th>
-            </tr><p></p>
+            </tr>
+            <p></p>
           </thead>
           <tbody>
             {leaderboard.map((x, idx) => (
@@ -56,37 +62,39 @@ function Dashboard() {
                 <td>{x.who}</td>
                 <td>{x.points}</td>
               </tr>
-            ))}<p></p>
+            ))}
+            <p></p>
           </tbody>
         </table>
       </div>
       <br></br>
 
-      <div className = "mid_contain">
-      <img
+      <div className="mid_contain">
+        <img
           src="http://www.amazingkids.org/images/Our_approach.jpg"
           alt="logo"
           className="dashboard-img"
         />
 
         <div className="Dashboard__Right">
-          <div><p></p>
-          <div className = "filtering">
-            <label htmlFor="departments">Filter By:</label>
+          <div>
+            <p></p>
+            <div className="filtering">
+              <label htmlFor="departments">Filter By:</label>
               <select id="departments">
                 <option>All Departments</option>
-                {departments.map(x => (
+                {departments.map((x) => (
                   <option key={x}>{x}</option>
                 ))}
               </select>
               <select>
                 <option>Recent</option>
               </select>
-          </div>
-          <hr className = "greyline"></hr>
+            </div>
+            <hr className="greyline"></hr>
           </div>
 
-          <div className = "students">
+          <div className="students">
             {goodDeeds.map((x, idx) => (
               <div key={idx}>
                 <img
@@ -100,7 +108,6 @@ function Dashboard() {
                   alt="logo"
                   className="message-img"
                 />
-                
               </div>
             ))}
           </div>
