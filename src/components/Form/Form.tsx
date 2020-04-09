@@ -99,9 +99,8 @@ function Nominating() {
                   {r}
                 </option>
               ))}
-              <option value="other">Other</option>
             </select>
-            <div style={{ display: why === "other" ? "block" : "none" }}>
+            <div style={{ display: why === "Other" ? "block" : "none" }}>
               <br />
               <textarea ref={other} />
             </div>
