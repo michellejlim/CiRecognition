@@ -68,6 +68,9 @@ INSERT INTO Nomination_Award
 INSERT INTO Nomination_Award
   VALUES(3, "Perfect Attendence (Monthly)", 10);
 
+INSERT INTO Nomination_Award
+  VALUES(4, "Other", 10);
+
 INSERT INTO tblEmployee
   VALUES(1, 1, "jrholmes@andrew.cmu.edu","IS", "Michelle", 2);
 
