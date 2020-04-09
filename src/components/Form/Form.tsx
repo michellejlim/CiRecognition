@@ -133,7 +133,7 @@ function Confirming({ nominees, why, other }: ConfirmingProps) {
           <li key={idx}>{n}</li>
         ))}
       </ol>
-      <p>why nominate: {why === "other" ? other : why}</p>
+      <p>why nominate: {why === "Other" ? other : why}</p>
       <input
         type="button"
         value="Back"
