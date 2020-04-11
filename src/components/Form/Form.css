@@ -10,17 +10,17 @@
 .WithSidebar__Content {
   grid-area: Content;
 }
+
 .NominationForm {
-  background-color: #8CC63F;
+  background-color: #8cc63f;
   text-align: center;
   width: 700px;
   margin: 50px;
-  padding:50px;
+  padding: 50px;
 }
 
-
 .outer {
-  background-color: #8CC63F;
+  background-color: #8cc63f;
   text-align: center;
   width: 40;
   border-width: 100px;
@@ -34,22 +34,20 @@ hr {
   border-top: 10px;
 }
 
-h1{
+h1 {
   font-family: Arial;
   color: white;
   text-align: center;
   margin: 20px;
-  
-  
 }
-h5{
+
+h5 {
   font-family: Arial;
   color: grey;
   text-align: left;
   margin: 20px;
-  
 }
-.nom-form{
-  background-color:white;
+.nom-form {
+  background-color: white;
   padding: 50px;
 }
