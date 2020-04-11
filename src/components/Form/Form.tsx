@@ -1,5 +1,7 @@
 import * as React from "react";
+import EmailGetter from "../EmailGetter";
 import "./Form.css";
+import { getApiUrl, toJson } from "../../fetching";
 
 type Guy = {
   displayName: string;
@@ -57,7 +59,6 @@ function reducer(s: State, a: Action): State {
 }
 
 const init: State = { t: "nominating" };
-const apiUrl: string = "http://localhost:3000/api/";
 
 type JustChildren = {
   children: React.ReactNode;
@@ -74,16 +75,16 @@ function WithSidebar(props: JustChildren) {
 
 function Nominating() {
   const people = React.useRef<any | null>(null);
-  const me = React.useRef<any | null>(null);
   const other = React.useRef<null | HTMLTextAreaElement>(null);
   const [reasons, setReasons] = React.useState<Map<string, number> | null>(
     null
   );
   const [name, setName] = React.useState<string | null>(null);
+  const [myEmail, setMyEmail] = React.useState<string | null>(null);
   const dispatch = React.useContext(Context);
   React.useEffect(() => {
-    fetch(`${apiUrl}Nomination_Awards`)
-      .then((data) => data.json())
+    fetch(getApiUrl("Nomination_Awards"))
+      .then(toJson)
       .then((xs: Reason[]) => {
         const rs = new Map<string, number>();
         for (const { id, name } of xs) {
@@ -91,34 +92,30 @@ function Nominating() {
         }
         setReasons(rs);
         setName(xs[0].name);
-      })
-      .catch((err) => console.error({ err }));
+      });
   }, [setReasons]);
   if (reasons === null || name === null) {
     return <p>loading</p>;
   }
   return (
     <WithSidebar>
+      <EmailGetter onGetEmail={setMyEmail} />
       <div className="NominationForm">
         <h1>Nominate a Fellow Employee</h1>
-        {/* TODO figure out a way to ask the API for my email instead of using this? */}
-        <div style={{ display: "none" }}>
-          <mgt-person person-query="me" show-email ref={me}></mgt-person>
-        </div>
         <br></br>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const id = reasons.get(name);
-            if (id === undefined) {
-              throw new Error("no id for name - internal error?");
+            if (id === undefined || myEmail == null) {
+              throw new Error("internal error");
             }
             dispatch({
               t: "submitNomination",
               why: { name, id },
               nominees: people.current!.selectedPeople,
               other: other.current!.value,
-              myEmail: me.current!.personDetails.mail,
+              myEmail,
             });
           }}
         >
@@ -187,22 +184,20 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
           e.preventDefault();
           dispatch({ t: "confirmNomination" });
           // TODO handle errors when fetching?
-          const nom1 = (
+          const myId = (
             await fetch(
-              apiUrl +
-                encodeURI(
-                  `tblEmployees?filter={"where": {"emailCompany": "${myEmail}"}}`
-                )
-            ).then((data) => data.json())
-          )[0];
+              getApiUrl(
+                `tblEmployees?filter={"where":{"emailCompany":"${myEmail}"}}`
+              )
+            ).then(toJson)
+          )[0].id;
           for (const nominee of nominees) {
             const nom2 = (
               await fetch(
-                apiUrl +
-                  encodeURI(
-                    `tblEmployees?filter={"where": {"emailCompany": "${nominee.userPrincipalName}"}}`
-                  )
-              ).then((data) => data.json())
+                getApiUrl(
+                  `tblEmployees?filter={"where": {"emailCompany": "${nominee.userPrincipalName}"}}`
+                )
+              ).then(toJson)
             )[0];
             const req = {
               method: "POST",
@@ -211,12 +206,12 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
                 reason: why.name === "Other" ? other : why.name,
                 status: "pending",
                 date: new Date().toUTCString(),
-                nominator: nom1.id,
+                nominator: myId,
                 nominee: nom2.id,
                 award: why.id,
               }),
             };
-            fetch(`${apiUrl}Nominations`, req);
+            fetch(getApiUrl("Nominations"), req);
           }
         }}
       />
