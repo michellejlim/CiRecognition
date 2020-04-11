@@ -23,9 +23,7 @@ type LeaderboardItem = {
   ci_bucks: number;
 };
 
-const deedsURL = getApiUrl(
-  'Nominations?filter={"where":{"status":"approved"}}'
-);
+const deedsURL = getApiUrl("Nominations", { status: "approved" });
 
 function cmpBucks(lhs: LeaderboardItem, rhs: LeaderboardItem): number {
   return rhs.ci_bucks - lhs.ci_bucks;
@@ -51,9 +49,7 @@ function Dashboard() {
       .then((deeds: APIGoodDeed[]) =>
         Promise.all(
           deeds.map(({ reason, nominee }) =>
-            fetch(
-              getApiUrl(`tblEmployees?filter={"where":{"id":"${nominee}"}}`)
-            )
+            fetch(getApiUrl("tblEmployees", { id: nominee }))
               .then(toJson)
               .then((xs: Employee[]) => ({
                 reason,
@@ -70,7 +66,7 @@ function Dashboard() {
       .then((leaderboard: LeaderboardAPIItem[]) =>
         Promise.all(
           leaderboard.map(({ id, ci_bucks }) =>
-            fetch(getApiUrl(`tblEmployees?filter={"where":{"id":${id}}}`))
+            fetch(getApiUrl("tblEmployees", { id }))
               .then(toJson)
               .then((xs: Employee[]) => ({
                 ci_bucks,
@@ -85,16 +81,10 @@ function Dashboard() {
     if (myEmail === null) {
       return;
     }
-    fetch(
-      getApiUrl(`tblEmployees?filter={"where":{"emailCompany":"${myEmail}"}}`)
-    )
+    fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
       .then(toJson)
       .then((xs: Employee[]) =>
-        fetch(
-          getApiUrl(
-            `Employee_Recognitions?filter={"where":{"id":${xs[0].employeeId}}}`
-          )
-        )
+        fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
       )
       .then(toJson)
       .then((xs: LeaderboardAPIItem[]) => setMyBucks(xs[0].ci_bucks));

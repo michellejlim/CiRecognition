@@ -186,17 +186,15 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
           // TODO handle errors when fetching?
           const myId = (
             await fetch(
-              getApiUrl(
-                `tblEmployees?filter={"where":{"emailCompany":"${myEmail}"}}`
-              )
+              getApiUrl("tblEmployees", { emailCompany: myEmail })
             ).then(toJson)
           )[0].id;
           for (const nominee of nominees) {
             const nom2 = (
               await fetch(
-                getApiUrl(
-                  `tblEmployees?filter={"where": {"emailCompany": "${nominee.userPrincipalName}"}}`
-                )
+                getApiUrl("tblEmployees", {
+                  emailCompany: nominee.userPrincipalName,
+                })
               ).then(toJson)
             )[0];
             const req = {
