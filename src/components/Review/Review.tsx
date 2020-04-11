@@ -68,7 +68,7 @@ function Review() {
   const [response, setResponse] = React.useState<Response | null>(null);
   React.useEffect(() => {
     // TODO what if the backend errors?
-    getResponse().then(setResponse).catch(console.error);
+    getResponse().then(setResponse);
   }, [setResponse]);
   if (response === null) {
     return null;
