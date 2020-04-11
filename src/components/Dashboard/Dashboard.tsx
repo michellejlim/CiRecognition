@@ -1,12 +1,7 @@
 import * as React from "react";
 import "./Dashboard.css";
-import { StringifyOptions } from "querystring";
-
-const apiUrl: string = "http://localhost:3000/api";
 
 type Dept = "Accounting" | "Sales" | "Programming";
-
-const departments: Dept[] = ["Accounting", "Sales", "Programming"];
 
 type GoodDeed = {
   who: string;
@@ -54,7 +49,7 @@ function Dashboard() {
               <th>Points</th>
             </tr>
           </thead>
-        
+
           <tbody>
             {leaderboard.map((x, idx) => (
               <tr key={idx}>
@@ -63,7 +58,6 @@ function Dashboard() {
                 <td>{x.points}</td>
               </tr>
             ))}
-          
           </tbody>
         </table>
       </div>

@@ -1,9 +1,7 @@
 import * as React from "react";
 import "./Review.css";
-import 'materialize-css';
-import { Button, Card, Row, Col } from 'react-materialize';
-
-const apiUrl: string = "http://localhost:3000/api";
+import "materialize-css";
+import { Row, Col } from "react-materialize";
 
 type ReviewData = {
   id: number;
@@ -77,66 +75,86 @@ function Review() {
   }
   return (
     <div className="noms">
-
-      <h4>Nominations Pending Approval ({response.pending.length} Remaining)</h4><br></br>
+      <h4>
+        Nominations Pending Approval ({response.pending.length} Remaining)
+      </h4>
+      <br></br>
       {response.pending.map((x) => (
         <div key={x.id} className="pendingItem">
-          <div className = "ind-pending">
+          <div className="ind-pending">
             <Row>
-              <Col s={3} className = "approve-button">
+              <Col s={3} className="approve-button">
                 <br></br>
-                <button className = "confirm-button" onClick={confirm}>APPROVE</button><br></br>
+                <button className="confirm-button" onClick={confirm}>
+                  APPROVE
+                </button>
                 <br></br>
-                <button className = "confirm-button" onClick={confirm}>DENY</button>
+                <br></br>
+                <button className="confirm-button" onClick={confirm}>
+                  DENY
+                </button>
               </Col>
-              <Col s={3} className = "nom-text">
+              <Col s={3} className="nom-text">
                 <br></br>
-                <h5> NOMINEE:  {x.nominee}<br></br><br></br>
-                    NOMINATOR: {x.nominator}<br></br><br></br>
-                    REVIEW:  {x.reason}
+                <h5>
+                  {" "}
+                  NOMINEE: {x.nominee}
+                  <br></br>
+                  <br></br>
+                  NOMINATOR: {x.nominator}
+                  <br></br>
+                  <br></br>
+                  REVIEW: {x.reason}
                 </h5>
               </Col>
-              <Col s={3} className = "approve-button">
+              <Col s={3} className="approve-button">
                 <br></br>
-                <img 
-                    src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-                    alt="logo"
-                    className="girl-img"
-                  />
+                <img
+                  src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
+                  alt="logo"
+                  className="girl-img"
+                />
               </Col>
             </Row>
             <hr></hr>
           </div>
-
         </div>
       ))}
       <br></br>
-      <h4>Past Nominations ({response.past.length})</h4><br></br>
-      
+      <h4>Past Nominations ({response.past.length})</h4>
+      <br></br>
+
       {response.past.map((x) => (
-        <div key={x.id} className={ x.status == 'APPROVED'? 'APPROVED' : 'DENIED' }>
-          <div className = "ind-pending">
+        <div key={x.id} className={x.status}>
+          <div className="ind-pending">
             <Row>
-
-              <Col s={3} className = "approve-button">
+              <Col s={3} className="approve-button">
                 <br></br>
-                <img 
-                    src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-                    alt="logo"
-                    className="girl-img"
-                  />
+                <img
+                  src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
+                  alt="logo"
+                  className="girl-img"
+                />
               </Col>
 
-              <Col className = "approve-button">
+              <Col className="approve-button">
                 <br></br>
-                <h5>NOMINEE: {x.nominee}<br></br><br></br>
-                NOMINATOR: {x.nominator}<br></br><br></br>
-                REVIEW: {x.reason}</h5>
+                <h5>
+                  NOMINEE: {x.nominee}
+                  <br></br>
+                  <br></br>
+                  NOMINATOR: {x.nominator}
+                  <br></br>
+                  <br></br>
+                  REVIEW: {x.reason}
+                </h5>
               </Col>
 
-              <Col className = "approve-button">
-                <br></br><br></br><br></br>
-                <h4 className = "status">{x.status}</h4>
+              <Col className="approve-button">
+                <br></br>
+                <br></br>
+                <br></br>
+                <h4 className="status">{x.status}</h4>
               </Col>
             </Row>
             <hr></hr>
