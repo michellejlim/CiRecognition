@@ -32,14 +32,14 @@ async function getAnswer(myEmail: string): Promise<Answer> {
     .then((xs) => xs[0].id);
   const noms: Nomination[] = await fetch(getApiUrl("Nominations")).then(toJson);
   for (const nom of noms) {
-    const nominator: Employee = await fetch(
-      getApiUrl("tblEmployees", { id: nom.nominator })
+    const nominee: Employee = await fetch(
+      getApiUrl("tblEmployees", { id: nom.nominee })
     )
       .then(toJson)
       .then((xs) => xs[0]);
-    if (nominator.supervisorEmployeeId === myID) {
-      const nominee: Employee = await fetch(
-        getApiUrl("tblEmployees", { id: nom.nominee })
+    if (nominee.supervisorEmployeeId === myID) {
+      const nominator: Employee = await fetch(
+        getApiUrl("tblEmployees", { id: nom.nominator })
       )
         .then(toJson)
         .then((xs) => xs[0]);
