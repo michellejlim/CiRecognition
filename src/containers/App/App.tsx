@@ -9,7 +9,6 @@ import Dashboard from "../../components/Dashboard/Dashboard";
 import Review from "../../components/Review/Review";
 import { Stack } from "office-ui-fabric-react";
 import "@microsoft/mgt";
-import { UserAgentApplication} from "msal";
 import "@progress/kendo-theme-default/dist/all.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
