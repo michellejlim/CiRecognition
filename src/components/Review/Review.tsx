@@ -61,7 +61,7 @@ function PlaceholderImg() {
   return (
     <img
       src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-      alt="placeholder image"
+      alt="placeholder"
       className="girl-img"
     />
   );
