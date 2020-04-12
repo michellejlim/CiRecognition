@@ -8,8 +8,10 @@ CREATE DATABASE CIEmployeeRecognitionSystem;
 USE CIEmployeeRecognitionSystem;
 
 CREATE TABLE tblEmployee(
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   employeeId int NOT NULL,
+  firstName varchar(255) NOT NULL,
+  lastName varchar(255) NOT NULL,
   emailCompany varchar(255) NULL,
   departmentName varchar(255) NULL,
   supervisorName varchar(255) NULL,
@@ -18,7 +20,7 @@ CREATE TABLE tblEmployee(
 );
 
 CREATE TABLE Employee_Recognition (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     ci_bucks int NOT NULL,
     admin_level varchar(255) NOT NULL,
     CONSTRAINT Employee_Recognition_pk PRIMARY KEY (id)
@@ -26,7 +28,7 @@ CREATE TABLE Employee_Recognition (
 
 -- Table: Nomination
 CREATE TABLE Nomination (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     reason varchar(255) NULL,
     status varchar(255) NOT NULL,
     date date NOT NULL,
@@ -38,7 +40,7 @@ CREATE TABLE Nomination (
 
 -- Table: Nomination_Award
 CREATE TABLE Nomination_Award (
-    id int NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     award_amount int NOT NULL,
     CONSTRAINT Nomination_Award_pk PRIMARY KEY (id)
@@ -58,13 +60,13 @@ ALTER TABLE Nomination ADD CONSTRAINT Nomination_Employee_Nominee FOREIGN KEY No
 -- Reference: Nomination_Nomination_Award (table: Nomination)
 ALTER TABLE Nomination ADD CONSTRAINT Nomination_Nomination_Award FOREIGN KEY Nomination_Nomination_Award (award)
     REFERENCES Nomination_Award (id);
-    
+
 INSERT INTO Nomination_Award
   VALUES(1, "Exceptional Teaching", 10);
 
 INSERT INTO Nomination_Award
   VALUES(2, "Kindness", 10);
-    
+
 INSERT INTO Nomination_Award
   VALUES(3, "Perfect Attendence (Monthly)", 10);
 
@@ -72,22 +74,34 @@ INSERT INTO Nomination_Award
   VALUES(4, "Other", 10);
 
 INSERT INTO tblEmployee
-  VALUES(1, 1, "jrholmes@andrew.cmu.edu","IS", "Michelle", 2);
+  VALUES(1, 1, "Jarrek", "Holmes", "Jarrek@tciop.org","IS", "Vivian", 5);
 
-  INSERT INTO tblEmployee
-  VALUES(2, 2, "michelle@andrew.cmu.edu","IS", "Vivian", 3);
+INSERT INTO tblEmployee
+  VALUES(2, 2, "Michelle", "Lim", "Michelle@tciop.org","IS", "Vivian", 5);
 
-  INSERT INTO tblEmployee
-  VALUES(3, 3, "Vivian@andrew.cmu.edu","IS", "Jarrek", 1);
-    
+INSERT INTO tblEmployee
+  VALUES(3, 3, "Chris", "Mader", "chris@devtciop.onmicrosoft.com", "CI", "Vivian", 5);
+
+INSERT INTO tblEmployee
+  VALUES(4, 4, "Brian", "Furfari", "brf@devtciop.onmicrosoft.com", "CI", "Vivian", 5);
+
+INSERT INTO tblEmployee
+  VALUES(5, 5, "Vivian", "Huang", "Vivian@tciop.org","IS", "Vivian", 5);
+
 INSERT INTO Employee_Recognition
-  VALUES(1, 10, "admin");
+  VALUES(1, 10, "user");
 
 INSERT INTO Employee_Recognition
   VALUES(2, 23, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(3, 12, "admin");
+  VALUES(3, 12, "user");
+
+INSERT INTO Employee_Recognition
+  VALUES(4, 10, "user");
+
+INSERT INTO Employee_Recognition
+  VALUES(5, 23, "admin");
 
 INSERT INTO Nomination
   VALUES(1, "You're so great", "approved", '2020-03-21', 1, 2, 1);
