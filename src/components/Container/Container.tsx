@@ -11,7 +11,8 @@ const navItems = ["dashboard", "nomination", "review"];
 function navItem(x: string) {
   const pathname = `/${x}`;
   const className =
-    window.location.pathname === pathname ? "Container__NavItem--active" : "";
+    (window.location.pathname === pathname || (window.location.pathname == "/" && pathname == "/dashboard")) ? "Container__NavItem--active" : "";
+  console.log(window.location.pathname)
   return (
     <NavItem key={x}>
       <NavLink href={pathname} className={className}>
@@ -35,7 +36,7 @@ function Container(props: Props) {
             {navItems.map(navItem)}
           </Nav>
         </Navbar>
-        <mgt-login></mgt-login>
+        <mgt-login id="myLoginControl"></mgt-login>
       </div>
       <div className="Container__Content">{props.children}</div>
     </div>

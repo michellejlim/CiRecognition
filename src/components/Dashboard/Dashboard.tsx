@@ -75,7 +75,7 @@ function Dashboard() {
           )
         )
       )
-      .then((xs) => setLeaderboard(take(3, xs.sort(cmpBucks))));
+      .then((xs) => setLeaderboard(take(5, xs.sort(cmpBucks))));
   }, [setLeaderboard]);
   React.useEffect(() => {
     if (myEmail === null) {
@@ -103,8 +103,8 @@ function Dashboard() {
           <thead>
             <tr>
               <th>Rank</th>
-              <th>Who</th>
-              <th>Points</th>
+              <th>Employee</th>
+              <th>Bucks</th>
             </tr>
           </thead>
           <tbody>
