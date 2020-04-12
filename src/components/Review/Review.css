@@ -22,12 +22,13 @@ h4.status {
   text-align: center;
   font-style: italic;
 }
-.APPROVED {
+
+.approved {
   background-color: #cce8d3;
   border-radius: 10px;
 }
 
-.DENIED {
+.denied {
   background-color: #ffcccc;
   border-radius: 10px;
 }

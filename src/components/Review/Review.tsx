@@ -2,106 +2,131 @@ import * as React from "react";
 import "./Review.css";
 import "materialize-css";
 import { Row, Col } from "react-materialize";
+import {
+  getApiUrl,
+  toJson,
+  Nomination,
+  NominationStatus,
+  Employee,
+} from "../../fetching";
+import EmailGetter from "../EmailGetter";
 
-type ReviewData = {
-  id: number;
-  nominee: string;
-  nominator: string;
-  reason: string;
+type ShowNomination = Nomination & {
+  nominatorStr: string;
+  nomineeStr: string;
 };
 
-type Status = "APPROVED" | "DENIED";
-type DoneReviewData = ReviewData & { status: Status };
-
-type Response = {
-  pending: ReviewData[];
-  past: DoneReviewData[];
+type Answer = {
+  pending: ShowNomination[];
+  done: ShowNomination[];
 };
 
-function getResponse(): Promise<Response> {
-  return Promise.resolve({
-    pending: [
-      {
-        id: 123123,
-        nominator: "janice anne",
-        nominee: "sally handsen",
-        reason: "she's good",
-      },
-      {
-        id: 234234,
-        nominator: "george washington",
-        nominee: "thomas jefferson",
-        reason: "good at writing",
-      },
-    ],
-    past: [
-      {
-        id: 345345,
-        nominator: "vivian huang",
-        nominee: "jarrek holmes",
-        reason: "helpful guy",
-        status: "APPROVED",
-      },
-      {
-        id: 456456,
-        nominator: "andrew carnegie",
-        nominee: "andrew mellon",
-        reason: "good at art",
-        status: "APPROVED",
-      },
-      {
-        id: 567567,
-        nominator: "donald duck",
-        nominee: "thanos",
-        reason: "big and purple",
-        status: "DENIED",
-      },
-    ],
-  });
+async function getAnswer(myEmail: string): Promise<Answer> {
+  const pending = [];
+  const done = [];
+  const myID: number = await fetch(
+    getApiUrl("tblEmployees", { emailCompany: myEmail })
+  )
+    .then(toJson)
+    .then((xs) => xs[0].id);
+  const noms: Nomination[] = await fetch(getApiUrl("Nominations")).then(toJson);
+  for (const nom of noms) {
+    const nominator: Employee = await fetch(
+      getApiUrl("tblEmployees", { id: nom.nominator })
+    )
+      .then(toJson)
+      .then((xs) => xs[0]);
+    if (nominator.supervisorEmployeeId === myID) {
+      const nominee: Employee = await fetch(
+        getApiUrl("tblEmployees", { id: nom.nominee })
+      )
+        .then(toJson)
+        .then((xs) => xs[0]);
+      const showNom: ShowNomination = {
+        ...nom,
+        nominatorStr: nominator.firstName + " " + nominator.lastName,
+        nomineeStr: nominee.firstName + " " + nominee.lastName,
+      };
+      if (showNom.status === "pending") {
+        pending.push(showNom);
+      } else {
+        done.push(showNom);
+      }
+    }
+  }
+  return { pending, done };
 }
 
-function confirm() {
-  window.confirm("Are you sure? This action can't be undone.");
+function PlaceholderImg() {
+  return (
+    <img
+      src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
+      alt="placeholder image"
+      className="girl-img"
+    />
+  );
+}
+
+function changeNomStatus(x: ShowNomination, status: NominationStatus) {
+  if (!window.confirm("Are you sure? This action can't be undone.")) {
+    return;
+  }
+  fetch(getApiUrl(`Nominations/${x.id}`), {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      status,
+    }),
+  })
+    .then(toJson)
+    .then(() => window.location.reload());
 }
 
 function Review() {
-  const [response, setResponse] = React.useState<Response | null>(null);
+  const [answer, setAnswer] = React.useState<Answer | null>(null);
+  const [myEmail, setMyEmail] = React.useState<string | null>(null);
   React.useEffect(() => {
+    if (myEmail === null) {
+      return;
+    }
     // TODO what if the backend errors?
-    getResponse().then(setResponse);
-  }, [setResponse]);
-  if (response === null) {
-    return null;
+    getAnswer(myEmail).then(setAnswer);
+  }, [setAnswer, myEmail]);
+  if (myEmail === null || answer === null) {
+    return <EmailGetter onGetEmail={setMyEmail} />;
   }
   return (
     <div className="noms">
-      <h4>
-        Nominations Pending Approval ({response.pending.length} Remaining)
-      </h4>
+      <h4>Nominations Pending Approval ({answer.pending.length} Remaining)</h4>
       <br></br>
-      {response.pending.map((x) => (
+      {answer.pending.map((x) => (
         <div key={x.id} className="pendingItem">
           <div className="ind-pending">
             <Row>
               <Col s={3} className="approve-button">
                 <br></br>
-                <button className="confirm-button" onClick={confirm}>
+                <button
+                  className="confirm-button"
+                  onClick={() => changeNomStatus(x, "approved")}
+                >
                   APPROVE
                 </button>
                 <br></br>
                 <br></br>
-                <button className="confirm-button" onClick={confirm}>
+                <button
+                  className="confirm-button"
+                  onClick={() => changeNomStatus(x, "denied")}
+                >
                   DENY
                 </button>
               </Col>
               <Col s={3} className="nom-text">
                 <br></br>
                 <h5>
-                  {" "}
-                  NOMINEE: {x.nominee}
+                  NOMINEE: {x.nomineeStr}
                   <br></br>
                   <br></br>
-                  NOMINATOR: {x.nominator}
+                  NOMINATOR: {x.nominatorStr}
                   <br></br>
                   <br></br>
                   REVIEW: {x.reason}
@@ -109,11 +134,7 @@ function Review() {
               </Col>
               <Col s={3} className="approve-button">
                 <br></br>
-                <img
-                  src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-                  alt="logo"
-                  className="girl-img"
-                />
+                <PlaceholderImg />
               </Col>
             </Row>
             <hr></hr>
@@ -121,35 +142,28 @@ function Review() {
         </div>
       ))}
       <br></br>
-      <h4>Past Nominations ({response.past.length})</h4>
+      <h4>Past Nominations ({answer.done.length})</h4>
       <br></br>
-
-      {response.past.map((x) => (
+      {answer.done.map((x) => (
         <div key={x.id} className={x.status}>
           <div className="ind-pending">
             <Row>
               <Col s={3} className="approve-button">
                 <br></br>
-                <img
-                  src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-                  alt="logo"
-                  className="girl-img"
-                />
+                <PlaceholderImg />
               </Col>
-
               <Col className="approve-button">
                 <br></br>
                 <h5>
-                  NOMINEE: {x.nominee}
+                  NOMINEE: {x.nomineeStr}
                   <br></br>
                   <br></br>
-                  NOMINATOR: {x.nominator}
+                  NOMINATOR: {x.nominatorStr}
                   <br></br>
                   <br></br>
                   REVIEW: {x.reason}
                 </h5>
               </Col>
-
               <Col className="approve-button">
                 <br></br>
                 <br></br>
