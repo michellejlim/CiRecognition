@@ -23,8 +23,7 @@
 ### To run
 First, in the CIRecognitionAPI root directory run: `npm start` <br>
 Then in the project directory, you can run: `npm start` <br>
-When prompted, change the port to 3001 <br>
-Open [http://localhost:3000](http://localhost:3001) to view it in the browser. <br>
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser. <br>
 The page will reload if you make edits.
 
 
