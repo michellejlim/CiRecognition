@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const navItems = ["dashboard", "nomination", "review"];
+const navItems = ["dashboard", "nominate", "review"];
 
 function navItem(x: string) {
   const pathname = `/${x}`;
