@@ -10,44 +10,42 @@
 .Dashboard__Right {
   flex-grow: 1;
 }
-thead{
-  border-bottom: 2px solid #8CC63F;
-
+thead {
+  border-bottom: 2px solid #8cc63f;
 }
 hr.grey {
   border: 10;
-  border-top:7px solid #8CC63F;
+  border-top: 7px solid #8cc63f;
 }
 
 .Dashboard__Profile {
   text-align: center;
   margin: 20px;
-  border: 4px solid #8CC63F;
+  border: 4px solid #8cc63f;
   background-color: white;
 }
 .filtering {
   text-align: center;
   margin: 20px;
-  border: 1px  #8CC63F;
-  background-color:  #f0f0f0;
-  padding:10px;
-  padding-top:10px;
+  border: 1px #8cc63f;
+  background-color: #f0f0f0;
+  padding: 10px;
+  padding-top: 10px;
 }
 .Dashboard__ProfilePic {
   padding: 10px;
-  border-bottom: 2px solid #8CC63F;;
+  border-bottom: 2px solid #8cc63f;
 }
 
 .greyline {
-  border-top:4px solid lightgrey;
-
+  border-top: 4px solid lightgrey;
 }
 .Dashboard__Leaderboard {
   width: calc(100% - 40px);
   margin: 20px;
-  padding:30px;
-  text-align:center;
-  border: 4px solid #8CC63F;
+  padding: 30px;
+  text-align: center;
+  border: 4px solid #8cc63f;
   background-color: white;
 }
 
@@ -55,34 +53,33 @@ mgt-person {
   --avatar-size-s: 60px;
 }
 
-.dashboard-img{
+.dashboard-img {
   border: 10px solid #f0f0f0;
-  width:720px;
-  height:250px;
-  align:center;
+  width: 720px;
+  height: 250px;
+  align: center;
 }
 
-.person-img{
+.person-img {
   border: 10px;
-  width:80px;
-  height:80px;
-  align:left;
-  padding:10px;
+  width: 80px;
+  height: 80px;
+  align: left;
+  padding: 10px;
 }
- 
- .message-img{
+
+.message-img {
   border: 10px;
-  width:60px;
-  height:60px;
-  align:right;
-  padding:10px;
- }
+  width: 60px;
+  height: 60px;
+  align: right;
+  padding: 10px;
+}
 
 .mid_contain {
   margin: 20px;
-  padding:30px;
-  width:800px;
+  padding: 30px;
+  width: 800px;
   background-color: white;
-  border: 4px solid #8CC63F;
+  border: 4px solid #8cc63f;
 }
-

@@ -1,51 +1,104 @@
 import * as React from "react";
+import EmailGetter from "../EmailGetter";
 import "./Dashboard.css";
-import { StringifyOptions } from "querystring";
-
-const apiUrl: string = "http://localhost:3000/api";
-
-type Dept = "Accounting" | "Sales" | "Programming";
-
-const departments: Dept[] = ["Accounting", "Sales", "Programming"];
+import {
+  getApiUrl,
+  toJson,
+  Employee,
+  EmployeeRecognition,
+} from "../../fetching";
 
 type GoodDeed = {
-  who: string;
-  what: string;
-  dept: Dept;
+  reason: string;
+  nominee: string;
 };
 
-const goodDeeds: GoodDeed[] = [
-  { who: "Stephanie", what: "good leadership", dept: "Accounting" },
-  { who: "Mary", what: "kindness outreach", dept: "Programming" },
-  { who: "Sam", what: "no absences", dept: "Sales" },
-];
+type APIGoodDeed = {
+  reason: string;
+  nominee: number;
+};
 
 type LeaderboardItem = {
   who: string;
-  points: number;
+  ci_bucks: number;
 };
 
-const leaderboard: LeaderboardItem[] = [
-  { who: "Karen Anne", points: 456456 },
-  { who: "Adam Smith", points: 234234 },
-  { who: "Caleb Keen", points: 123123 },
-];
+const deedsURL = getApiUrl("Nominations", { status: "approved" });
+
+function cmpBucks(lhs: LeaderboardItem, rhs: LeaderboardItem): number {
+  return rhs.ci_bucks - lhs.ci_bucks;
+}
+
+function take<T>(n: number, xs: readonly T[]): T[] {
+  const len = Math.min(n, xs.length);
+  const ret = Array(len);
+  for (let i = 0; i < len; i++) {
+    ret[i] = xs[i];
+  }
+  return ret;
+}
 
 function Dashboard() {
+  const [deeds, setDeeds] = React.useState<GoodDeed[]>([]);
+  const [leaderboard, setLeaderboard] = React.useState<LeaderboardItem[]>([]);
+  const [myEmail, setMyEmail] = React.useState<string | null>(null);
+  const [myBucks, setMyBucks] = React.useState<number | null>(null);
+  React.useEffect(() => {
+    fetch(deedsURL)
+      .then(toJson)
+      .then((deeds: APIGoodDeed[]) =>
+        Promise.all(
+          deeds.map(({ reason, nominee }) =>
+            fetch(getApiUrl("tblEmployees", { id: nominee }))
+              .then(toJson)
+              .then((xs: Employee[]) => ({
+                reason,
+                nominee: xs[0].firstName + " " + xs[0].lastName,
+              }))
+          )
+        )
+      )
+      .then((xs) => setDeeds(take(10, xs)));
+  }, [setDeeds]);
+  React.useEffect(() => {
+    fetch(getApiUrl("Employee_Recognitions"))
+      .then(toJson)
+      .then((leaderboard: EmployeeRecognition[]) =>
+        Promise.all(
+          leaderboard.map(({ id, ci_bucks }) =>
+            fetch(getApiUrl("tblEmployees", { id }))
+              .then(toJson)
+              .then((xs: Employee[]) => ({
+                ci_bucks,
+                who: xs[0].firstName + " " + xs[0].lastName,
+              }))
+          )
+        )
+      )
+      .then((xs) => setLeaderboard(take(3, xs.sort(cmpBucks))));
+  }, [setLeaderboard]);
+  React.useEffect(() => {
+    if (myEmail === null) {
+      return;
+    }
+    fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
+      .then(toJson)
+      .then((xs: Employee[]) =>
+        fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
+      )
+      .then(toJson)
+      .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
+  }, [myEmail]);
   return (
     <div className="Dashboard">
+      <EmailGetter onGetEmail={setMyEmail} />
       <div className="Dashboard__Left">
         <div className="Dashboard__Profile">
           <div className="Dashboard__ProfilePic">
-            <p></p>
             <mgt-person person-query="me"></mgt-person>
-            <p></p>
           </div>
-          <p>
-            <p></p>You have x CI bucks
-          </p>
+          <p>You have {myBucks == null ? "..." : myBucks} CI bucks</p>
         </div>
-
         <table className="Dashboard__Leaderboard">
           <thead>
             <tr>
@@ -54,47 +107,39 @@ function Dashboard() {
               <th>Points</th>
             </tr>
           </thead>
-        
           <tbody>
             {leaderboard.map((x, idx) => (
               <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>{x.who}</td>
-                <td>{x.points}</td>
+                <td>{x.ci_bucks}</td>
               </tr>
             ))}
-          
           </tbody>
         </table>
       </div>
-      <br></br>
-
       <div className="mid_contain">
         <img
           src="https://prostaff.com/wp-content/uploads/sites/8/2017/11/Atterro-11-17_WhyEmployeeAppreciationMatters.jpg"
           alt="logo"
           className="dashboard-img"
         />
-
         <div className="Dashboard__Right">
-          <br></br>
-          <div className="students">
-            {goodDeeds.map((x, idx) => (
-              <div key={idx}>
-                <img
-                  src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-                  alt="logo"
-                  className="person-img"
-                />
-                {x.who} from {x.dept} has been recognized for {x.what}!
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
-                  alt="logo"
-                  className="message-img"
-                />
-              </div>
-            ))}
-          </div>
+          {deeds.map((x, idx) => (
+            <div key={idx}>
+              <img
+                src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
+                alt="logo"
+                className="person-img"
+              />
+              {x.nominee} has been recognized for '{x.reason}'!
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
+                alt="logo"
+                className="message-img"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

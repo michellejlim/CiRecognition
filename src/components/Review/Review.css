@@ -1,73 +1,68 @@
 .noms {
-	font-family: Arial;
-	padding:40px;
-	background-color:  whitesmoke;
+  font-family: Arial;
+  padding: 40px;
+  background-color: whitesmoke;
 }
 
-h4{
+h4 {
   font-family: Arial;
   color: grey;
   text-align: left;
-  
 }
 
-h5{
+h5 {
   font-family: Arial;
   color: #6f706f;
   text-align: center;
-  
 }
 
-h4.status{
+h4.status {
   font-family: Arial;
   color: black;
   text-align: center;
   font-style: italic;
-  
-}
-.APPROVED{
-	background-color: #cce8d3;
-	border-radius: 10px;
 }
 
-.DENIED{
-	background-color: #ffcccc;
-	border-radius: 10px;
+.approved {
+  background-color: #cce8d3;
+  border-radius: 10px;
 }
 
-.pendingItem{
-	background-color: lightgrey;
-	border-radius: 10px;
+.denied {
+  background-color: #ffcccc;
+  border-radius: 10px;
 }
 
-.approve-button{
-	padding: 30px;
-	text-align: center;
-}
-.nom-text{
-	padding: 30px;
-	text-align: center;
-	margin: 20px;
+.pendingItem {
+  background-color: lightgrey;
+  border-radius: 10px;
 }
 
+.approve-button {
+  padding: 30px;
+  text-align: center;
+}
+.nom-text {
+  padding: 30px;
+  text-align: center;
+  margin: 20px;
+}
 
 .girl-img {
-	border: 10px;
-	width:90px;
-	height:90px;
-	align:left;
-	padding:10px;
+  border: 10px;
+  width: 90px;
+  height: 90px;
+  padding: 10px;
 }
 
-.confirm-button{
-	 font-size: 18px;
-	 height: 65px;
-	 width: 250px;
-	 border-radius: 10px;
-	 border: none;
-	 box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
-	 background: grey;
-	 cursor: pointer;
-	 color: white;
+.confirm-button {
+  font-size: 18px;
+  height: 65px;
+  width: 250px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0px 2px rgba (0, 0, 0, 0.3);
+  background: grey;
+  cursor: pointer;
+  color: white;
 }
-
