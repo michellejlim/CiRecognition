@@ -1,1 +1,1 @@
-declare module 'leankit-client';
+declare module "leankit-client";

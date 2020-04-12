@@ -4,13 +4,12 @@
   align-items: center;
   background-color: white;
   height: 7em;
-  
 }
 
 .Container__Nav {
   font-family: Futura, sans-serif;
   letter-spacing: 0.2em;
-  padding:50px;
+  padding: 50px;
 }
 
 .Container__NavItem--active {
@@ -18,5 +17,5 @@
 }
 
 .Container__Logo {
-	padding:30px;
+  padding: 30px;
 }

@@ -1,1 +1,1 @@
-import * as lk from 'leankit-client';
+import * as lk from "leankit-client";

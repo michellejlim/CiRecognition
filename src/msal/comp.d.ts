@@ -1,7 +1,7 @@
 declare global {
-    namespace JSX {
-      interface IntrinsicElements {
-        'mgt-msal-provider': any;
-      }
+  namespace JSX {
+    interface IntrinsicElements {
+      "mgt-msal-provider": any;
     }
   }
+}
