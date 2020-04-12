@@ -1,7 +1,12 @@
 import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Dashboard.css";
-import { getApiUrl, toJson, Employee } from "../../fetching";
+import {
+  getApiUrl,
+  toJson,
+  Employee,
+  EmployeeRecognition,
+} from "../../fetching";
 
 type GoodDeed = {
   reason: string;
@@ -11,11 +16,6 @@ type GoodDeed = {
 type APIGoodDeed = {
   reason: string;
   nominee: number;
-};
-
-type LeaderboardAPIItem = {
-  id: number;
-  ci_bucks: number;
 };
 
 type LeaderboardItem = {
@@ -63,7 +63,7 @@ function Dashboard() {
   React.useEffect(() => {
     fetch(getApiUrl("Employee_Recognitions"))
       .then(toJson)
-      .then((leaderboard: LeaderboardAPIItem[]) =>
+      .then((leaderboard: EmployeeRecognition[]) =>
         Promise.all(
           leaderboard.map(({ id, ci_bucks }) =>
             fetch(getApiUrl("tblEmployees", { id }))
@@ -87,7 +87,7 @@ function Dashboard() {
         fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
       )
       .then(toJson)
-      .then((xs: LeaderboardAPIItem[]) => setMyBucks(xs[0].ci_bucks));
+      .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
   }, [myEmail]);
   return (
     <div className="Dashboard">

@@ -8,6 +8,7 @@ import {
   Nomination,
   NominationStatus,
   Employee,
+  NominationAward,
 } from "../../fetching";
 import EmailGetter from "../EmailGetter";
 
@@ -67,19 +68,41 @@ function PlaceholderImg() {
   );
 }
 
-function changeNomStatus(x: ShowNomination, status: NominationStatus) {
+async function changeNomStatus(x: ShowNomination, status: NominationStatus) {
   if (!window.confirm("Are you sure? This action can't be undone.")) {
     return;
   }
-  fetch(getApiUrl(`Nominations/${x.id}`), {
+  // TODO this is not atomic! it would be better to have one API request modify
+  // all the relevant resources? or perhaps have some kind of 'retry' token in
+  // case part of the request chain fails.
+  await fetch(getApiUrl(`Nominations/${x.id}`), {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       status,
     }),
-  })
-    .then(toJson)
-    .then(() => window.location.reload());
+  }).then(toJson);
+  if (status === "approved") {
+    const nominee: Employee = await fetch(
+      getApiUrl(`tblEmployees/${x.nominee}`)
+    ).then(toJson);
+    const curCIBucks: number = await fetch(
+      getApiUrl(`Employee_Recognitions/${nominee.employeeId}`)
+    )
+      .then(toJson)
+      .then((xs) => xs.ci_bucks);
+    const award: NominationAward = await fetch(
+      getApiUrl(`Nomination_Awards/${x.award}`)
+    ).then(toJson);
+    await fetch(getApiUrl(`Employee_Recognitions/${nominee.employeeId}`), {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ci_bucks: curCIBucks + award.award_amount,
+      }),
+    }).then(toJson);
+  }
+  window.location.reload();
 }
 
 function Review() {

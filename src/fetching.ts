@@ -36,3 +36,15 @@ export type Nomination = {
   nominee: number;
   award: number;
 };
+
+export type EmployeeRecognition = {
+  id: number;
+  ci_bucks: number;
+  admin_level: string;
+};
+
+export type NominationAward = {
+  id: number;
+  name: string;
+  award_amount: number;
+};
