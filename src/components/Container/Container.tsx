@@ -29,7 +29,7 @@ function navItem(x: string) {
 function Container(props: Props) {
   return (
     <div className="Container">
-      <Menu disableAutoFocus>
+      <Menu disableAutoFocus >
         <a id="home" className="menu-item" href="/">Home</a>
       </Menu>
       <div className="Container__Top"> 
