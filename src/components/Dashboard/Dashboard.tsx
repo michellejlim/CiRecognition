@@ -77,18 +77,27 @@ function Dashboard() {
       )
       .then((xs) => setLeaderboard(take(5, xs.sort(cmpBucks))));
   }, [setLeaderboard]);
-  React.useEffect(() => {
-    if (myEmail === null) {
-      return;
-    }
-    fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
-      .then(toJson)
-      .then((xs: Employee[]) =>
-        fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
+  try {
+    React.useEffect(() => {
+      if (myEmail === null) {
+        return;
+      }
+      fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
+        .then(toJson)
+        .then((xs: Employee[]) => {
+          if (xs.length > 0) {
+            fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
+            .then(toJson)
+            .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
+          }
+        }
       )
-      .then(toJson)
-      .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
-  }, [myEmail]);
+    }, [myEmail]);
+  }
+  catch (err) {
+    console.error(err);
+  }
+
   return (
     <div className="Dashboard">
       <EmailGetter onGetEmail={setMyEmail} />
