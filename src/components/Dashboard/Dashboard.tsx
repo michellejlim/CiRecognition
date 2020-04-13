@@ -1,6 +1,7 @@
 import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Dashboard.css";
+import CI from "./ci.jpg";
 import {
   getApiUrl,
   toJson,
@@ -120,7 +121,7 @@ function Dashboard() {
       </div>
       <div className="mid_contain">
         <img
-          src="http://www.amazingkids.org/images/Services_Sliders/Children_Family/C_F1.jpg"
+          src={CI}
           alt="logo"
           className="dashboard-img"
         />
