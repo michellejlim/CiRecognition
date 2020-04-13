@@ -103,8 +103,9 @@ function Nominating() {
     <WithSidebar>
       <EmailGetter onGetEmail={setMyEmail} />
       <div className="NominationForm">
-        <h1>Nominate a Fellow Employee</h1>
         <br></br>
+        <h1>Nominate a Fellow Employee!</h1>
+        <br></br><br></br>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -123,8 +124,8 @@ function Nominating() {
         >
           <div className="nom-form">
             <h5 className = "form_headers">Employee(s) Being Nominated</h5>
-            <mgt-people-picker ref={people}></mgt-people-picker>
-            <h5 className = "form_headers" id = "nomination_reason_header">Why are you nomination this employee?</h5>
+            <mgt-people-picker ref={people}></mgt-people-picker><br></br>
+            <h5 className = "form_headers" id = "nomination_reason_header">Why are you nominating this employee?</h5><br></br>
             <select value={name} onChange={(e) => setName(e.target.value)}>
               {Array.from(reasons.entries()).map(([why, id]) => (
                 <option key={id} value={why}>
@@ -135,10 +136,10 @@ function Nominating() {
             <div style={{ display: name === "Other" ? "block" : "none" }}>
             <h5 className = "form_headers" id = "nomination_reason_header">Please explain:</h5>
               <textarea ref={other} />
-            </div>
-            <div id="submit_button">
-              <input type="submit" value="Submit Nomination" />
-            </div>
+            </div><br></br><br></br><br></br>
+            
+            <input type="submit" value="Submit Nomination" />
+            <br></br><br></br>
           </div>
         </form>
       </div>
