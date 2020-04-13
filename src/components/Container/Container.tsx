@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink } from "reactstrap";
 import "./Container.css";
-
+import { push as Menu } from 'react-burger-menu'
 
 type Props = {
   children: React.ReactNode;
@@ -27,7 +27,10 @@ function navItem(x: string) {
 function Container(props: Props) {
   return (
     <div className="Container">
-      <div className="Container__Top">
+      <Menu disableAutoFocus>
+        <a id="home" className="menu-item" href="/">Home</a>
+      </Menu>
+      <div className="Container__Top"> 
         <img
           src="https://www.getstrategy.com/uploads/photos/o/1447339782_photosthe-childrens-institute.png"
           alt="logo"
