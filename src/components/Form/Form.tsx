@@ -2,6 +2,8 @@ import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Form.css";
 import { getApiUrl, toJson } from "../../fetching";
+import FlashMessage from 'react-flash-message'
+
 
 type Guy = {
   displayName: string;
@@ -95,7 +97,7 @@ function Nominating() {
       });
   }, [setReasons]);
   if (reasons === null || name === null) {
-    return <p>loading</p>;
+    return <p></p>;
   }
   return (
     <WithSidebar>
@@ -233,18 +235,13 @@ function switcher(s: State) {
     case "confirmed":
       return (
         <React.Fragment>
-          <h1>Thank you for the nomination!</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <FlashMessage duration={3000}>
+            <div className="flash">Nomination Submitted</div>
+          </FlashMessage>
+          
+          <Nominating />;
         </React.Fragment>
-      );
+      )
   }
 }
 

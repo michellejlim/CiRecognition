@@ -37,7 +37,7 @@ const RootApp: React.StatelessComponent<{}> = (p) => {
         <Container>
           <Switch>
             <Route path="/" exact render={(props) => <MainScreen />} />
-            <Route path="/nomination" exact render={(props) => <Form />} />
+            <Route path="/nominate" exact render={(props) => <Form />} />
             <Route path="/dashboard" exact render={(props) => <Dashboard />} />
             <Route path="/review" exact render={(props) => <Review />} />
           </Switch>

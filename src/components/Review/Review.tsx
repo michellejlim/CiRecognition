@@ -23,8 +23,8 @@ type Answer = {
 };
 
 async function getAnswer(myEmail: string): Promise<Answer> {
-  const pending = [];
-  const done = [];
+  const pending: ShowNomination[] = [];
+  const done: ShowNomination[] = [];
   const myID: number = await fetch(
     getApiUrl("tblEmployees", { emailCompany: myEmail })
   )
