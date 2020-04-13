@@ -120,7 +120,7 @@ function Dashboard() {
       </div>
       <div className="mid_contain">
         <img
-          src="https://prostaff.com/wp-content/uploads/sites/8/2017/11/Atterro-11-17_WhyEmployeeAppreciationMatters.jpg"
+          src="http://www.amazingkids.org/images/Services_Sliders/Children_Family/C_F1.jpg"
           alt="logo"
           className="dashboard-img"
         />
