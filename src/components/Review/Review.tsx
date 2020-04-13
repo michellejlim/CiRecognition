@@ -58,16 +58,6 @@ async function getAnswer(myEmail: string): Promise<Answer> {
   return { pending, done };
 }
 
-function PlaceholderImg() {
-  return (
-    <img
-      src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-      alt="placeholder"
-      className="girl-img"
-    />
-  );
-}
-
 async function changeNomStatus(x: ShowNomination, status: NominationStatus) {
   if (!window.confirm("Are you sure? This action can't be undone.")) {
     return;
@@ -157,7 +147,7 @@ function Review() {
               </Col>
               <Col s={3} className="approve-button">
                 <br></br>
-                <PlaceholderImg />
+                <mgt-person person-query={x.nomineeStr}></mgt-person>
               </Col>
             </Row>
             <hr></hr>
@@ -173,7 +163,7 @@ function Review() {
             <Row>
               <Col s={3} className="approve-button">
                 <br></br>
-                <PlaceholderImg />
+                <mgt-person person-query={x.nomineeStr}></mgt-person>
               </Col>
               <Col className="approve-button">
                 <br></br>

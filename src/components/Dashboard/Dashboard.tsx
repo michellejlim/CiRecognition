@@ -104,7 +104,7 @@ function Dashboard() {
       <div className="Dashboard__Left">
         <div className="Dashboard__Profile">
           <div className="Dashboard__ProfilePic">
-            <mgt-person person-query="me"></mgt-person>
+            <mgt-person person-query="me" show-name show-email></mgt-person>
           </div>
           <p className = "numbucks">You have {myBucks == null ? "..." : myBucks} CI bucks</p>
         </div>
@@ -140,7 +140,9 @@ function Dashboard() {
           <table className="right_table"> 
             <tbody>
                 <tr>
-                  <td><mgt-person person-query="me"></mgt-person></td>
+                  <td>
+                    <mgt-person person-query={x.nominee}></mgt-person>
+                  </td>
                   <td>{x.nominee} has been recognized for '{x.reason}'!</td>
                   <td> <img
                 src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
@@ -150,17 +152,10 @@ function Dashboard() {
                 </tr>
             </tbody>
           </table>
-
-
-
-
-          
-              
-              
-             
              
             </div>
-          ))}
+          )
+          )}
         </div>
       </div>
     </div>
