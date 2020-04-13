@@ -131,13 +131,19 @@ function Dashboard() {
           <table className="right_table"> 
             <tbody>
                 <tr>
-                  <td><mgt-person person-query="me"></mgt-person></td>
-                  <td>{x.nominee} has been recognized for '{x.reason}'!</td>
-                  <td> <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
-                alt="logo"
-                className="message-img"
-              /></td>
+                  <td>
+                    <mgt-person person-query="{x.nominee.split(' ')[0].toLowerCase()}@tciop.org"></mgt-person>
+                  </td>
+                  <td>
+                    {x.nominee} has been recognized for '{x.reason}'!
+                  </td>
+                  <td> 
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
+                      alt="logo"
+                      className="message-img"
+                    />
+                  </td>
                 </tr>
             </tbody>
           </table>

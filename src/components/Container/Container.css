@@ -11,6 +11,7 @@
   letter-spacing: 0.2em;
   font-size: 20px;
   padding: 100px;
+
 }
 
 .Container__NavItem--active {
@@ -18,6 +19,10 @@
   color: #BABCBE;
   text-size: 100;
 
+
+}
+.navbar-expand-md .navbar-nav .nav-link {
+  margin-right: 40px;
 }
 
 .Container__Logo {
