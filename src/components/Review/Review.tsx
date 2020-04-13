@@ -22,6 +22,13 @@ type Answer = {
   done: ShowNomination[];
 };
 
+function getDate(date: string): string{
+  const d = new Date(date);
+  const dtf = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit' });
+  const [{ value: mo },,{ value: da },,{ value: ye }] = dtf.formatToParts(d);
+  return `${mo} ${da}, ${ye}`;
+};
+
 async function getAnswer(myEmail: string): Promise<Answer> {
   const pending: ShowNomination[] = [];
   const done: ShowNomination[] = [];
@@ -150,12 +157,12 @@ function Review() {
                   REVIEW: {x.reason}
                   <br></br>
                   <br></br>
-                  NOMINATED ON: {x.date}
+                  NOMINATED ON: {getDate(x.date)}
                 </h5>
               </Col>
               <Col s={3} className="approve-button">
                 <br></br>
-                <mgt-person person-query={x.nomineeStr}></mgt-person>
+                <mgt-person person-query={x.nomineeStr} id="review-profile"></mgt-person>
               </Col>
             </Row>
             <hr></hr>
@@ -171,7 +178,7 @@ function Review() {
             <Row>
               <Col s={3} className="approve-button">
                 <br></br>
-                <mgt-person person-query={x.nomineeStr}></mgt-person>
+                <mgt-person person-query={x.nomineeStr} id="review-profile"></mgt-person>
               </Col>
               <Col className="approve-button">
                 <br></br>
@@ -185,7 +192,7 @@ function Review() {
                   REVIEW: {x.reason}
                   <br></br>
                   <br></br>
-                  NOMINATED ON: {x.date}
+                  NOMINATED ON: {getDate(x.date)}
             
                 </h5>
               </Col>
