@@ -19,8 +19,17 @@ thead {
 td{
   text-align: left;
   padding: 10px;
-}
 
+}
+td.white-rec{
+  color: black;
+  font-family: Arial;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 18px;
+
+}
 th{
   text-align: left;
   padding: 10px;
@@ -60,7 +69,7 @@ hr.grey {
 .Dashboard__Leaderboard {
   width: calc(100% - 40px);
   margin: 20px;
-  padding: 30px;
+  padding: 100px;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
   background-color: white;
@@ -110,7 +119,7 @@ mgt-person {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .right_table tr {
-  background-color: rgba(123, 193, 67, .6);
+  background-color: rgba(123, 193, 67, 0.6);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
 
 }

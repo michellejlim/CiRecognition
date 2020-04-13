@@ -103,7 +103,7 @@ function Dashboard() {
           <thead>
             <tr>
               <th>Rank</th>
-              <th>Employee</th>
+              <th>Team Member</th>
               <th>Bucks</th>
             </tr>
           </thead>
@@ -134,7 +134,7 @@ function Dashboard() {
                   <td>
                     <mgt-person person-query="{x.nominee.split(' ')[0].toLowerCase()}@tciop.org"></mgt-person>
                   </td>
-                  <td>
+                  <td className = "white-rec">
                     {x.nominee} has been recognized for '{x.reason}'!
                   </td>
                   <td> 
