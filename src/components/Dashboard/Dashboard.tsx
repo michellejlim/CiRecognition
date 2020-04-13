@@ -1,7 +1,8 @@
 import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Dashboard.css";
-import CI from "./ci.jpg";
+import CI from "../../images/ci.jpg";
+import email from "../../images/email.jpg"
 import {
   getApiUrl,
   toJson,
@@ -148,11 +149,11 @@ function Dashboard() {
                     {x.nominee} has been recognized for '{x.reason}'!
                   </td>
                   <td> 
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
+                    <a href="mailto:example@yourdomain.com"><img
+                      src={email}
                       alt="logo"
                       className="message-img"
-                    />
+                    /></a>
                   </td>
                 </tr>
             </tbody>

@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav, NavItem, NavLink } from "reactstrap";
 import "./Container.css";
 import { push as Menu } from 'react-burger-menu'
-
+import logo from "../../images/logo.jpg";
 type Props = {
   children: React.ReactNode;
 };
@@ -34,8 +34,7 @@ function Container(props: Props) {
       </Menu>
       <div className="Container__Top"> 
         <img
-          src="https://www.getstrategy.com/uploads/photos/o/1447339782_photosthe-childrens-institute.png"
-          alt="logo"
+          src={logo}
           className="Container__Logo"
         />
         <Navbar light expand="md" className="Container__Nav">

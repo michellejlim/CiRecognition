@@ -112,22 +112,27 @@ function Review() {
     <div className="noms">
       <h4>Nominations Pending Approval ({answer.pending.length} Remaining)</h4>
       <br></br>
+
       {answer.pending.map((x) => (
+
+        
         <div key={x.id} className="pendingItem">
           <div className="ind-pending">
             <Row>
               <Col s={3} className="approve-button">
                 <br></br>
                 <button
-                  className="confirm-button"
+                  className="confirm-button-approve"
                   onClick={() => changeNomStatus(x, "approved")}
                 >
                   APPROVE
                 </button>
                 <br></br>
+                
+
                 <br></br>
                 <button
-                  className="confirm-button"
+                  className="confirm-button-deny"
                   onClick={() => changeNomStatus(x, "denied")}
                 >
                   DENY
@@ -143,6 +148,9 @@ function Review() {
                   <br></br>
                   <br></br>
                   REVIEW: {x.reason}
+                  <br></br>
+                  <br></br>
+                  NOMINATED ON: {x.date}
                 </h5>
               </Col>
               <Col s={3} className="approve-button">
@@ -175,13 +183,17 @@ function Review() {
                   <br></br>
                   <br></br>
                   REVIEW: {x.reason}
+                  <br></br>
+                  <br></br>
+                  NOMINATED ON: {x.date}
+            
                 </h5>
               </Col>
               <Col className="approve-button">
                 <br></br>
                 <br></br>
                 <br></br>
-                <h4 className="status">{x.status}</h4>
+                <h4 className="status">{x.status.toUpperCase()}</h4>
               </Col>
             </Row>
             <hr></hr>

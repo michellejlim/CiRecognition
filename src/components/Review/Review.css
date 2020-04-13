@@ -1,18 +1,17 @@
 .noms {
   font-family: Arial;
   padding: 40px;
-  background-color: whitesmoke;
 }
 
 h4 {
   font-family: Arial;
-  color: grey;
+  color: #494A4A;
   text-align: left;
 }
 
 h5 {
   font-family: Arial;
-  color: #6f706f;
+  color: #494A4A ;
   text-align: left;
 }
 
@@ -24,23 +23,36 @@ h4.status {
 }
 
 .approved {
-  background-color: #cce8d3;
+  background-color: #CFE6C7;
   border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .denied {
   background-color: #ffcccc;
   border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .pendingItem {
-  background-color: lightgrey;
+  background-color: white;
   border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .approve-button {
   padding: 30px;
   text-align: center;
+}
+
+.confirm-button-approve:hover {
+  background-color:  grey;
+}
+.confirm-button-deny:hover {
+  background-color:  grey;
 }
 .nom-text {
   padding: 30px;
@@ -55,14 +67,26 @@ h4.status {
   padding: 10px;
 }
 
-.confirm-button {
+.confirm-button-approve {
   font-size: 18px;
   height: 65px;
   width: 250px;
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0, 0, 0, 0.3);
-  background: grey;
+  background: #70AA3A;
+  cursor: pointer;
+  color: white;
+}
+
+.confirm-button-deny {
+  font-size: 18px;
+  height: 65px;
+  width: 250px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0px 2px rgba (0, 0, 0, 0.3);
+  background:#F96660;
   cursor: pointer;
   color: white;
 }

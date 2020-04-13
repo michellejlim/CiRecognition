@@ -78,10 +78,9 @@ hr.grey {
    --avatar-size-s: 20px;
 }
 mgt-person {
-  --avatar-size-s: 50px;
+  --avatar-size-s: 70px;
   padding:20px;
-  background-color: lightgrey;
-  border-radius: 50px;
+  
 }
 .numbucks {
   padding: 20px;
