@@ -13,7 +13,7 @@
 }
 
 thead {
-  border-bottom: 2px solid #8cc63f;
+  border-bottom: 2px solid grey;
 }
 
 td{
@@ -32,26 +32,26 @@ tr:nth-child(even) {
 
 hr.grey {
   border: 10;
-  border-top: 7px solid #8cc63f;
+  border-top: 7px solid lightgrey;
 }
 
 .Dashboard__Profile {
   text-align: center;
   margin: 20px;
-  border: 4px solid #8cc63f;
+  border: 4px solid lightgrey;
   background-color: white;
 }
 .filtering {
   text-align: center;
   margin: 20px;
-  border: 1px #8cc63f;
+  border: 1px grey;
   background-color: #f0f0f0;
   padding: 10px;
   padding-top: 10px;
 }
 .Dashboard__ProfilePic {
   padding: 10px;
-  border-bottom: 2px solid #8cc63f;
+  border-bottom: 2px solid lightgrey;
 }
 
 .greyline {
@@ -62,7 +62,7 @@ hr.grey {
   margin: 20px;
   padding: 30px;
   text-align: center;
-  border: 4px solid #8cc63f;
+  border: 4px solid lightgrey;
   background-color: white;
 }
 
@@ -100,5 +100,5 @@ mgt-person {
   margin-right: 30px;
   width: 100%; 
   background-color: white;
-  border: 4px solid #8cc63f;
+  border: 4px solid lightgrey;
 }
