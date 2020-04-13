@@ -97,7 +97,7 @@ function Dashboard() {
           <div className="Dashboard__ProfilePic">
             <mgt-person person-query="me"></mgt-person>
           </div>
-          <p>You have {myBucks == null ? "..." : myBucks} CI bucks</p>
+          <p className = "numbucks">You have {myBucks == null ? "..." : myBucks} CI bucks</p>
         </div>
         <table className="Dashboard__Leaderboard">
           <thead>
@@ -120,24 +120,36 @@ function Dashboard() {
       </div>
       <div className="mid_contain">
         <img
-          src="https://prostaff.com/wp-content/uploads/sites/8/2017/11/Atterro-11-17_WhyEmployeeAppreciationMatters.jpg"
+          src="http://www.amazingkids.org/images/Services_Sliders/Children_Family/C_F1.jpg"
           alt="logo"
           className="dashboard-img"
         />
-        <div className="Dashboard__Right">
-          {deeds.map((x, idx) => (
+        <div className="Dashboard__Right"><br></br><br></br>
+        {deeds.map((x, idx) => (
             <div key={idx}>
-              <img
-                src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-                alt="logo"
-                className="person-img"
-              />
-              {x.nominee} has been recognized for '{x.reason}'!
-              <img
+
+          <table className="right_table"> 
+            <tbody>
+                <tr>
+                  <td><mgt-person person-query="me"></mgt-person></td>
+                  <td>{x.nominee} has been recognized for '{x.reason}'!</td>
+                  <td> <img
                 src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
                 alt="logo"
                 className="message-img"
-              />
+              /></td>
+                </tr>
+            </tbody>
+          </table>
+
+
+
+
+          
+              
+              
+             
+             
             </div>
           ))}
         </div>

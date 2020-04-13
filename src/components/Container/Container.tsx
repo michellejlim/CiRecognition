@@ -7,6 +7,7 @@ type Props = {
   children: React.ReactNode;
 };
 
+
 const navItems = ["dashboard", "nominate", "review"];
 
 function navItem(x: string) {
@@ -28,7 +29,7 @@ function Container(props: Props) {
     <div className="Container">
       <div className="Container__Top">
         <img
-          src="https://www.amazingkids.org/images/logo2.png"
+          src="https://www.getstrategy.com/uploads/photos/o/1447339782_photosthe-childrens-institute.png"
           alt="logo"
           className="Container__Logo"
         />
