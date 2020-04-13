@@ -18,8 +18,10 @@ function navItem(x: string) {
   return (
     <NavItem key={x}>
       <NavLink href={pathname} className={className}>
-        {x.toUpperCase()}
+        {x.toUpperCase()}      
+
       </NavLink>
+
     </NavItem>
   );
 }

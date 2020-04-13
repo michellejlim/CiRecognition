@@ -1,6 +1,7 @@
 import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Dashboard.css";
+import CI from "./ci.jpg";
 import {
   getApiUrl,
   toJson,
@@ -112,7 +113,7 @@ function Dashboard() {
           <thead>
             <tr>
               <th>Rank</th>
-              <th>Employee</th>
+              <th>Team Member</th>
               <th>Bucks</th>
             </tr>
           </thead>
@@ -129,7 +130,7 @@ function Dashboard() {
       </div>
       <div className="mid_contain">
         <img
-          src="http://www.amazingkids.org/images/Services_Sliders/Children_Family/C_F1.jpg"
+          src={CI}
           alt="logo"
           className="dashboard-img"
         />
@@ -143,12 +144,16 @@ function Dashboard() {
                   <td>
                     <mgt-person person-query={x.nominee}></mgt-person>
                   </td>
-                  <td>{x.nominee} has been recognized for '{x.reason}'!</td>
-                  <td> <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
-                alt="logo"
-                className="message-img"
-              /></td>
+                  <td className = "white-rec">
+                    {x.nominee} has been recognized for '{x.reason}'!
+                  </td>
+                  <td> 
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
+                      alt="logo"
+                      className="message-img"
+                    />
+                  </td>
                 </tr>
             </tbody>
           </table>

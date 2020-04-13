@@ -79,10 +79,36 @@ input[type=submit] {
   float: left;
 }
 
+input[type=button]{
+background-color:  #717073;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-family: Arial;
+  cursor: pointer;
+  float: right;
+}
+input[type=reset]{
+  background-color:  #717073;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-family: Arial;
+  cursor: pointer;
+  float: left;
+}
 input[type=submit]:hover {
   background-color:  #8cc63f;
 }
-input[type=text], select, textarea {
+input[type=reset]:hover {
+  background-color:  #8cc63f;
+}
+input[type=button]:hover {
+  background-color:  #8cc63f;
+}
+input[type=text], select {
   width: 100%;
   height: 45px;
   padding: 12px;
@@ -92,10 +118,33 @@ input[type=text], select, textarea {
   resize: vertical;
 }
 
+input[type=text], textarea{
+  width: 100%;
+  height:150px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-family: Arial;
+  border-radius: 4px;
+  resize: vertical;
+}
 #nomination_reason_header{
   margin-top: 30px;
 }
-
+ol{
+  background-color: #F2F2F2;
+  height:auto;
+  border: 3px solid #D5D6D8;
+  font-family: Arial;
+  border-radius: 10px;
+}
+.reason{
+  background-color: #F2F2F2;
+  height:auto;
+  border: 3px solid #D5D6D8;
+  font-family: Arial;
+  border-radius: 10px;
+  padding: 30px;
+}
 .form_headers{
   text-align: left;
   margin-left: 0px;
