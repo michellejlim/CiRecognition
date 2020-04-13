@@ -78,25 +78,34 @@ function Dashboard() {
       )
       .then((xs) => setLeaderboard(take(5, xs.sort(cmpBucks))));
   }, [setLeaderboard]);
-  React.useEffect(() => {
-    if (myEmail === null) {
-      return;
-    }
-    fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
-      .then(toJson)
-      .then((xs: Employee[]) =>
-        fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
+  try {
+    React.useEffect(() => {
+      if (myEmail === null) {
+        return;
+      }
+      fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
+        .then(toJson)
+        .then((xs: Employee[]) => {
+          if (xs.length > 0) {
+            fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
+            .then(toJson)
+            .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
+          }
+        }
       )
-      .then(toJson)
-      .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
-  }, [myEmail]);
+    }, [myEmail]);
+  }
+  catch (err) {
+    console.error(err);
+  }
+
   return (
     <div className="Dashboard">
       <EmailGetter onGetEmail={setMyEmail} />
       <div className="Dashboard__Left">
         <div className="Dashboard__Profile">
           <div className="Dashboard__ProfilePic">
-            <mgt-person person-query="me"></mgt-person>
+            <mgt-person person-query="me" show-name show-email></mgt-person>
           </div>
           <p className = "numbucks">You have {myBucks == null ? "..." : myBucks} CI bucks</p>
         </div>
@@ -133,7 +142,7 @@ function Dashboard() {
             <tbody>
                 <tr>
                   <td>
-                    <mgt-person person-query="{x.nominee.split(' ')[0].toLowerCase()}@tciop.org"></mgt-person>
+                    <mgt-person person-query={x.nominee}></mgt-person>
                   </td>
                   <td className = "white-rec">
                     {x.nominee} has been recognized for '{x.reason}'!
@@ -148,17 +157,10 @@ function Dashboard() {
                 </tr>
             </tbody>
           </table>
-
-
-
-
-          
-              
-              
-             
              
             </div>
-          ))}
+          )
+          )}
         </div>
       </div>
     </div>
