@@ -2,6 +2,8 @@ import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Form.css";
 import { getApiUrl, toJson } from "../../fetching";
+import FlashMessage from 'react-flash-message'
+
 
 type Guy = {
   displayName: string;
@@ -95,7 +97,7 @@ function Nominating() {
       });
   }, [setReasons]);
   if (reasons === null || name === null) {
-    return <p>loading</p>;
+    return <p></p>;
   }
   return (
     <WithSidebar>
@@ -120,11 +122,9 @@ function Nominating() {
           }}
         >
           <div className="nom-form">
-            <h5>Employee(s) Being Nominated</h5>
+            <h5 className = "form_headers">Employee(s) Being Nominated</h5>
             <mgt-people-picker ref={people}></mgt-people-picker>
-            <br></br>
-            <br></br>
-            <h5>Why did you nominate this employee?</h5>
+            <h5 className = "form_headers" id = "nomination_reason_header">Why are you nomination this employee?</h5>
             <select value={name} onChange={(e) => setName(e.target.value)}>
               {Array.from(reasons.entries()).map(([why, id]) => (
                 <option key={id} value={why}>
@@ -133,14 +133,10 @@ function Nominating() {
               ))}
             </select>
             <div style={{ display: name === "Other" ? "block" : "none" }}>
-              <br />
+            <h5 className = "form_headers" id = "nomination_reason_header">Please explain:</h5>
               <textarea ref={other} />
             </div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <div>
+            <div id="submit_button">
               <input type="submit" value="Submit Nomination" />
             </div>
           </div>
@@ -233,18 +229,13 @@ function switcher(s: State) {
     case "confirmed":
       return (
         <React.Fragment>
-          <h1>Thank you for the nomination!</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <FlashMessage duration={3000}>
+            <div className="flash">Nomination Submitted</div>
+          </FlashMessage>
+          
+          <Nominating />;
         </React.Fragment>
-      );
+      )
   }
 }
 

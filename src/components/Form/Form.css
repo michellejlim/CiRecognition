@@ -11,9 +11,21 @@
   grid-area: Content;
 }
 
+.flash{
+  position: absolute;
+  padding: 16px;
+  color: #165c26;
+  background-color: #dcffe4;
+  border: 1px solid rgba(27,31,35,0.15);
+  border-radius: 7px;
+  font-family: inherit; 
+  margin: 10px;
+  margin-top: 5px;
+}
+
 .NominationForm {
   background-color: #8cc63f;
-  text-align: center;
+  text-align: left;
   width: 700px;
   margin: 50px;
   padding: 50px;
@@ -44,10 +56,26 @@ h1 {
 h5 {
   font-family: Arial;
   color: grey;
-  text-align: left;
   margin: 20px;
 }
 .nom-form {
   background-color: white;
   padding: 50px;
+}
+
+#submit_button{
+  margin-top: 45px;
+}
+
+#nomination_reason_header{
+  margin-top: 30px;
+}
+
+.form_headers{
+  text-align: left;
+  margin-left: 0px;
+}
+
+textarea{
+  width: 80%;
 }
