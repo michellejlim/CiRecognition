@@ -7,6 +7,7 @@ type Props = {
   children: React.ReactNode;
 };
 
+
 const navItems = ["dashboard", "nominate", "review"];
 
 function navItem(x: string) {

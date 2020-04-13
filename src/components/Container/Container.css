@@ -9,11 +9,15 @@
 .Container__Nav {
   font-family: Futura, sans-serif;
   letter-spacing: 0.2em;
-  padding: 50px;
+  font-size: 20px;
+  padding: 100px;
 }
 
 .Container__NavItem--active {
   border-bottom: 0.3em solid #5eac2f;
+  color: #BABCBE;
+  text-size: 100;
+
 }
 
 .Container__Logo {
@@ -21,3 +25,4 @@
   width: 30%;
   height:auto;
 }
+
