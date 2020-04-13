@@ -38,7 +38,6 @@ const months = {
 }
 
 function getDate(date: string): string{
-  console.log(date.substring(0,4))
   const year = date.substring(0, 4)
   const day = date.substring(8, 10)
   const month = months[parseInt(date.substring(5, 7))]
