@@ -22,11 +22,27 @@ type Answer = {
   done: ShowNomination[];
 };
 
+const months = {
+  0: 'January',
+  1: 'February',
+  2: 'March',
+  3: 'April',
+  4: 'May',
+  5: 'June',
+  6: 'July',
+  7: 'August',
+  8: 'September',
+  9: 'October',
+  10: 'November',
+  11: 'December'
+}
+
 function getDate(date: string): string{
   const d = new Date(date);
-  const dtf = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: '2-digit' });
-  const [{ value: mo },,{ value: da },,{ value: ye }] = dtf.formatToParts(d);
-  return `${mo} ${da}, ${ye}`;
+  const year = d.getFullYear();
+  const day = d.getDate()
+  const month = months[d.getMonth()]
+  return `${month} ${day}, ${year}`;
 };
 
 async function getAnswer(myEmail: string): Promise<Answer> {
