@@ -108,6 +108,7 @@ function Nominating() {
         <br></br><br></br>
         <form
           onSubmit={(e) => {
+            //TODO: Raise errors when form incomplete
             e.preventDefault();
             const id = reasons.get(name);
             if (id === undefined || myEmail == null) {
@@ -203,19 +204,24 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
                     })
                   ).then(toJson)
                 )[0];
-                const req = {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    reason: why.name === "Other" ? other : why.name,
-                    status: "pending",
-                    date: new Date().toUTCString(),
-                    nominator: myId,
-                    nominee: nom2.id,
-                    award: why.id,
-                  }),
-                };
-                fetch(getApiUrl("Nominations"), req);
+                if (nom2 != undefined) {
+                  const req = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      reason: why.name === "Other" ? other : why.name,
+                      status: "pending",
+                      date: new Date().toUTCString(),
+                      nominator: myId,
+                      nominee: nom2.id,
+                      award: why.id,
+                    }),
+                  };
+                  fetch(getApiUrl("Nominations"), req);
+                }
+                else{
+                  //TODO: Raise error here
+                }
               }
             }}
           /><br></br><br></br>
