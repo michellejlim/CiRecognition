@@ -60,13 +60,6 @@ h4.status {
   margin: 20px;
 }
 
-.girl-img {
-  border: 10px;
-  width: 90px;
-  height: 90px;
-  padding: 10px;
-}
-
 .confirm-button-approve {
   font-size: 18px;
   height: 65px;
@@ -77,6 +70,7 @@ h4.status {
   background: #70AA3A;
   cursor: pointer;
   color: white;
+  margin-top: 20px;
 }
 
 .confirm-button-deny {
@@ -90,3 +84,9 @@ h4.status {
   cursor: pointer;
   color: white;
 }
+
+#review-profile{
+  --avatar-size-s: 131px;
+  margin-right: 120px;
+}
+
