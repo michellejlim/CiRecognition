@@ -1,27 +1,27 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink } from "reactstrap";
 import "./Container.css";
-import { push as Menu } from 'react-burger-menu'
+import { push as Menu } from "react-burger-menu";
 import logo from "../../images/logo.jpg";
 type Props = {
   children: React.ReactNode;
 };
-
 
 const navItems = ["dashboard", "nominate", "review"];
 
 function navItem(x: string) {
   const pathname = `/${x}`;
   const className =
-    (window.location.pathname === pathname || (window.location.pathname == "/" && pathname == "/dashboard")) ? "Container__NavItem--active" : "";
-  console.log(window.location.pathname)
+    window.location.pathname === pathname ||
+    (window.location.pathname === "/" && pathname === "/dashboard")
+      ? "Container__NavItem--active"
+      : "";
+  console.log(window.location.pathname);
   return (
     <NavItem key={x}>
       <NavLink href={pathname} className={className}>
-        {x.toUpperCase()}      
-
+        {x.toUpperCase()}
       </NavLink>
-
     </NavItem>
   );
 }
@@ -29,14 +29,13 @@ function navItem(x: string) {
 function Container(props: Props) {
   return (
     <div className="Container">
-      <Menu disableAutoFocus >
-        <a id="home" className="menu-item" href="/">Home</a>
+      <Menu disableAutoFocus>
+        <a id="home" className="menu-item" href="/">
+          Home
+        </a>
       </Menu>
-      <div className="Container__Top"> 
-        <img
-          src={logo}
-          className="Container__Logo"
-        />
+      <div className="Container__Top">
+        <img src={logo} className="Container__Logo" alt="logo" />
         <Navbar light expand="md" className="Container__Nav">
           <Nav className="mr-auto" navbar>
             {navItems.map(navItem)}
