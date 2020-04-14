@@ -20,7 +20,6 @@ declare global {
       "mgt-people-picker": any;
       "mgt-person": any;
       "mgt-get": any;
-      "mgt-msal-provider": any;
       "mgt-login": any;
       template: any;
     }
