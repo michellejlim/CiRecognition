@@ -36,7 +36,6 @@ const RootApp: React.StatelessComponent<{}> = (p) => {
   return (
     <div>
       <Stack>
-        <mgt-msal-provider client-id="27bc12d5-b60b-41a2-b62a-8ccdeac6363f"></mgt-msal-provider>
         <Container>
           <Switch>
             <Route path="/" exact render={(props) => <MainScreen />} />
