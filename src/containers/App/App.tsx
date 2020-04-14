@@ -53,10 +53,7 @@ const RootApp: React.StatelessComponent<{}> = (p) => {
   );
 };
 
-if (provider.state === ProviderState.SignedIn) {
-  console.log("SIGNED IN");
-}else if (provider.state === ProviderState.SignedOut){
-  console.log("SIGNED OUT")
+if (provider.state === ProviderState.SignedOut){
   provider.login();
 }
 
