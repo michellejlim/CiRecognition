@@ -1,11 +1,11 @@
 .Dashboard {
   display: flex;
-  font-family: inherit; 
+  font-family: inherit;
   font-size: 1em;
 }
 
 .Dashboard__Left {
-   width: 460px
+  width: 460px;
 }
 
 .Dashboard__Right {
@@ -16,27 +16,25 @@ thead {
   border-bottom: 2px solid grey;
 }
 
-td{
+td {
   text-align: left;
   padding: 10px;
-
 }
-td.white-rec{
+td.white-rec {
   color: black;
   font-family: Arial;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
   font-size: 18px;
-
 }
-th{
+th {
   text-align: left;
   padding: 10px;
 }
 
 tr:nth-child(even) {
-  background-color: rgba(123, 193, 67, .6);
+  background-color: rgba(123, 193, 67, 0.6);
 }
 
 hr.grey {
@@ -71,16 +69,15 @@ hr.grey {
   margin: 20px;
   padding: 100px;
   text-align: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: white;
 }
 .dashboard-icon {
-   --avatar-size-s: 20px;
+  --avatar-size-s: 20px;
 }
 mgt-person {
   --avatar-size-s: 70px;
-  padding:20px;
-  
+  padding: 20px;
 }
 .numbucks {
   padding: 20px;
@@ -113,17 +110,16 @@ mgt-person {
   margin: 20px;
   padding: 30px;
   margin-right: 30px;
-  width: 100%; 
+  width: 100%;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .right_table tr {
   background-color: rgba(123, 193, 67, 0.6);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
-
 }
 
-.right_table{
+.right_table {
   width: calc(100% - 40px);
   margin: 20px;
   padding: 50px;

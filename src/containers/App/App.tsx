@@ -27,7 +27,6 @@ declare global {
   }
 }
 
-
 initializeIcons();
 
 const RootApp: React.StatelessComponent<{}> = (p) => {

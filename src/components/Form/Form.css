@@ -11,20 +11,20 @@
   grid-area: Content;
 }
 
-.flash{
+.flash {
   position: absolute;
   padding: 16px;
   color: #165c26;
   background-color: #dcffe4;
-  border: 1px solid rgba(27,31,35,0.15);
+  border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 7px;
-  font-family: inherit; 
+  font-family: inherit;
   margin: 10px;
   margin-top: 5px;
 }
 
 .NominationForm {
-  background-color: rgba(123, 193, 67, .6);
+  background-color: rgba(123, 193, 67, 0.6);
   border: 10px solid white;
   text-align: left;
   width: 700px;
@@ -63,13 +63,12 @@ h5 {
 .nom-form {
   background-color: white;
   padding: 50px;
-  width:100%;
+  width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
-input[type=submit] {
-  background-color:  #717073;
+input[type="submit"] {
+  background-color: #717073;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -79,8 +78,8 @@ input[type=submit] {
   float: left;
 }
 
-input[type=button]{
-background-color:  #717073;
+input[type="button"] {
+  background-color: #717073;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -89,8 +88,8 @@ background-color:  #717073;
   cursor: pointer;
   float: right;
 }
-input[type=reset]{
-  background-color:  #717073;
+input[type="reset"] {
+  background-color: #717073;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -99,16 +98,17 @@ input[type=reset]{
   cursor: pointer;
   float: left;
 }
-input[type=submit]:hover {
-  background-color:  #8cc63f;
+input[type="submit"]:hover {
+  background-color: #8cc63f;
 }
-input[type=reset]:hover {
-  background-color:  #8cc63f;
+input[type="reset"]:hover {
+  background-color: #8cc63f;
 }
-input[type=button]:hover {
-  background-color:  #8cc63f;
+input[type="button"]:hover {
+  background-color: #8cc63f;
 }
-input[type=text], select {
+input[type="text"],
+select {
   width: 100%;
   height: 45px;
   padding: 12px;
@@ -118,39 +118,40 @@ input[type=text], select {
   resize: vertical;
 }
 
-input[type=text], textarea{
+input[type="text"],
+textarea {
   width: 100%;
-  height:150px;
+  height: 150px;
   padding: 12px;
   border: 1px solid #ccc;
   font-family: Arial;
   border-radius: 4px;
   resize: vertical;
 }
-#nomination_reason_header{
+#nomination_reason_header {
   margin-top: 30px;
 }
-ol{
-  background-color: #F2F2F2;
-  height:auto;
-  border: 3px solid #D5D6D8;
+ol {
+  background-color: #f2f2f2;
+  height: auto;
+  border: 3px solid #d5d6d8;
   font-family: Arial;
   border-radius: 10px;
 }
-.reason{
-  background-color: #F2F2F2;
-  height:auto;
-  border: 3px solid #D5D6D8;
+.reason {
+  background-color: #f2f2f2;
+  height: auto;
+  border: 3px solid #d5d6d8;
   font-family: Arial;
   border-radius: 10px;
   padding: 30px;
 }
-.form_headers{
+.form_headers {
   text-align: left;
   margin-left: 0px;
   font-size: 25px;
 }
 
-textarea{
+textarea {
   width: 80%;
 }
