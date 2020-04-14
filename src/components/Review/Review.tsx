@@ -81,8 +81,15 @@ async function getAnswer(myEmail: string): Promise<Answer> {
 }
 
 async function changeNomStatus(x: ShowNomination, status: NominationStatus) {
-  if (!window.confirm("Are you sure? This action can't be undone.")) {
-    return;
+  if (status === "approved"){
+    if (!window.confirm("Great! If you're sure you want to approve this nomination, press 'OK'. This action cannot be undone.")) {
+      return;
+    }
+  }
+  else{
+    if (!window.confirm("That's too bad. If you're sure you want to deny this nomination, press 'OK'. This action cannot be undone.")) {
+      return;
+    }
   }
   // TODO this is not atomic! it would be better to have one API request modify
   // all the relevant resources? or perhaps have some kind of 'retry' token in
