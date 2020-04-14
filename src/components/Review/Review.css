@@ -5,13 +5,13 @@
 
 h4 {
   font-family: Arial;
-  color: #494A4A;
+  color: #494a4a;
   text-align: left;
 }
 
 h5 {
   font-family: Arial;
-  color: #494A4A ;
+  color: #494a4a;
   text-align: left;
 }
 
@@ -23,24 +23,21 @@ h4.status {
 }
 
 .approved {
-  background-color: #CFE6C7;
+  background-color: #cfe6c7;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .denied {
   background-color: #ffcccc;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .pendingItem {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .approve-button {
@@ -49,10 +46,10 @@ h4.status {
 }
 
 .confirm-button-approve:hover {
-  background-color:  grey;
+  background-color: grey;
 }
 .confirm-button-deny:hover {
-  background-color:  grey;
+  background-color: grey;
 }
 .nom-text {
   padding: 30px;
@@ -67,7 +64,7 @@ h4.status {
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0, 0, 0, 0.3);
-  background: #70AA3A;
+  background: #70aa3a;
   cursor: pointer;
   color: white;
   margin-top: 20px;
@@ -80,13 +77,12 @@ h4.status {
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0, 0, 0, 0.3);
-  background:#F96660;
+  background: #f96660;
   cursor: pointer;
   color: white;
 }
 
-#review-profile{
+#review-profile {
   --avatar-size-s: 131px;
   margin-right: 120px;
 }
-

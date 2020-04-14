@@ -1,7 +1,7 @@
 const base: string = "http://localhost:3000/api/";
 
 export function getApiUrl(path: string, where?: object): string {
-  if (typeof where === 'undefined') {
+  if (where === undefined) {
     return base + path;
   }
   return `${base}${path}?filter=${encodeURI(JSON.stringify({ where }))}`;
