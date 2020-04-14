@@ -12,6 +12,8 @@ import "@microsoft/mgt";
 import "@progress/kendo-theme-default/dist/all.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import {Providers, MsalProvider, ProviderState} from '@microsoft/mgt'
+
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -29,6 +31,9 @@ declare global {
 
 
 initializeIcons();
+const msalConfig = {"clientId": "27bc12d5-b60b-41a2-b62a-8ccdeac6363f"};
+const provider = new MsalProvider(msalConfig);
+Providers.globalProvider = provider;
 
 const RootApp: React.StatelessComponent<{}> = (p) => {
   return (
@@ -47,5 +52,12 @@ const RootApp: React.StatelessComponent<{}> = (p) => {
     </div>
   );
 };
+
+if (provider.state === ProviderState.SignedIn) {
+  console.log("SIGNED IN");
+}else if (provider.state === ProviderState.SignedOut){
+  console.log("SIGNED OUT")
+  provider.login();
+}
 
 export const App = hot(module)(RootApp);
