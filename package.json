@@ -32,6 +32,7 @@
     "office-ui-fabric-react": "^7.106.0",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0",
+    "react-burger-menu": "^2.6.13",
     "react-dom": "^16.13.0",
     "react-flash-message": "^1.0.2",
     "react-hot-loader": "^4.12.15",

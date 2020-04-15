@@ -11,7 +11,6 @@ import { Stack } from "office-ui-fabric-react";
 import "@microsoft/mgt";
 import "@progress/kendo-theme-default/dist/all.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

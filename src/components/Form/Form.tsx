@@ -2,8 +2,7 @@ import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Form.css";
 import { getApiUrl, toJson } from "../../fetching";
-import FlashMessage from 'react-flash-message'
-
+import FlashMessage from "react-flash-message";
 
 type Guy = {
   displayName: string;
@@ -108,10 +107,13 @@ function Nominating() {
     <WithSidebar>
       <EmailGetter onGetEmail={setMyEmail} />
       <div className="NominationForm">
-        <h1>Nominate a Fellow Employee</h1>
+        <br></br>
+        <h1>Nominate Another Team Member!</h1>
+        <br></br>
         <br></br>
         <form
           onSubmit={(e) => {
+            //TODO: Raise errors when form incomplete
             e.preventDefault();
             const id = reasons.get(name);
             if (id === undefined || myEmail == null) {
@@ -127,9 +129,13 @@ function Nominating() {
           }}
         >
           <div className="nom-form">
-            <h5 className = "form_headers">Employee(s) Being Nominated</h5>
+            <h5 className="form_headers">Team Member (s) Being Nominated</h5>
             <mgt-people-picker ref={people}></mgt-people-picker>
-            <h5 className = "form_headers" id = "nomination_reason_header">Why are you nomination this employee?</h5>
+            <br></br>
+            <h5 className="form_headers" id="nomination_reason_header">
+              Why are you nominating this team member?
+            </h5>
+            <br></br>
             <select value={name} onChange={(e) => setName(e.target.value)}>
               {Array.from(reasons.entries()).map(([why, id]) => (
                 <option key={id} value={why}>
@@ -138,12 +144,18 @@ function Nominating() {
               ))}
             </select>
             <div style={{ display: name === "Other" ? "block" : "none" }}>
-            <h5 className = "form_headers" id = "nomination_reason_header">Please explain:</h5>
+              <h5 className="form_headers" id="nomination_reason_header">
+                Please explain:
+              </h5>
               <textarea ref={other} />
             </div>
-            <div id="submit_button">
-              <input type="submit" value="Submit Nomination" />
-            </div>
+            <br></br>
+            <br></br>
+            <br></br>
+
+            <input type="submit" value="Submit Nomination" />
+            <br></br>
+            <br></br>
           </div>
         </form>
       </div>
@@ -162,58 +174,82 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
   const dispatch = React.useContext(Context);
   return (
     <WithSidebar>
-      <h1 id="header">Confirm Nomination</h1>
-      <p>nominees selected: </p>
-      <ol>
-        {/* nominees ought not change, so it should be ok to use the index as the key */}
-        {nominees.map((n, idx) => (
-          <li key={idx}>{n.displayName}</li>
-        ))}
-      </ol>
-      <p>why nominate: {why.name === "Other" ? other : why.name}</p>
-      <input
-        type="button"
-        value="Back"
-        onClick={(e) => {
-          dispatch({ t: "backNomination" });
-        }}
-      />
-      <input
-        type="button"
-        value="Submit"
-        onClick={async (e) => {
-          e.preventDefault();
-          dispatch({ t: "confirmNomination" });
-          // TODO handle errors when fetching?
-          const myId = (
-            await fetch(
-              getApiUrl("tblEmployees", { emailCompany: myEmail })
-            ).then(toJson)
-          )[0].id;
-          for (const nominee of nominees) {
-            const nom2 = (
-              await fetch(
-                getApiUrl("tblEmployees", {
-                  emailCompany: nominee.userPrincipalName,
-                })
-              ).then(toJson)
-            )[0];
-            const req = {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                reason: why.name === "Other" ? other : why.name,
-                status: "pending",
-                date: new Date().toUTCString(),
-                nominator: myId,
-                nominee: nom2.id,
-                award: why.id,
-              }),
-            };
-            fetch(getApiUrl("Nominations"), req);
-          }
-        }}
-      />
+      <div className="NominationForm">
+        <br></br>
+        <h1 id="header">Confirm Nomination</h1>
+        <br></br>
+        <br></br>
+        <div className="nom-form">
+          <h5 className="form_headers">Selected Nominees: </h5>
+          <br></br>
+          <ol>
+            <br></br>
+            {/* nominees ought not change, so it should be ok to use the index as the key */}
+            {nominees.map((n, idx) => (
+              <li key={idx}>{n.displayName}</li>
+            ))}
+            <br></br>
+          </ol>
+          <br></br>
+          <br></br>
+          <h5 className="form_headers">Reason for Nomination</h5>
+          <br></br>
+          <div className="reason">
+            {why.name === "Other" ? other : why.name}
+          </div>
+          <br></br>
+          <br></br>
+          <input
+            type="reset"
+            value="Back"
+            onClick={(e) => {
+              dispatch({ t: "backNomination" });
+            }}
+          />
+          <input
+            type="button"
+            value="Submit"
+            onClick={async (e) => {
+              e.preventDefault();
+              dispatch({ t: "confirmNomination" });
+              // TODO handle errors when fetching?
+              const myId = (
+                await fetch(
+                  getApiUrl("tblEmployees", { emailCompany: myEmail })
+                ).then(toJson)
+              )[0].id;
+              for (const nominee of nominees) {
+                const nom2 = (
+                  await fetch(
+                    getApiUrl("tblEmployees", {
+                      emailCompany: nominee.userPrincipalName,
+                    })
+                  ).then(toJson)
+                )[0];
+                if (nom2 !== undefined) {
+                  const req = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      reason: why.name === "Other" ? other : why.name,
+                      status: "pending",
+                      date: new Date().toUTCString(),
+                      nominator: myId,
+                      nominee: nom2.id,
+                      award: why.id,
+                    }),
+                  };
+                  fetch(getApiUrl("Nominations"), req);
+                } else {
+                  //TODO: Raise error here
+                }
+              }
+            }}
+          />
+          <br></br>
+          <br></br>
+        </div>
+      </div>
     </WithSidebar>
   );
 }
@@ -237,10 +273,9 @@ function switcher(s: State) {
           <FlashMessage duration={3000}>
             <div className="flash">Nomination Submitted</div>
           </FlashMessage>
-          
           <Nominating />;
         </React.Fragment>
-      )
+      );
   }
 }
 

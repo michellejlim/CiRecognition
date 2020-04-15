@@ -1,6 +1,8 @@
 import * as React from "react";
 import EmailGetter from "../EmailGetter";
 import "./Dashboard.css";
+import CI from "../../images/ci.jpg";
+import email from "../../images/email.jpg";
 import {
   getApiUrl,
   toJson,
@@ -94,14 +96,12 @@ function Dashboard() {
         .then((xs: Employee[]) => {
           if (xs.length > 0) {
             fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
-            .then(toJson)
-            .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
+              .then(toJson)
+              .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
           }
-        }
-      )
+        });
     }, [myEmail]);
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err);
   }
 
@@ -111,15 +111,17 @@ function Dashboard() {
       <div className="Dashboard__Left">
         <div className="Dashboard__Profile">
           <div className="Dashboard__ProfilePic">
-            <mgt-person person-query="me"></mgt-person>
+            <mgt-person person-query="me" show-name show-email></mgt-person>
           </div>
-          <p>You have {myBucks == null ? "..." : myBucks} CI bucks</p>
+          <p className="numbucks">
+            You have {myBucks == null ? "..." : myBucks} CI bucks
+          </p>
         </div>
         <table className="Dashboard__Leaderboard">
           <thead>
             <tr>
               <th>Rank</th>
-              <th>Employee</th>
+              <th>Team Member</th>
               <th>Bucks</th>
             </tr>
           </thead>
@@ -135,25 +137,29 @@ function Dashboard() {
         </table>
       </div>
       <div className="mid_contain">
-        <img
-          src="https://prostaff.com/wp-content/uploads/sites/8/2017/11/Atterro-11-17_WhyEmployeeAppreciationMatters.jpg"
-          alt="logo"
-          className="dashboard-img"
-        />
+        <img src={CI} alt="logo" className="dashboard-img" />
         <div className="Dashboard__Right">
+          <br></br>
+          <br></br>
           {deeds.map((x, idx) => (
             <div key={idx}>
-              <img
-                src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-                alt="logo"
-                className="person-img"
-              />
-              {x.nominee} has been recognized for '{x.reason}'!
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/72/Message-icon-grey.png"
-                alt="logo"
-                className="message-img"
-              />
+              <table className="right_table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <mgt-person person-query={x.nominee}></mgt-person>
+                    </td>
+                    <td className="white-rec">
+                      {x.nominee} has been recognized for '{x.reason}'!
+                    </td>
+                    <td>
+                      <a href="mailto:example@yourdomain.com">
+                        <img src={email} alt="logo" className="message-img" />
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           ))}
         </div>

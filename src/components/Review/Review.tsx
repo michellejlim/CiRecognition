@@ -22,6 +22,28 @@ type Answer = {
   done: ShowNomination[];
 };
 
+const months = {
+  1: "January",
+  2: "February",
+  3: "March",
+  4: "April",
+  5: "May",
+  6: "June",
+  7: "July",
+  8: "August",
+  9: "September",
+  10: "October",
+  11: "November",
+  12: "December",
+};
+
+function getDate(date: string): string {
+  const year = date.substring(0, 4);
+  const day = date.substring(8, 10);
+  const month = months[parseInt(date.substring(5, 7))];
+  return `${month} ${day}, ${year}`;
+}
+
 async function getAnswer(myEmail: string): Promise<Answer> {
   const pending: ShowNomination[] = [];
   const done: ShowNomination[] = [];
@@ -58,19 +80,16 @@ async function getAnswer(myEmail: string): Promise<Answer> {
   return { pending, done };
 }
 
-function PlaceholderImg() {
-  return (
-    <img
-      src="https://cdn.esquimaltmfrc.com/wp-content/uploads/2015/09/flat-faces-icons-circle-woman-7.png"
-      alt="placeholder"
-      className="girl-img"
-    />
-  );
-}
-
 async function changeNomStatus(x: ShowNomination, status: NominationStatus) {
-  if (!window.confirm("Are you sure? This action can't be undone.")) {
-    return;
+  if (status === "approved"){
+    if (!window.confirm("Great! If you're sure you want to approve this nomination, press 'OK'. This action cannot be undone.")) {
+      return;
+    }
+  }
+  else{
+    if (!window.confirm("That's too bad. If you're sure you want to deny this nomination, press 'OK'. This action cannot be undone.")) {
+      return;
+    }
   }
   // TODO this is not atomic! it would be better to have one API request modify
   // all the relevant resources? or perhaps have some kind of 'retry' token in
@@ -122,6 +141,7 @@ function Review() {
     <div className="noms">
       <h4>Nominations Pending Approval ({answer.pending.length} Remaining)</h4>
       <br></br>
+
       {answer.pending.map((x) => (
         <div key={x.id} className="pendingItem">
           <div className="ind-pending">
@@ -129,15 +149,16 @@ function Review() {
               <Col s={3} className="approve-button">
                 <br></br>
                 <button
-                  className="confirm-button"
+                  className="confirm-button-approve"
                   onClick={() => changeNomStatus(x, "approved")}
                 >
                   APPROVE
                 </button>
                 <br></br>
+
                 <br></br>
                 <button
-                  className="confirm-button"
+                  className="confirm-button-deny"
                   onClick={() => changeNomStatus(x, "denied")}
                 >
                   DENY
@@ -153,11 +174,17 @@ function Review() {
                   <br></br>
                   <br></br>
                   REVIEW: {x.reason}
+                  <br></br>
+                  <br></br>
+                  NOMINATED ON: {getDate(x.date)}
                 </h5>
               </Col>
               <Col s={3} className="approve-button">
                 <br></br>
-                <PlaceholderImg />
+                <mgt-person
+                  person-query={x.nomineeStr}
+                  id="review-profile"
+                ></mgt-person>
               </Col>
             </Row>
             <hr></hr>
@@ -173,7 +200,10 @@ function Review() {
             <Row>
               <Col s={3} className="approve-button">
                 <br></br>
-                <PlaceholderImg />
+                <mgt-person
+                  person-query={x.nomineeStr}
+                  id="review-profile"
+                ></mgt-person>
               </Col>
               <Col className="approve-button">
                 <br></br>
@@ -185,13 +215,16 @@ function Review() {
                   <br></br>
                   <br></br>
                   REVIEW: {x.reason}
+                  <br></br>
+                  <br></br>
+                  NOMINATED ON: {getDate(x.date)}
                 </h5>
               </Col>
               <Col className="approve-button">
                 <br></br>
                 <br></br>
                 <br></br>
-                <h4 className="status">{x.status}</h4>
+                <h4 className="status">{x.status.toUpperCase()}</h4>
               </Col>
             </Row>
             <hr></hr>
