@@ -83,18 +83,23 @@ function Nominating() {
   const [name, setName] = React.useState<string | null>(null);
   const [myEmail, setMyEmail] = React.useState<string | null>(null);
   const dispatch = React.useContext(Context);
-  React.useEffect(() => {
-    fetch(getApiUrl("Nomination_Awards"))
-      .then(toJson)
-      .then((xs: Reason[]) => {
-        const rs = new Map<string, number>();
-        for (const { id, name } of xs) {
-          rs.set(name, id);
-        }
-        setReasons(rs);
-        setName(xs[0].name);
-      });
-  }, [setReasons]);
+  try {
+    React.useEffect(() => {
+      fetch(getApiUrl("Nomination_Awards"))
+        .then(toJson)
+        .then((xs: Reason[]) => {
+          const rs = new Map<string, number>();
+          for (const { id, name } of xs) {
+            rs.set(name, id);
+          }
+          setReasons(rs);
+          setName(xs[0].name);
+        });
+    }, [setReasons]);    
+  } catch (error) {
+    console.error(error);
+  }
+
   if (reasons === null || name === null) {
     return <p></p>;
   }

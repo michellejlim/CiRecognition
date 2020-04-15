@@ -62,23 +62,30 @@ function Dashboard() {
       )
       .then((xs) => setDeeds(take(10, xs)));
   }, [setDeeds]);
-  React.useEffect(() => {
-    fetch(getApiUrl("Employee_Recognitions"))
-      .then(toJson)
-      .then((leaderboard: EmployeeRecognition[]) =>
-        Promise.all(
-          leaderboard.map(({ id, ci_bucks }) =>
-            fetch(getApiUrl("tblEmployees", { id }))
-              .then(toJson)
-              .then((xs: Employee[]) => ({
-                ci_bucks,
-                who: xs[0].firstName + " " + xs[0].lastName,
-              }))
+
+  try {
+    React.useEffect(() => {
+      fetch(getApiUrl("Employee_Recognitions"))
+        .then(toJson)
+        .then((leaderboard: EmployeeRecognition[]) =>
+          Promise.all(
+            leaderboard.map(({ id, ci_bucks }) =>
+              fetch(getApiUrl("tblEmployee", { employeeId: id }))
+                .then(toJson)
+                .then((xs: Employee[]) => ({
+                  ci_bucks,
+                  who: xs[0].firstName + " " + xs[0].lastName,
+                }))
+            )
           )
         )
-      )
-      .then((xs) => setLeaderboard(take(5, xs.sort(cmpBucks))));
-  }, [setLeaderboard]);
+        .then((xs) => setLeaderboard(take(5, xs.sort(cmpBucks))));
+    }, [setLeaderboard]);    
+  } catch (error) {
+    
+  }
+
+
   try {
     React.useEffect(() => {
       if (myEmail === null) {
