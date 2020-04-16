@@ -11,6 +11,7 @@ import { Stack } from "office-ui-fabric-react";
 import "@microsoft/mgt";
 import "@progress/kendo-theme-default/dist/all.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {Providers, MsalProvider, ProviderState} from '@microsoft/mgt'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -19,7 +20,6 @@ declare global {
       "mgt-people-picker": any;
       "mgt-person": any;
       "mgt-get": any;
-      "mgt-msal-provider": any;
       "mgt-login": any;
       template: any;
     }
@@ -27,12 +27,14 @@ declare global {
 }
 
 initializeIcons();
+const msalConfig = {"clientId": "27bc12d5-b60b-41a2-b62a-8ccdeac6363f"};
+const provider = new MsalProvider(msalConfig);
+Providers.globalProvider = provider;
 
 const RootApp: React.StatelessComponent<{}> = (p) => {
   return (
     <div>
       <Stack>
-        <mgt-msal-provider client-id="27bc12d5-b60b-41a2-b62a-8ccdeac6363f"></mgt-msal-provider>
         <Container>
           <Switch>
             <Route path="/" exact render={(props) => <MainScreen />} />
@@ -45,5 +47,9 @@ const RootApp: React.StatelessComponent<{}> = (p) => {
     </div>
   );
 };
+
+if (provider.state === ProviderState.SignedOut){
+  provider.login();
+}
 
 export const App = hot(module)(RootApp);
