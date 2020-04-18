@@ -62,49 +62,37 @@ function Dashboard() {
       )
       .then((xs) => setDeeds(take(10, xs)));
   }, [setDeeds]);
-
-  try {
-    React.useEffect(() => {
-      fetch(getApiUrl("Employee_Recognitions"))
-        .then(toJson)
-        .then((leaderboard: EmployeeRecognition[]) =>
-          Promise.all(
-            leaderboard.map(({ id, ci_bucks }) =>
-              fetch(getApiUrl("tblEmployee", { employeeId: id }))
-                .then(toJson)
-                .then((xs: Employee[]) => ({
-                  ci_bucks,
-                  who: xs[0].firstName + " " + xs[0].lastName,
-                }))
-            )
+  React.useEffect(() => {
+    fetch(getApiUrl("Employee_Recognitions"))
+      .then(toJson)
+      .then((leaderboard: EmployeeRecognition[]) =>
+        Promise.all(
+          leaderboard.map(({ id, ci_bucks }) =>
+            fetch(getApiUrl("tblEmployee", { employeeId: id }))
+              .then(toJson)
+              .then((xs: Employee[]) => ({
+                ci_bucks,
+                who: xs[0].firstName + " " + xs[0].lastName,
+              }))
           )
         )
-        .then((xs) => setLeaderboard(take(5, xs.sort(cmpBucks))));
-    }, [setLeaderboard]);    
-  } catch (error) {
-    
-  }
-
-
-  try {
-    React.useEffect(() => {
-      if (myEmail === null) {
-        return;
-      }
-      fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
-        .then(toJson)
-        .then((xs: Employee[]) => {
-          if (xs.length > 0) {
-            fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
-              .then(toJson)
-              .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
-          }
-        });
-    }, [myEmail]);
-  } catch (err) {
-    console.error(err);
-  }
-
+      )
+      .then((xs) => setLeaderboard(take(5, xs.sort(cmpBucks))));
+  }, [setLeaderboard]);
+  React.useEffect(() => {
+    if (myEmail === null) {
+      return;
+    }
+    fetch(getApiUrl("tblEmployees", { emailCompany: myEmail }))
+      .then(toJson)
+      .then((xs: Employee[]) => {
+        if (xs.length > 0) {
+          fetch(getApiUrl("Employee_Recognitions", { id: xs[0].employeeId }))
+            .then(toJson)
+            .then((xs: EmployeeRecognition[]) => setMyBucks(xs[0].ci_bucks));
+        }
+      });
+  }, [myEmail]);
   return (
     <div className="Dashboard">
       <EmailGetter onGetEmail={setMyEmail} />
