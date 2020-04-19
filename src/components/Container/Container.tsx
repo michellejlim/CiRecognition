@@ -79,7 +79,7 @@ function Container(props: Props) {
         <img src={logo} className="Container__Logo" alt="logo" />
         <Navbar light expand="md" className="Container__Nav">
           <Nav className="mr-auto" navbar>
-            {isSupervisor ?   navItems.map(navItem) : navItemsNotSupervisor.map(navItem)}
+            {(isSupervisor != null) && (isSupervisor ?   navItems.map(navItem) : navItemsNotSupervisor.map(navItem))}
           </Nav>
         </Navbar>
         <mgt-login id="myLoginControl"></mgt-login>
