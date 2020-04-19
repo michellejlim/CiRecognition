@@ -41,10 +41,7 @@ async function checkIfSupervisor(myEmail: string) {
     getApiUrl("tblEmployees", { supervisorEmployeeId: myEmployeeId })
   )
     .then(toJson)
-    .then((supervisees: Employee[]) => {
-      console.log(supervisees.length);
-      return supervisees.length > 0;
-    });
+    .then((supervisees: Employee[]) => supervisees.length > 0);
   return isSupervisor;
 }
 
