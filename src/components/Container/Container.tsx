@@ -43,11 +43,7 @@ async function checkIfSupervisor(myEmail: string) {
     .then(toJson)
     .then((supervisees: Employee[]) => {
       console.log(supervisees.length);
-      if (supervisees.length > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return supervisees.length > 0;
     });
   return isSupervisor;
 }
