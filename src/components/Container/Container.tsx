@@ -48,7 +48,6 @@ async function checkIfSupervisor(myEmail: string) {
 function Container(props: Props) {
   const [myEmail, setMyEmail] = React.useState<string | null>(null);
   const [isSupervisor, setIsSupervisor] = React.useState<boolean | null>(null);
-
   React.useEffect(() => {
     if (myEmail === null) {
       return;
@@ -56,7 +55,6 @@ function Container(props: Props) {
     // TODO what if the backend errors?
     checkIfSupervisor(myEmail).then(setIsSupervisor);
   }, [myEmail]);
-
   return (
     <div className="Container">
       <EmailGetter onGetEmail={setMyEmail} />
