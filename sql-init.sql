@@ -46,9 +46,6 @@ CREATE TABLE Nomination_Award (
     CONSTRAINT Nomination_Award_pk PRIMARY KEY (id)
 );
 
-ALTER TABLE Employee_Recognition ADD CONSTRAINT Employee_Recognition_tblEmployee FOREIGN KEY Employee_Recognition_tblEmployee (id)
-    REFERENCES tblEmployee (id);
-
 -- Reference: Nomination_Employee_Nominator (table: Nomination)
 ALTER TABLE Nomination ADD CONSTRAINT Nomination_Employee_Nominator FOREIGN KEY Nomination_Employee_Nominator (nominee)
     REFERENCES Employee_Recognition (id);
@@ -74,49 +71,49 @@ INSERT INTO Nomination_Award
   VALUES(4, "Other", 10);
 
 INSERT INTO tblEmployee
-  VALUES(1, 1, "Jarrek", "Holmes", "Jarrek@tciop.org","IS", "Vivian", 5);
+  VALUES(1, 11, "Jarrek", "Holmes", "Jarrek@tciop.org","IS", "Jarrek", 11);
 
 INSERT INTO tblEmployee
-  VALUES(2, 2, "Michelle", "Lim", "Michelle@tciop.org","IS", "Vivian", 5);
+  VALUES(2, 12, "Michelle", "Lim", "Michelle@tciop.org","IS", "Jarrek", 11);
 
 INSERT INTO tblEmployee
-  VALUES(3, 3, "Chris", "Mader", "chris@devtciop.onmicrosoft.com", "CI", "Vivian", 5);
+  VALUES(3, 13, "Chris", "Mader", "chris@devtciop.onmicrosoft.com", "CI", "Vivian", 15);
 
 INSERT INTO tblEmployee
-  VALUES(4, 4, "Brian", "Furfari", "brf@devtciop.onmicrosoft.com", "CI", "Vivian", 5);
+  VALUES(4, 14, "Brian", "Furfari", "brf@devtciop.onmicrosoft.com", "CI", "Vivian", 15);
 
 INSERT INTO tblEmployee
-  VALUES(5, 5, "Vivian", "Huang", "Vivian@tciop.org","IS", "Vivian", 5);
+  VALUES(5, 15, "Vivian", "Huang", "Vivian@tciop.org","IS", "Jarrek", 11);
 
 INSERT INTO Employee_Recognition
-  VALUES(1, 10, "user");
+  VALUES(11, 10, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(2, 23, "user");
+  VALUES(12, 23, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(3, 12, "user");
+  VALUES(13, 12, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(4, 10, "user");
+  VALUES(14, 10, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(5, 23, "admin");
+  VALUES(15, 23, "admin");
 
 INSERT INTO Nomination
-  VALUES(1, "You're so great", "approved", '2020-03-21', 1, 2, 1);
+  VALUES(1, "You're so great", "approved", '2020-03-21', 11, 12, 1);
 
   INSERT INTO Nomination
-  VALUES(2, "You're so great", "denied", '2020-03-21', 1, 2, 3);
+  VALUES(2, "You're so great", "denied", '2020-03-21', 11, 12, 3);
 
   INSERT INTO Nomination
-  VALUES(3, "You're so great", "pending", '2020-03-20', 1, 3, 1);
+  VALUES(3, "You're so great", "pending", '2020-03-20', 11, 13, 1);
 
   INSERT INTO Nomination
-  VALUES(4, "You're so great", "approved", '2020-03-19', 2, 1, 2);
+  VALUES(4, "You're so great", "approved", '2020-03-19', 12, 11, 2);
 
   INSERT INTO Nomination
-  VALUES(5, "You're so great", "pending", '2020-03-02', 3, 1, 3);
+  VALUES(5, "You're so great", "pending", '2020-03-02', 13, 11, 3);
 
   INSERT INTO Nomination
-  VALUES(6, "You're so great", "pending", '2020-01-21', 3, 2, 1);
+  VALUES(6, "You're so great", "pending", '2020-01-21', 13, 12, 1);

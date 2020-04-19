@@ -44,24 +44,37 @@ function getDate(date: string): string {
   return `${month} ${day}, ${year}`;
 }
 
+function byDateAsc(a: ShowNomination, b: ShowNomination){
+  const c = +new Date(a.date)
+  const d = +new Date(b.date)
+  return c - d
+}
+
+
+function byDateDesc(a: ShowNomination, b: ShowNomination){
+  const c = +new Date(a.date)
+  const d = +new Date(b.date)
+  return d - c
+}
+
 async function getAnswer(myEmail: string): Promise<Answer> {
   const pending: ShowNomination[] = [];
   const done: ShowNomination[] = [];
-  const myID: number = await fetch(
+  const myEmployeeId: number = await fetch(
     getApiUrl("tblEmployees", { emailCompany: myEmail })
   )
     .then(toJson)
-    .then((xs) => xs[0].id);
+    .then((xs) => xs[0].employeeId);
   const noms: Nomination[] = await fetch(getApiUrl("Nominations")).then(toJson);
   for (const nom of noms) {
     const nominee: Employee = await fetch(
-      getApiUrl("tblEmployees", { id: nom.nominee })
+      getApiUrl("tblEmployees", { employeeId: nom.nominee })
     )
       .then(toJson)
       .then((xs) => xs[0]);
-    if (nominee.supervisorEmployeeId === myID) {
+    if (nominee.supervisorEmployeeId === myEmployeeId) {
       const nominator: Employee = await fetch(
-        getApiUrl("tblEmployees", { id: nom.nominator })
+        getApiUrl("tblEmployees", { employeeId: nom.nominator })
       )
         .then(toJson)
         .then((xs) => xs[0]);
@@ -77,6 +90,8 @@ async function getAnswer(myEmail: string): Promise<Answer> {
       }
     }
   }
+  pending.sort(byDateAsc)
+  done.sort(byDateDesc)
   return { pending, done };
 }
 
