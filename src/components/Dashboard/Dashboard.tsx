@@ -68,7 +68,7 @@ function Dashboard() {
       .then((leaderboard: EmployeeRecognition[]) =>
         Promise.all(
           leaderboard.map(({ id, ci_bucks }) =>
-            fetch(getApiUrl("tblEmployee", { employeeId: id }))
+            fetch(getApiUrl("tblEmployees", { employeeId: id }))
               .then(toJson)
               .then((xs: Employee[]) => ({
                 ci_bucks,
