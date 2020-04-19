@@ -95,7 +95,7 @@ function Nominating() {
           setReasons(rs);
           setName(xs[0].name);
         });
-    }, [setReasons]);    
+    }, [setReasons]);
   } catch (error) {
     console.error(error);
   }

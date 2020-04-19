@@ -44,17 +44,16 @@ function getDate(date: string): string {
   return `${month} ${day}, ${year}`;
 }
 
-function byDateAsc(a: ShowNomination, b: ShowNomination){
-  const c = +new Date(a.date)
-  const d = +new Date(b.date)
-  return c - d
+function byDateAsc(a: ShowNomination, b: ShowNomination) {
+  const c = +new Date(a.date);
+  const d = +new Date(b.date);
+  return c - d;
 }
 
-
-function byDateDesc(a: ShowNomination, b: ShowNomination){
-  const c = +new Date(a.date)
-  const d = +new Date(b.date)
-  return d - c
+function byDateDesc(a: ShowNomination, b: ShowNomination) {
+  const c = +new Date(a.date);
+  const d = +new Date(b.date);
+  return d - c;
 }
 
 async function getAnswer(myEmail: string): Promise<Answer> {
@@ -90,19 +89,26 @@ async function getAnswer(myEmail: string): Promise<Answer> {
       }
     }
   }
-  pending.sort(byDateAsc)
-  done.sort(byDateDesc)
+  pending.sort(byDateAsc);
+  done.sort(byDateDesc);
   return { pending, done };
 }
 
 async function changeNomStatus(x: ShowNomination, status: NominationStatus) {
-  if (status === "approved"){
-    if (!window.confirm("Great! If you're sure you want to approve this nomination, press 'OK'. This action cannot be undone.")) {
+  if (status === "approved") {
+    if (
+      !window.confirm(
+        "Great! If you're sure you want to approve this nomination, press 'OK'. This action cannot be undone."
+      )
+    ) {
       return;
     }
-  }
-  else{
-    if (!window.confirm("That's too bad. If you're sure you want to deny this nomination, press 'OK'. This action cannot be undone.")) {
+  } else {
+    if (
+      !window.confirm(
+        "That's too bad. If you're sure you want to deny this nomination, press 'OK'. This action cannot be undone."
+      )
+    ) {
       return;
     }
   }
