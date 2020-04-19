@@ -51,7 +51,7 @@ function Dashboard() {
       .then((deeds: APIGoodDeed[]) =>
         Promise.all(
           deeds.map(({ reason, nominee }) =>
-            fetch(getApiUrl("tblEmployees", { id: nominee }))
+            fetch(getApiUrl("tblEmployees", { employeeId: nominee }))
               .then(toJson)
               .then((xs: Employee[]) => ({
                 reason,

@@ -213,11 +213,11 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
               e.preventDefault();
               dispatch({ t: "confirmNomination" });
               // TODO handle errors when fetching?
-              const myId = (
+              const myEmployeeId = (
                 await fetch(
                   getApiUrl("tblEmployees", { emailCompany: myEmail })
                 ).then(toJson)
-              )[0].id;
+              )[0].employeeId;
               for (const nominee of nominees) {
                 const nom2 = (
                   await fetch(
@@ -234,8 +234,8 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
                       reason: why.name === "Other" ? other : why.name,
                       status: "pending",
                       date: new Date().toUTCString(),
-                      nominator: myId,
-                      nominee: nom2.id,
+                      nominator: myEmployeeId,
+                      nominee: nom2.employeeId,
                       award: why.id,
                     }),
                   };
