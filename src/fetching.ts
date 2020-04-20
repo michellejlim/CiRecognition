@@ -25,7 +25,9 @@ export type Employee = {
   supervisorEmployeeId: number;
 };
 
-export type NominationStatus = "pending" | "approved" | "denied";
+export type NominationStatusFinal = "approved" | "denied";
+
+export type NominationStatus = "pending" | NominationStatusFinal;
 
 export type Nomination = {
   id: number;

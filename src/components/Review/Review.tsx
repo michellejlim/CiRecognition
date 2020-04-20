@@ -6,7 +6,7 @@ import {
   getApiUrl,
   toJson,
   Nomination,
-  NominationStatus,
+  NominationStatusFinal,
   Employee,
   NominationAward,
 } from "../../fetching";
@@ -94,23 +94,17 @@ async function getAnswer(myEmail: string): Promise<Answer> {
   return { pending, done };
 }
 
-async function changeNomStatus(x: ShowNomination, status: NominationStatus) {
-  if (status === "approved") {
-    if (
-      !window.confirm(
-        "Great! If you're sure you want to approve this nomination, press 'OK'. This action cannot be undone."
-      )
-    ) {
-      return;
-    }
-  } else {
-    if (
-      !window.confirm(
-        "That's too bad. If you're sure you want to deny this nomination, press 'OK'. This action cannot be undone."
-      )
-    ) {
-      return;
-    }
+async function changeNomStatus(
+  x: ShowNomination,
+  status: NominationStatusFinal
+) {
+  const msg =
+    (status === "approved"
+      ? "Great! If you're sure you want to approve this nomination, press 'OK'."
+      : "That's too bad. If you're sure you want to deny this nomination, press 'OK'.") +
+    " This action cannot be undone.";
+  if (!window.confirm(msg)) {
+    return;
   }
   // TODO this is not atomic! it would be better to have one API request modify
   // all the relevant resources? or perhaps have some kind of 'retry' token in
