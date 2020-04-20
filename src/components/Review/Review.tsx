@@ -117,18 +117,15 @@ async function changeNomStatus(
     }),
   }).then(toJson);
   if (status === "approved") {
-    const nominee: Employee = await fetch(
-      getApiUrl(`tblEmployees/${x.nominee}`)
-    ).then(toJson);
     const curCIBucks: number = await fetch(
-      getApiUrl(`Employee_Recognitions/${nominee.employeeId}`)
+      getApiUrl(`Employee_Recognitions/${x.nominee}`)
     )
       .then(toJson)
       .then((xs) => xs.ci_bucks);
     const award: NominationAward = await fetch(
       getApiUrl(`Nomination_Awards/${x.award}`)
     ).then(toJson);
-    await fetch(getApiUrl(`Employee_Recognitions/${nominee.employeeId}`), {
+    await fetch(getApiUrl(`Employee_Recognitions/${x.nominee}`), {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
