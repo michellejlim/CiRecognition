@@ -15,15 +15,14 @@ type Reason = {
 };
 
 type State =
-  | { t: "nominating" }
+  | { t: "nominating"; err: string | null; showToast: boolean }
   | {
       t: "confirming";
       why: Reason;
       nominees: Guy[];
       other: string;
       myEmail: string;
-    }
-  | { t: "confirmed" };
+    };
 
 type Action =
   | {
@@ -42,8 +41,11 @@ function reducer(s: State, a: Action): State {
   switch (a.t) {
     case "submitNomination":
       if (a.nominees.length === 0) {
-        // TODO show an error
-        return s;
+        return {
+          t: "nominating",
+          err: "please add at least one nominee",
+          showToast: false,
+        };
       }
       return {
         t: "confirming",
@@ -53,13 +55,13 @@ function reducer(s: State, a: Action): State {
         myEmail: a.myEmail,
       };
     case "confirmNomination":
-      return { t: "confirmed" };
+      return { t: "nominating", err: null, showToast: true };
     case "backNomination":
-      return { t: "nominating" };
+      return { t: "nominating", err: null, showToast: false };
   }
 }
 
-const init: State = { t: "nominating" };
+const init: State = { t: "nominating", err: null, showToast: false };
 
 type JustChildren = {
   children: React.ReactNode;
@@ -74,7 +76,7 @@ function WithSidebar(props: JustChildren) {
   );
 }
 
-function Nominating() {
+function Nominating({ err }: { err: string | null }) {
   const people = React.useRef<any | null>(null);
   const other = React.useRef<null | HTMLTextAreaElement>(null);
   const [reasons, setReasons] = React.useState<Map<string, number> | null>(
@@ -126,6 +128,7 @@ function Nominating() {
           <div className="nom-form">
             <h5 className="form_headers">Team Member (s) Being Nominated</h5>
             <mgt-people-picker ref={people}></mgt-people-picker>
+            {err === null ? null : <div className="Form__Err">{err}</div>}
             <br />
             <h5 className="form_headers" id="nomination_reason_header">
               Why are you nominating this team member?
@@ -147,7 +150,6 @@ function Nominating() {
             <br />
             <br />
             <br />
-
             <input type="submit" value="Submit Nomination" />
             <br />
             <br />
@@ -252,7 +254,16 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
 function switcher(s: State) {
   switch (s.t) {
     case "nominating":
-      return <Nominating />;
+      return (
+        <React.Fragment>
+          {s.showToast ? (
+            <FlashMessage duration={3000}>
+              <div className="flash">Nomination Submitted</div>
+            </FlashMessage>
+          ) : null}
+          <Nominating err={s.err} />
+        </React.Fragment>
+      );
     case "confirming":
       return (
         <Confirming
@@ -261,15 +272,6 @@ function switcher(s: State) {
           other={s.other}
           myEmail={s.myEmail}
         />
-      );
-    case "confirmed":
-      return (
-        <React.Fragment>
-          <FlashMessage duration={3000}>
-            <div className="flash">Nomination Submitted</div>
-          </FlashMessage>
-          <Nominating />;
-        </React.Fragment>
       );
   }
 }
