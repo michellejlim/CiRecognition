@@ -2,7 +2,6 @@
   display: flex;
   font-family: inherit;
   font-size: 1em;
-  padding:30px;
 }
 
 .Dashboard__Left {
@@ -85,11 +84,12 @@ mgt-person {
 }
 .dashboard-img {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 80%;
-  height:40%;
+  width: 90%;
+  height:45%;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top:10px;
   
 }
 
