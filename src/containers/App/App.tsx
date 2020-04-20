@@ -11,7 +11,7 @@ import { Stack } from "office-ui-fabric-react";
 import "@microsoft/mgt";
 import "@progress/kendo-theme-default/dist/all.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Providers, MsalProvider, ProviderState} from '@microsoft/mgt'
+import { Providers, MsalProvider, ProviderState } from "@microsoft/mgt";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -27,7 +27,7 @@ declare global {
 }
 
 initializeIcons();
-const msalConfig = {"clientId": "27bc12d5-b60b-41a2-b62a-8ccdeac6363f"};
+const msalConfig = { clientId: "27bc12d5-b60b-41a2-b62a-8ccdeac6363f" };
 const provider = new MsalProvider(msalConfig);
 Providers.globalProvider = provider;
 
@@ -48,7 +48,7 @@ const RootApp: React.StatelessComponent<{}> = (p) => {
   );
 };
 
-if (provider.state === ProviderState.SignedOut){
+if (provider.state === ProviderState.SignedOut) {
   provider.login();
 }
 

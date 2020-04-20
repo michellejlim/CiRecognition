@@ -1,4 +1,4 @@
-// TODO this is not the greatest. It would be better if we could know the
+// this is not the greatest. It would be better if we could know the
 // currently signed-in person's email through better means, perhaps via an API
 // request.
 

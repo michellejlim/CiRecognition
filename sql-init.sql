@@ -8,7 +8,7 @@ CREATE DATABASE CIEmployeeRecognitionSystem;
 USE CIEmployeeRecognitionSystem;
 
 CREATE TABLE tblEmployee(
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL,
   employeeId int NOT NULL,
   firstName varchar(255) NOT NULL,
   lastName varchar(255) NOT NULL,
@@ -16,11 +16,12 @@ CREATE TABLE tblEmployee(
   departmentName varchar(255) NULL,
   supervisorName varchar(255) NULL,
   supervisorEmployeeId int NULL,
+  isMostRecent boolean NOT NULL,
   CONSTRAINT tblEmployee_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE Employee_Recognition (
-    id int NOT NULL AUTO_INCREMENT,
+    id int NOT NULL,
     ci_bucks int NOT NULL,
     admin_level varchar(255) NOT NULL,
     CONSTRAINT Employee_Recognition_pk PRIMARY KEY (id)
@@ -40,7 +41,7 @@ CREATE TABLE Nomination (
 
 -- Table: Nomination_Award
 CREATE TABLE Nomination_Award (
-    id int NOT NULL AUTO_INCREMENT,
+    id int NOT NULL,
     name varchar(255) NOT NULL,
     award_amount int NOT NULL,
     CONSTRAINT Nomination_Award_pk PRIMARY KEY (id)
@@ -71,49 +72,52 @@ INSERT INTO Nomination_Award
   VALUES(4, "Other", 10);
 
 INSERT INTO tblEmployee
-  VALUES(1, 11, "Jarrek", "Holmes", "Jarrek@tciop.org","IS", "Jarrek", 11);
+  VALUES(1, 11, "Jarrek", "Holmes", "Jarrek@tciop.org","IS", "Vivian", 55, true);
 
 INSERT INTO tblEmployee
-  VALUES(2, 12, "Michelle", "Lim", "Michelle@tciop.org","IS", "Jarrek", 11);
+  VALUES(2, 22, "Michelle", "Lim", "Michelle@tciop.org","IS", "Vivian", 55, true);
 
 INSERT INTO tblEmployee
-  VALUES(3, 13, "Chris", "Mader", "chris@devtciop.onmicrosoft.com", "CI", "Vivian", 15);
+  VALUES(3, 33, "Chris", "Mader", "chris@devtciop.onmicrosoft.com", "CI", "Vivian", 55, true);
 
 INSERT INTO tblEmployee
-  VALUES(4, 14, "Brian", "Furfari", "brf@devtciop.onmicrosoft.com", "CI", "Vivian", 15);
+  VALUES(4, 44, "Brian", "Furfari", "brf@devtciop.onmicrosoft.com", "CI", "Vivian", 55, true);
 
 INSERT INTO tblEmployee
-  VALUES(5, 15, "Vivian", "Huang", "Vivian@tciop.org","IS", "Jarrek", 11);
+  VALUES(5, 55, "Vivian", "Huang", "Vivian@tciop.org","IS", "Vivian", 55, false);
+
+INSERT INTO tblEmployee
+  VALUES(6, 55, "Viv", "Huang", "Vivian@tciop.org","IS", "Vivian", 55, true);
 
 INSERT INTO Employee_Recognition
   VALUES(11, 10, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(12, 23, "user");
+  VALUES(22, 23, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(13, 12, "user");
+  VALUES(33, 12, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(14, 10, "user");
+  VALUES(44, 10, "user");
 
 INSERT INTO Employee_Recognition
-  VALUES(15, 23, "admin");
+  VALUES(55, 23, "admin");
 
 INSERT INTO Nomination
-  VALUES(1, "You're so great", "approved", '2020-03-21', 11, 12, 1);
+  VALUES(1, "You're so great", "approved", '2020-03-21', 11, 22, 1);
 
   INSERT INTO Nomination
-  VALUES(2, "You're so great", "denied", '2020-03-21', 11, 12, 3);
+  VALUES(2, "You're so great", "denied", '2020-03-21', 11, 22, 3);
 
   INSERT INTO Nomination
-  VALUES(3, "You're so great", "pending", '2020-03-20', 11, 13, 1);
+  VALUES(3, "You're so great", "pending", '2020-03-20', 11, 33, 1);
 
   INSERT INTO Nomination
-  VALUES(4, "You're so great", "approved", '2020-03-19', 12, 11, 2);
+  VALUES(4, "You're so great", "approved", '2020-03-19', 22, 11, 2);
 
   INSERT INTO Nomination
-  VALUES(5, "You're so great", "pending", '2020-03-02', 13, 11, 3);
+  VALUES(5, "You're so great", "pending", '2020-03-02', 33, 11, 3);
 
   INSERT INTO Nomination
-  VALUES(6, "You're so great", "pending", '2020-01-21', 13, 12, 1);
+  VALUES(6, "You're so great", "pending", '2020-01-21', 33, 22, 1);

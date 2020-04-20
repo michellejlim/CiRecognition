@@ -1,6 +1,17 @@
 const base: string = "http://localhost:3000/api/";
 
+// matches "tblEmployees" and "tblEmployees/..."
+const tblEmployeesRE = /^tblEmployees\/?/;
+
 export function getApiUrl(path: string, where?: object): string {
+  // this is because we always want only the most recent employees from the
+  // table of employees.
+  if (tblEmployeesRE.test(path)) {
+    where =
+      where === undefined
+        ? { isMostRecent: true }
+        : { and: [{ isMostRecent: true }, where] };
+  }
   if (where === undefined) {
     console.log(base + path)
     return base + path;
@@ -24,9 +35,12 @@ export type Employee = {
   departmentName: string;
   supervisorName: string;
   supervisorEmployeeId: number;
+  isMostRecent: boolean;
 };
 
-export type NominationStatus = "pending" | "approved" | "denied";
+export type NominationStatusFinal = "approved" | "denied";
+
+export type NominationStatus = "pending" | NominationStatusFinal;
 
 export type Nomination = {
   id: number;
