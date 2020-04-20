@@ -37,7 +37,7 @@ function NavLinkItem({ pathname, show, badge = null }: NavLinkItemProps) {
         <NavLink href={pathname} className={className}>
           {show}
         </NavLink>
-        <span className="badge">{badge}</span>
+        <span className="notification_badge">{badge}</span>
       </NavItem>
     );
   };

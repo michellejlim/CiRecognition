@@ -101,12 +101,22 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background: rgba(0, 0, 0, 0.3);
 }
 
-.badge {
+.notification_badge {
   position: relative;
+  display: inline-block;
+  padding-top: .25em ;
+  padding-left: .4em;
+  padding-right: .4em;
+  padding-bottom: .25em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: baseline;
   top: -50px;
   right: -95px;
-  padding: 5px 10px;
-  border-radius: 1000%;
+  border-radius: 50%;
   background: rgba(123, 193, 67, 0.6);
   color: white;
+  text-align: center;
 }
