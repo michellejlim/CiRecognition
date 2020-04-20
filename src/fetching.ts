@@ -13,7 +13,6 @@ export function getApiUrl(path: string, where?: object): string {
         : { and: [{ isMostRecent: true }, where] };
   }
   if (where === undefined) {
-    console.log(base + path)
     return base + path;
   }
   return `${base}${path}?filter=${encodeURI(JSON.stringify({ where }))}`;
