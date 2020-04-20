@@ -187,7 +187,7 @@ function Review() {
               </Col>
               <Col s={3} className="nom-text">
                 <br></br>
-                <h5>
+                <h6>
                   NOMINEE: {x.nomineeStr}
                   <br></br>
                   <br></br>
@@ -198,7 +198,7 @@ function Review() {
                   <br></br>
                   <br></br>
                   NOMINATED ON: {getDate(x.date)}
-                </h5>
+                </h6>
               </Col>
               <Col s={3} className="approve-button">
                 <br></br>
@@ -228,7 +228,7 @@ function Review() {
               </Col>
               <Col className="approve-button">
                 <br></br>
-                <h5>
+                <h6>
                   NOMINEE: {x.nomineeStr}
                   <br></br>
                   <br></br>
@@ -239,7 +239,7 @@ function Review() {
                   <br></br>
                   <br></br>
                   NOMINATED ON: {getDate(x.date)}
-                </h5>
+                </h6>
               </Col>
               <Col className="approve-button">
                 <br></br>
