@@ -70,6 +70,7 @@ function Container(props: Props) {
       <div className="Container__Top">
         <img src={logo} className="Container__Logo" alt="logo" />
         <Navbar light expand="md" className="Container__Nav">
+        {isSupervisor != null ? 
           <Nav className="mr-auto" navbar>
             <NavLinkItem pathname="/dashboard" show="DASHBOARD" />
             <NavLinkItem pathname="/nominate" show="NOMINATE" />
@@ -79,7 +80,7 @@ function Container(props: Props) {
                 show={pending === null ? "REVIEW" : `REVIEW (${pending})`}
               />
             ) : null}
-          </Nav>
+          </Nav> : null }
         </Navbar>
         <mgt-login id="myLoginControl"></mgt-login>
       </div>

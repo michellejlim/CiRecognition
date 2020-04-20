@@ -75,7 +75,7 @@ INSERT INTO tblEmployee
   VALUES(1, 11, "Jarrek", "Holmes", "Jarrek@tciop.org","IS", "Vivian", 55, true);
 
 INSERT INTO tblEmployee
-  VALUES(2, 22, "Michelle", "Lim", "Michelle@tciop.org","IS", "Vivian", 55, true);
+  VALUES(2, 22, "Michelle", "Lim", "Michelle@tciop.org","IS", "Jarrek", 11, true);
 
 INSERT INTO tblEmployee
   VALUES(3, 33, "Chris", "Mader", "chris@devtciop.onmicrosoft.com", "CI", "Vivian", 55, true);
@@ -84,10 +84,10 @@ INSERT INTO tblEmployee
   VALUES(4, 44, "Brian", "Furfari", "brf@devtciop.onmicrosoft.com", "CI", "Vivian", 55, true);
 
 INSERT INTO tblEmployee
-  VALUES(5, 55, "Vivian", "Huang", "Vivian@tciop.org","IS", "Vivian", 55, false);
+  VALUES(5, 55, "Vivian", "Huang", "Vivian@tciop.org","IS", "Jarrek", 11, false);
 
 INSERT INTO tblEmployee
-  VALUES(6, 55, "Viv", "Huang", "Vivian@tciop.org","IS", "Vivian", 55, true);
+  VALUES(6, 55, "Viv", "Huang", "Vivian@tciop.org","IS", "Jarrek", 11, true);
 
 INSERT INTO Employee_Recognition
   VALUES(11, 10, "user");
