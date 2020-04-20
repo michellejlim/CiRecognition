@@ -96,7 +96,7 @@ function Nominating() {
       });
   }, [setReasons]);
   if (reasons === null || name === null) {
-    return <p></p>;
+    return null;
   }
   return (
     <WithSidebar>
