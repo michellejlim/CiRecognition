@@ -27,4 +27,8 @@ Open [http://localhost:3001](http://localhost:3001) to view it in the browser. <
 The page will reload if you make edits.
 
 
+### To Run tests (E2E and Unit)
 
+Open another terminal
+Run 'npm install' in the project directory
+Run 'npm test' to run tests in the testing folder
