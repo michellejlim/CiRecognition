@@ -10,20 +10,21 @@ type Props = {
   children: React.ReactNode;
 };
 
-const navItems = ["dashboard", "nominate", "review"];
-const navItemsNotSupervisor = ["dashboard", "nominate"];
+type NavLinkItemProps = {
+  pathname: string;
+  show: string;
+};
 
-function navItem(x: string) {
-  const pathname = `/${x}`;
+function NavLinkItem({ pathname, show }: NavLinkItemProps) {
   const className =
     window.location.pathname === pathname ||
     (window.location.pathname === "/" && pathname === "/dashboard")
       ? "Container__NavItem--active"
       : "";
   return (
-    <NavItem key={x}>
+    <NavItem>
       <NavLink href={pathname} className={className}>
-        {x.toUpperCase()}
+        {show}
       </NavLink>
     </NavItem>
   );
@@ -65,10 +66,11 @@ function Container(props: Props) {
         <img src={logo} className="Container__Logo" alt="logo" />
         <Navbar light expand="md" className="Container__Nav">
           <Nav className="mr-auto" navbar>
-            {isSupervisor != null &&
-              (isSupervisor
-                ? navItems.map(navItem)
-                : navItemsNotSupervisor.map(navItem))}
+            <NavLinkItem pathname="/dashboard" show="DASHBOARD" />
+            <NavLinkItem pathname="/nominate" show="NOMINATE" />
+            {isSupervisor ? (
+              <NavLinkItem pathname="/review" show="REVIEW" />
+            ) : null}
           </Nav>
         </Navbar>
         <mgt-login id="myLoginControl"></mgt-login>
