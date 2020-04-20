@@ -155,3 +155,8 @@ ol {
 textarea {
   width: 80%;
 }
+
+.Form__Err {
+  font-style: italic;
+  color: red;
+}

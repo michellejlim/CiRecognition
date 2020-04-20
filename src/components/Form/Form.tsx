@@ -15,17 +15,18 @@ type Reason = {
 };
 
 type State =
-  | { t: "nominating" }
+  | { t: "nominating"; err: string | null; showToast: boolean }
   | {
       t: "confirming";
       why: Reason;
       nominees: Guy[];
       other: string;
       myEmail: string;
-    }
-  | { t: "confirmed" };
+      err: string | null;
+    };
 
 type Action =
+  | { t: "err"; err: string }
   | {
       t: "submitNomination";
       why: Reason;
@@ -42,8 +43,11 @@ function reducer(s: State, a: Action): State {
   switch (a.t) {
     case "submitNomination":
       if (a.nominees.length === 0) {
-        // TODO show an error
-        return s;
+        return {
+          t: "nominating",
+          err: "please add at least one nominee",
+          showToast: false,
+        };
       }
       return {
         t: "confirming",
@@ -51,15 +55,18 @@ function reducer(s: State, a: Action): State {
         nominees: a.nominees,
         other: a.other,
         myEmail: a.myEmail,
+        err: null,
       };
     case "confirmNomination":
-      return { t: "confirmed" };
+      return { t: "nominating", err: null, showToast: true };
     case "backNomination":
-      return { t: "nominating" };
+      return { t: "nominating", err: null, showToast: false };
+    case "err":
+      return { ...s, err: a.err };
   }
 }
 
-const init: State = { t: "nominating" };
+const init: State = { t: "nominating", err: null, showToast: false };
 
 type JustChildren = {
   children: React.ReactNode;
@@ -74,7 +81,7 @@ function WithSidebar(props: JustChildren) {
   );
 }
 
-function Nominating() {
+function Nominating({ err }: { err: string | null }) {
   const people = React.useRef<any | null>(null);
   const other = React.useRef<null | HTMLTextAreaElement>(null);
   const [reasons, setReasons] = React.useState<Map<string, number> | null>(
@@ -83,37 +90,31 @@ function Nominating() {
   const [name, setName] = React.useState<string | null>(null);
   const [myEmail, setMyEmail] = React.useState<string | null>(null);
   const dispatch = React.useContext(Context);
-  try {
-    React.useEffect(() => {
-      fetch(getApiUrl("Nomination_Awards"))
-        .then(toJson)
-        .then((xs: Reason[]) => {
-          const rs = new Map<string, number>();
-          for (const { id, name } of xs) {
-            rs.set(name, id);
-          }
-          setReasons(rs);
-          setName(xs[0].name);
-        });
-    }, [setReasons]);
-  } catch (error) {
-    console.error(error);
-  }
-
+  React.useEffect(() => {
+    fetch(getApiUrl("Nomination_Awards"))
+      .then(toJson)
+      .then((xs: Reason[]) => {
+        const rs = new Map<string, number>();
+        for (const { id, name } of xs) {
+          rs.set(name, id);
+        }
+        setReasons(rs);
+        setName(xs[0].name);
+      });
+  }, [setReasons]);
   if (reasons === null || name === null) {
-    return <p></p>;
+    return null;
   }
   return (
     <WithSidebar>
       <EmailGetter onGetEmail={setMyEmail} />
       <div className="NominationForm">
-        <br></br>
+        <br />
         <h1>Nominate Another Team Member!</h1>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <form
           onSubmit={(e) => {
-            //TODO: Raise errors when form incomplete
             e.preventDefault();
             const id = reasons.get(name);
             if (id === undefined || myEmail == null) {
@@ -131,11 +132,12 @@ function Nominating() {
           <div className="nom-form">
             <h5 className="form_headers">Team Member (s) Being Nominated</h5>
             <mgt-people-picker ref={people}></mgt-people-picker>
-            <br></br>
+            {err === null ? null : <div className="Form__Err">{err}</div>}
+            <br />
             <h5 className="form_headers" id="nomination_reason_header">
               Why are you nominating this team member?
             </h5>
-            <br></br>
+            <br />
             <select value={name} onChange={(e) => setName(e.target.value)}>
               {Array.from(reasons.entries()).map(([why, id]) => (
                 <option key={id} value={why}>
@@ -149,13 +151,12 @@ function Nominating() {
               </h5>
               <textarea ref={other} />
             </div>
-            <br></br>
-            <br></br>
-            <br></br>
-
+            <br />
+            <br />
+            <br />
             <input type="submit" value="Submit Nomination" />
-            <br></br>
-            <br></br>
+            <br />
+            <br />
           </div>
         </form>
       </div>
@@ -168,37 +169,39 @@ type ConfirmingProps = {
   why: Reason;
   other: string;
   myEmail: string;
+  err: string | null;
 };
 
-function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
+function Confirming({ nominees, why, other, myEmail, err }: ConfirmingProps) {
   const dispatch = React.useContext(Context);
   return (
     <WithSidebar>
       <div className="NominationForm">
-        <br></br>
+        <br />
         <h1 id="header">Confirm Nomination</h1>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <div className="nom-form">
           <h5 className="form_headers">Selected Nominees: </h5>
-          <br></br>
+          <br />
           <ol>
-            <br></br>
+            <br />
             {/* nominees ought not change, so it should be ok to use the index as the key */}
             {nominees.map((n, idx) => (
               <li key={idx}>{n.displayName}</li>
             ))}
-            <br></br>
+            <br />
           </ol>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           <h5 className="form_headers">Reason for Nomination</h5>
-          <br></br>
+          <br />
           <div className="reason">
             {why.name === "Other" ? other : why.name}
           </div>
-          <br></br>
-          <br></br>
+          {err === null ? null : <div className="Form__Err">{err}</div>}
+          <br />
+          <br />
           <input
             type="reset"
             value="Back"
@@ -211,8 +214,6 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
             value="Submit"
             onClick={async (e) => {
               e.preventDefault();
-              dispatch({ t: "confirmNomination" });
-              // TODO handle errors when fetching?
               const myEmployeeId = (
                 await fetch(
                   getApiUrl("tblEmployees", { emailCompany: myEmail })
@@ -226,28 +227,38 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
                     })
                   ).then(toJson)
                 )[0];
-                if (nom2 !== undefined) {
-                  const req = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      reason: why.name === "Other" ? other : why.name,
-                      status: "pending",
-                      date: new Date().toUTCString(),
-                      nominator: myEmployeeId,
-                      nominee: nom2.employeeId,
-                      award: why.id,
-                    }),
-                  };
-                  fetch(getApiUrl("Nominations"), req);
-                } else {
-                  //TODO: Raise error here
+                if (nom2 === undefined) {
+                  dispatch({
+                    t: "err",
+                    err:
+                      "This Microsoft Graph user is not defined in the database. Please nominate a different user.",
+                  });
+                  return;
+                }
+                const req = {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    reason: why.name === "Other" ? other : why.name,
+                    status: "pending",
+                    date: new Date().toUTCString(),
+                    nominator: myEmployeeId,
+                    nominee: nom2.employeeId,
+                    award: why.id,
+                  }),
+                };
+                try {
+                  await fetch(getApiUrl("Nominations"), req).then(toJson);
+                } catch (e) {
+                  dispatch({ t: "err", err: String(e) });
+                  return;
                 }
               }
+              dispatch({ t: "confirmNomination" });
             }}
           />
-          <br></br>
-          <br></br>
+          <br />
+          <br />
         </div>
       </div>
     </WithSidebar>
@@ -257,7 +268,16 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
 function switcher(s: State) {
   switch (s.t) {
     case "nominating":
-      return <Nominating />;
+      return (
+        <React.Fragment>
+          {s.showToast ? (
+            <FlashMessage duration={3000}>
+              <div className="flash">Nomination Submitted</div>
+            </FlashMessage>
+          ) : null}
+          <Nominating err={s.err} />
+        </React.Fragment>
+      );
     case "confirming":
       return (
         <Confirming
@@ -265,16 +285,8 @@ function switcher(s: State) {
           why={s.why}
           other={s.other}
           myEmail={s.myEmail}
+          err={s.err}
         />
-      );
-    case "confirmed":
-      return (
-        <React.Fragment>
-          <FlashMessage duration={3000}>
-            <div className="flash">Nomination Submitted</div>
-          </FlashMessage>
-          <Nominating />;
-        </React.Fragment>
       );
   }
 }

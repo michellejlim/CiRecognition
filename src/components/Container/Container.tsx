@@ -5,26 +5,27 @@ import { push as Menu } from "react-burger-menu";
 import logo from "../../images/logo.jpg";
 import EmailGetter from "../EmailGetter";
 import { getApiUrl, toJson, Employee } from "../../fetching";
+import { getAnswer } from "../Review/fetching";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const navItems = ["dashboard", "nominate", "review"];
-const navItemsNotSupervisor = ["dashboard", "nominate"];
+type NavLinkItemProps = {
+  pathname: string;
+  show: string;
+};
 
-function navItem(x: string) {
-  const pathname = `/${x}`;
+function NavLinkItem({ pathname, show }: NavLinkItemProps) {
   const className =
     window.location.pathname === pathname ||
     (window.location.pathname === "/" && pathname === "/dashboard")
       ? "Container__NavItem--active"
       : "";
-  console.log(window.location.pathname);
   return (
-    <NavItem key={x}>
+    <NavItem>
       <NavLink href={pathname} className={className}>
-        {x.toUpperCase()}
+        {show}
       </NavLink>
     </NavItem>
   );
@@ -48,12 +49,15 @@ async function checkIfSupervisor(myEmail: string) {
 function Container(props: Props) {
   const [myEmail, setMyEmail] = React.useState<string | null>(null);
   const [isSupervisor, setIsSupervisor] = React.useState<boolean | null>(null);
+  const [pending, setPending] = React.useState<number | null>(null);
   React.useEffect(() => {
     if (myEmail === null) {
       return;
     }
-    // TODO what if the backend errors?
     checkIfSupervisor(myEmail).then(setIsSupervisor);
+    getAnswer(myEmail).then((x) => {
+      setPending(x.pending.length);
+    });
   }, [myEmail]);
   return (
     <div className="Container">
@@ -66,12 +70,17 @@ function Container(props: Props) {
       <div className="Container__Top">
         <img src={logo} className="Container__Logo" alt="logo" />
         <Navbar light expand="md" className="Container__Nav">
+        {isSupervisor != null ? 
           <Nav className="mr-auto" navbar>
-            {isSupervisor != null &&
-              (isSupervisor
-                ? navItems.map(navItem)
-                : navItemsNotSupervisor.map(navItem))}
-          </Nav>
+            <NavLinkItem pathname="/dashboard" show="DASHBOARD" />
+            <NavLinkItem pathname="/nominate" show="NOMINATE" />
+            {isSupervisor ? (
+              <NavLinkItem
+                pathname="/review"
+                show={pending === null ? "REVIEW" : `REVIEW (${pending})`}
+              />
+            ) : null}
+          </Nav> : null }
         </Navbar>
         <mgt-login id="myLoginControl"></mgt-login>
       </div>

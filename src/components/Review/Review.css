@@ -90,3 +90,8 @@ h4.status {
   --avatar-size-s: 131px;
   margin-right: 120px;
 }
+
+.Review__Err {
+  color: red;
+  font-style: italic;
+}
