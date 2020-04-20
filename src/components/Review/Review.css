@@ -1,6 +1,8 @@
 .noms {
   font-family: Arial;
   padding: 40px;
+  margin-left:200px;
+  margin-right:200px;
 }
 
 h4 {
@@ -25,6 +27,7 @@ h4.status {
 .approved {
   background-color: #cfe6c7;
   border-radius: 10px;
+  
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -37,6 +40,7 @@ h4.status {
 .pendingItem {
   background-color: white;
   border-radius: 10px;
+
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
