@@ -14,21 +14,33 @@ type Props = {
 type NavLinkItemProps = {
   pathname: string;
   show: string;
+  badge?: number | null;
 };
 
-function NavLinkItem({ pathname, show }: NavLinkItemProps) {
+function NavLinkItem({ pathname, show, badge = null }: NavLinkItemProps) {
   const className =
     window.location.pathname === pathname ||
     (window.location.pathname === "/" && pathname === "/dashboard")
       ? "Container__NavItem--active"
       : "";
-  return (
-    <NavItem>
-      <NavLink href={pathname} className={className}>
-        {show}
-      </NavLink>
-    </NavItem>
-  );
+  if (badge == null){
+    return (
+      <NavItem>
+        <NavLink href={pathname} className={className}>
+          {show}
+        </NavLink>
+      </NavItem>
+    );
+  } else {
+    return (
+      <NavItem>
+        <NavLink href={pathname} className={className}>
+          {show}
+        </NavLink>
+        <span className="badge">{badge}</span>
+      </NavItem>
+    );
+  };
 }
 
 async function checkIfSupervisor(myEmail: string) {
@@ -77,7 +89,8 @@ function Container(props: Props) {
             {isSupervisor ? (
               <NavLinkItem
                 pathname="/review"
-                show={pending === null ? "REVIEW" : `REVIEW (${pending})`}
+                show="REVIEW"
+                badge= {pending === null ? 0 : pending}
               />
             ) : null}
           </Nav> : null }

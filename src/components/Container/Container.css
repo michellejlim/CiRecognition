@@ -100,3 +100,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
+.badge {
+  position: relative;
+  top: -50px;
+  right: -95px;
+  padding: 5px 10px;
+  border-radius: 1000%;
+  background: rgba(123, 193, 67, 0.6);
+  color: white;
+}
