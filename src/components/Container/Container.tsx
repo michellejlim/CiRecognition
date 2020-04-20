@@ -20,7 +20,6 @@ function navItem(x: string) {
     (window.location.pathname === "/" && pathname === "/dashboard")
       ? "Container__NavItem--active"
       : "";
-  console.log(window.location.pathname);
   return (
     <NavItem key={x}>
       <NavLink href={pathname} className={className}>
