@@ -40,8 +40,8 @@ async function changeNomStatus(
 ) {
   const msg =
     (status === "approved"
-      ? "Great! If you're sure you want to approve this nomination, press 'OK'."
-      : "That's too bad. If you're sure you want to deny this nomination, press 'OK'.") +
+      ? "Are you sure you want to approve this nomination?"
+      : "Are you sure you want to deny this nomination?.") +
     " This action cannot be undone.";
   if (!window.confirm(msg)) {
     return;
