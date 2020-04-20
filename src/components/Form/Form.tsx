@@ -244,7 +244,7 @@ function Confirming({ nominees, why, other, myEmail, err }: ConfirmingProps) {
                     date: new Date().toUTCString(),
                     nominator: myEmployeeId,
                     nominee: nom2.employeeId,
-                    // award: why.id,
+                    award: why.id,
                   }),
                 };
                 try {
