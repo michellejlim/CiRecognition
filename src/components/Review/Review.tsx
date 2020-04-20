@@ -118,7 +118,7 @@ async function changeNomStatus(x: ShowNomination, status: NominationStatus) {
   }).then(toJson);
   if (status === "approved") {
     const nominee: Employee = await fetch(
-      getApiUrl(`tblEmployees/${x.nominee}`)
+      getApiUrl("tblEmployees", { employeeId: x.nominee })
     ).then(toJson);
     const curCIBucks: number = await fetch(
       getApiUrl(`Employee_Recognitions/${nominee.employeeId}`)
