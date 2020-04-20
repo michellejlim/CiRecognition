@@ -107,10 +107,10 @@ function Nominating() {
     <WithSidebar>
       <EmailGetter onGetEmail={setMyEmail} />
       <div className="NominationForm">
-        <br></br>
+        <br />
         <h1>Nominate Another Team Member!</h1>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <form
           onSubmit={(e) => {
             //TODO: Raise errors when form incomplete
@@ -131,11 +131,11 @@ function Nominating() {
           <div className="nom-form">
             <h5 className="form_headers">Team Member (s) Being Nominated</h5>
             <mgt-people-picker ref={people}></mgt-people-picker>
-            <br></br>
+            <br />
             <h5 className="form_headers" id="nomination_reason_header">
               Why are you nominating this team member?
             </h5>
-            <br></br>
+            <br />
             <select value={name} onChange={(e) => setName(e.target.value)}>
               {Array.from(reasons.entries()).map(([why, id]) => (
                 <option key={id} value={why}>
@@ -149,13 +149,13 @@ function Nominating() {
               </h5>
               <textarea ref={other} />
             </div>
-            <br></br>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
+            <br />
 
             <input type="submit" value="Submit Nomination" />
-            <br></br>
-            <br></br>
+            <br />
+            <br />
           </div>
         </form>
       </div>
@@ -175,30 +175,30 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
   return (
     <WithSidebar>
       <div className="NominationForm">
-        <br></br>
+        <br />
         <h1 id="header">Confirm Nomination</h1>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <div className="nom-form">
           <h5 className="form_headers">Selected Nominees: </h5>
-          <br></br>
+          <br />
           <ol>
-            <br></br>
+            <br />
             {/* nominees ought not change, so it should be ok to use the index as the key */}
             {nominees.map((n, idx) => (
               <li key={idx}>{n.displayName}</li>
             ))}
-            <br></br>
+            <br />
           </ol>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           <h5 className="form_headers">Reason for Nomination</h5>
-          <br></br>
+          <br />
           <div className="reason">
             {why.name === "Other" ? other : why.name}
           </div>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           <input
             type="reset"
             value="Back"
@@ -246,8 +246,8 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
               }
             }}
           />
-          <br></br>
-          <br></br>
+          <br />
+          <br />
         </div>
       </div>
     </WithSidebar>

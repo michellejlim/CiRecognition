@@ -161,23 +161,23 @@ function Review() {
   return (
     <div className="noms">
       <h4>Nominations Pending Approval ({answer.pending.length} Remaining)</h4>
-      <br></br>
+      <br />
 
       {answer.pending.map((x) => (
         <div key={x.id} className="pendingItem">
           <div className="ind-pending">
             <Row>
               <Col s={3} className="approve-button">
-                <br></br>
+                <br />
                 <button
                   className="confirm-button-approve"
                   onClick={() => changeNomStatus(x, "approved")}
                 >
                   APPROVE
                 </button>
-                <br></br>
+                <br />
 
-                <br></br>
+                <br />
                 <button
                   className="confirm-button-deny"
                   onClick={() => changeNomStatus(x, "denied")}
@@ -186,69 +186,69 @@ function Review() {
                 </button>
               </Col>
               <Col s={3} className="nom-text">
-                <br></br>
+                <br />
                 <h5>
                   NOMINEE: {x.nomineeStr}
-                  <br></br>
-                  <br></br>
+                  <br />
+                  <br />
                   NOMINATOR: {x.nominatorStr}
-                  <br></br>
-                  <br></br>
+                  <br />
+                  <br />
                   REVIEW: {x.reason}
-                  <br></br>
-                  <br></br>
+                  <br />
+                  <br />
                   NOMINATED ON: {getDate(x.date)}
                 </h5>
               </Col>
               <Col s={3} className="approve-button">
-                <br></br>
+                <br />
                 <mgt-person
                   person-query={x.nomineeStr}
                   id="review-profile"
                 ></mgt-person>
               </Col>
             </Row>
-            <hr></hr>
+            <hr />
           </div>
         </div>
       ))}
-      <br></br>
+      <br />
       <h4>Past Nominations ({answer.done.length})</h4>
-      <br></br>
+      <br />
       {answer.done.map((x) => (
         <div key={x.id} className={x.status}>
           <div className="ind-pending">
             <Row>
               <Col s={3} className="approve-button">
-                <br></br>
+                <br />
                 <mgt-person
                   person-query={x.nomineeStr}
                   id="review-profile"
                 ></mgt-person>
               </Col>
               <Col className="approve-button">
-                <br></br>
+                <br />
                 <h5>
                   NOMINEE: {x.nomineeStr}
-                  <br></br>
-                  <br></br>
+                  <br />
+                  <br />
                   NOMINATOR: {x.nominatorStr}
-                  <br></br>
-                  <br></br>
+                  <br />
+                  <br />
                   REVIEW: {x.reason}
-                  <br></br>
-                  <br></br>
+                  <br />
+                  <br />
                   NOMINATED ON: {getDate(x.date)}
                 </h5>
               </Col>
               <Col className="approve-button">
-                <br></br>
-                <br></br>
-                <br></br>
+                <br />
+                <br />
+                <br />
                 <h4 className="status">{x.status.toUpperCase()}</h4>
               </Col>
             </Row>
-            <hr></hr>
+            <hr />
           </div>
         </div>
       ))}

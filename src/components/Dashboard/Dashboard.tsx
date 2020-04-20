@@ -127,8 +127,8 @@ function Dashboard() {
       <div className="mid_contain">
         <img src={CI} alt="logo" className="dashboard-img" />
         <div className="Dashboard__Right">
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           {deeds.map((x, idx) => (
             <div key={idx}>
               <table className="right_table">
