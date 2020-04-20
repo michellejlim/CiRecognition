@@ -29,6 +29,6 @@ The page will reload if you make edits.
 
 ### To Run tests (E2E and Unit)
 
-Open another terminal
-Run 'npm install' in the project directory
-Run 'npm test' to run tests in the testing folder
+Open another terminal <br>
+Run 'npm install' in the project directory <br>
+Run 'npm test' to run tests in the testing folder <br>
