@@ -5,6 +5,7 @@ import { push as Menu } from "react-burger-menu";
 import logo from "../../images/logo.jpg";
 import EmailGetter from "../EmailGetter";
 import { getApiUrl, toJson, Employee } from "../../fetching";
+import { getAnswer } from "../Review/fetching";
 
 type Props = {
   children: React.ReactNode;
@@ -48,11 +49,15 @@ async function checkIfSupervisor(myEmail: string) {
 function Container(props: Props) {
   const [myEmail, setMyEmail] = React.useState<string | null>(null);
   const [isSupervisor, setIsSupervisor] = React.useState<boolean | null>(null);
+  const [pending, setPending] = React.useState<number | null>(null);
   React.useEffect(() => {
     if (myEmail === null) {
       return;
     }
     checkIfSupervisor(myEmail).then(setIsSupervisor);
+    getAnswer(myEmail).then((x) => {
+      setPending(x.pending.length);
+    });
   }, [myEmail]);
   return (
     <div className="Container">
@@ -69,7 +74,10 @@ function Container(props: Props) {
             <NavLinkItem pathname="/dashboard" show="DASHBOARD" />
             <NavLinkItem pathname="/nominate" show="NOMINATE" />
             {isSupervisor ? (
-              <NavLinkItem pathname="/review" show="REVIEW" />
+              <NavLinkItem
+                pathname="/review"
+                show={pending === null ? "REVIEW" : `REVIEW (${pending})`}
+              />
             ) : null}
           </Nav>
         </Navbar>
