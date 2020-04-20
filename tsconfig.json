@@ -1,15 +1,8 @@
 {
   "compilerOptions": {
-      "experimentalDecorators": true,
+    "experimentalDecorators": true,
     "target": "es5",
-    "lib": [
-      "dom",
-      "es6",
-      "esnext",
-      "dom.iterable",
-      "esnext",
-      "es2017"
-    ],
+    "lib": ["dom", "es6", "esnext", "dom.iterable", "esnext", "es2017"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,9 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "noImplicitAny": false,
+    "noImplicitAny": false
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
