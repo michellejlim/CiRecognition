@@ -51,7 +51,6 @@ function Container(props: Props) {
     if (myEmail === null) {
       return;
     }
-    // TODO what if the backend errors?
     checkIfSupervisor(myEmail).then(setIsSupervisor);
   }, [myEmail]);
   return (

@@ -95,6 +95,7 @@ async function getAnswer(myEmail: string): Promise<Answer> {
 }
 
 async function changeNomStatus(
+  setErr: (x: string) => void,
   x: ShowNomination,
   status: NominationStatusFinal
 ) {
@@ -109,13 +110,18 @@ async function changeNomStatus(
   // this is not atomic! it would be better to have one API request modify
   // all the relevant resources? or perhaps have some kind of 'retry' token in
   // case part of the request chain fails.
-  await fetch(getApiUrl(`Nominations/${x.id}`), {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      status,
-    }),
-  }).then(toJson);
+  try {
+    await fetch(getApiUrl(`Nominations/${x.id}`), {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        status,
+      }),
+    }).then(toJson);
+  } catch (e) {
+    setErr(String(e));
+    return;
+  }
   if (status === "approved") {
     const curCIBucks: number = await fetch(
       getApiUrl(`Employee_Recognitions/${x.nominee}`)
@@ -125,13 +131,18 @@ async function changeNomStatus(
     const award: NominationAward = await fetch(
       getApiUrl(`Nomination_Awards/${x.award}`)
     ).then(toJson);
-    await fetch(getApiUrl(`Employee_Recognitions/${x.nominee}`), {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ci_bucks: curCIBucks + award.award_amount,
-      }),
-    }).then(toJson);
+    try {
+      await fetch(getApiUrl(`Employee_Recognitions/${x.nominee}`), {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ci_bucks: curCIBucks + award.award_amount,
+        }),
+      }).then(toJson);
+    } catch (e) {
+      setErr(String(e));
+      return;
+    }
   }
   window.location.reload();
 }
@@ -139,11 +150,11 @@ async function changeNomStatus(
 function Review() {
   const [answer, setAnswer] = React.useState<Answer | null>(null);
   const [myEmail, setMyEmail] = React.useState<string | null>(null);
+  const [err, setErr] = React.useState<string | null>(null);
   React.useEffect(() => {
     if (myEmail === null) {
       return;
     }
-    // TODO what if the backend errors?
     getAnswer(myEmail).then(setAnswer);
   }, [setAnswer, myEmail]);
   if (myEmail === null || answer === null) {
@@ -152,8 +163,8 @@ function Review() {
   return (
     <div className="noms">
       <h4>Nominations Pending Approval ({answer.pending.length} Remaining)</h4>
+      {err === null ? null : <div className="Review__Err">{err}</div>}
       <br />
-
       {answer.pending.map((x) => (
         <div key={x.id} className="pendingItem">
           <div className="ind-pending">
@@ -162,7 +173,7 @@ function Review() {
                 <br />
                 <button
                   className="confirm-button-approve"
-                  onClick={() => changeNomStatus(x, "approved")}
+                  onClick={() => changeNomStatus(setErr, x, "approved")}
                 >
                   APPROVE
                 </button>
@@ -171,7 +182,7 @@ function Review() {
                 <br />
                 <button
                   className="confirm-button-deny"
-                  onClick={() => changeNomStatus(x, "denied")}
+                  onClick={() => changeNomStatus(setErr, x, "denied")}
                 >
                   DENY
                 </button>
