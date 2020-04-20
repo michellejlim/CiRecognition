@@ -5,22 +5,11 @@ import { Row, Col } from "react-materialize";
 import {
   getApiUrl,
   toJson,
-  Nomination,
   NominationStatusFinal,
-  Employee,
   NominationAward,
 } from "../../fetching";
 import EmailGetter from "../EmailGetter";
-
-type ShowNomination = Nomination & {
-  nominatorStr: string;
-  nomineeStr: string;
-};
-
-type Answer = {
-  pending: ShowNomination[];
-  done: ShowNomination[];
-};
+import { ShowNomination, Answer, getAnswer } from "./fetching";
 
 const months = {
   1: "January",
@@ -42,56 +31,6 @@ function getDate(date: string): string {
   const day = date.substring(8, 10);
   const month = months[parseInt(date.substring(5, 7))];
   return `${month} ${day}, ${year}`;
-}
-
-function byDateAsc(a: ShowNomination, b: ShowNomination) {
-  const c = +new Date(a.date);
-  const d = +new Date(b.date);
-  return c - d;
-}
-
-function byDateDesc(a: ShowNomination, b: ShowNomination) {
-  const c = +new Date(a.date);
-  const d = +new Date(b.date);
-  return d - c;
-}
-
-async function getAnswer(myEmail: string): Promise<Answer> {
-  const pending: ShowNomination[] = [];
-  const done: ShowNomination[] = [];
-  const myEmployeeId: number = await fetch(
-    getApiUrl("tblEmployees", { emailCompany: myEmail })
-  )
-    .then(toJson)
-    .then((xs) => xs[0].employeeId);
-  const noms: Nomination[] = await fetch(getApiUrl("Nominations")).then(toJson);
-  for (const nom of noms) {
-    const nominee: Employee = await fetch(
-      getApiUrl("tblEmployees", { employeeId: nom.nominee })
-    )
-      .then(toJson)
-      .then((xs) => xs[0]);
-    if (nominee.supervisorEmployeeId === myEmployeeId) {
-      const nominator: Employee = await fetch(
-        getApiUrl("tblEmployees", { employeeId: nom.nominator })
-      )
-        .then(toJson)
-        .then((xs) => xs[0]);
-      const showNom: ShowNomination = {
-        ...nom,
-        nominatorStr: nominator.firstName + " " + nominator.lastName,
-        nomineeStr: nominee.firstName + " " + nominee.lastName,
-      };
-      if (showNom.status === "pending") {
-        pending.push(showNom);
-      } else {
-        done.push(showNom);
-      }
-    }
-  }
-  pending.sort(byDateAsc);
-  done.sort(byDateDesc);
-  return { pending, done };
 }
 
 async function changeNomStatus(
