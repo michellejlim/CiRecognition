@@ -106,7 +106,7 @@ async function changeNomStatus(
   if (!window.confirm(msg)) {
     return;
   }
-  // TODO this is not atomic! it would be better to have one API request modify
+  // this is not atomic! it would be better to have one API request modify
   // all the relevant resources? or perhaps have some kind of 'retry' token in
   // case part of the request chain fails.
   await fetch(getApiUrl(`Nominations/${x.id}`), {

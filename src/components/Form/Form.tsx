@@ -22,9 +22,11 @@ type State =
       nominees: Guy[];
       other: string;
       myEmail: string;
+      err: string | null;
     };
 
 type Action =
+  | { t: "err"; err: string }
   | {
       t: "submitNomination";
       why: Reason;
@@ -53,11 +55,14 @@ function reducer(s: State, a: Action): State {
         nominees: a.nominees,
         other: a.other,
         myEmail: a.myEmail,
+        err: null,
       };
     case "confirmNomination":
       return { t: "nominating", err: null, showToast: true };
     case "backNomination":
       return { t: "nominating", err: null, showToast: false };
+    case "err":
+      return { ...s, err: a.err };
   }
 }
 
@@ -110,7 +115,6 @@ function Nominating({ err }: { err: string | null }) {
         <br />
         <form
           onSubmit={(e) => {
-            //TODO: Raise errors when form incomplete
             e.preventDefault();
             const id = reasons.get(name);
             if (id === undefined || myEmail == null) {
@@ -165,9 +169,10 @@ type ConfirmingProps = {
   why: Reason;
   other: string;
   myEmail: string;
+  err: string | null;
 };
 
-function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
+function Confirming({ nominees, why, other, myEmail, err }: ConfirmingProps) {
   const dispatch = React.useContext(Context);
   return (
     <WithSidebar>
@@ -194,6 +199,7 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
           <div className="reason">
             {why.name === "Other" ? other : why.name}
           </div>
+          {err === null ? null : <div className="Form__Err">{err}</div>}
           <br />
           <br />
           <input
@@ -208,8 +214,6 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
             value="Submit"
             onClick={async (e) => {
               e.preventDefault();
-              dispatch({ t: "confirmNomination" });
-              // TODO handle errors when fetching?
               const myEmployeeId = (
                 await fetch(
                   getApiUrl("tblEmployees", { emailCompany: myEmail })
@@ -223,24 +227,34 @@ function Confirming({ nominees, why, other, myEmail }: ConfirmingProps) {
                     })
                   ).then(toJson)
                 )[0];
-                if (nom2 !== undefined) {
-                  const req = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      reason: why.name === "Other" ? other : why.name,
-                      status: "pending",
-                      date: new Date().toUTCString(),
-                      nominator: myEmployeeId,
-                      nominee: nom2.employeeId,
-                      award: why.id,
-                    }),
-                  };
-                  fetch(getApiUrl("Nominations"), req);
-                } else {
-                  //TODO: Raise error here
+                if (nom2 === undefined) {
+                  dispatch({
+                    t: "err",
+                    err:
+                      "This Microsoft Graph user is not defined in the database. Please nominate a different user.",
+                  });
+                  return;
+                }
+                const req = {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    reason: why.name === "Other" ? other : why.name,
+                    status: "pending",
+                    date: new Date().toUTCString(),
+                    nominator: myEmployeeId,
+                    nominee: nom2.employeeId,
+                    // award: why.id,
+                  }),
+                };
+                try {
+                  await fetch(getApiUrl("Nominations"), req).then(toJson);
+                } catch (e) {
+                  dispatch({ t: "err", err: String(e) });
+                  return;
                 }
               }
+              dispatch({ t: "confirmNomination" });
             }}
           />
           <br />
@@ -271,6 +285,7 @@ function switcher(s: State) {
           why={s.why}
           other={s.other}
           myEmail={s.myEmail}
+          err={s.err}
         />
       );
   }
