@@ -5,10 +5,11 @@
 }
 
 .Dashboard__Left {
-  width: 460px;
+  width: 50%;
 }
 
 .Dashboard__Right {
+
   flex-grow: 1;
 }
 
@@ -17,7 +18,7 @@ thead {
 }
 
 td {
-  text-align: left;
+  text-align: center;
   padding: 10px;
 }
 td.white-rec {
@@ -43,6 +44,8 @@ hr.grey {
 }
 
 .Dashboard__Profile {
+  padding-top: 15px;
+  padding-bottom:15px;
   text-align: center;
   margin: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -65,6 +68,8 @@ hr.grey {
   border-top: 4px solid #717073;
 }
 .Dashboard__Leaderboard {
+  padding-top: 15px;
+  padding-bottom:15px;
   width: calc(100% - 40px);
   margin: 20px;
   padding: 100px;
@@ -84,8 +89,8 @@ mgt-person {
 }
 .dashboard-img {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 100%;
-  height:auto%;
+  width: 95%;
+  height:40%;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -112,6 +117,7 @@ mgt-person {
 .mid_contain {
   margin: 20px;
   padding: 30px;
+  padding-top:40px;
   margin-right: 30px;
   width: 100%;
   background-color: white;

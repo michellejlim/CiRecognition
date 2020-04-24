@@ -94,6 +94,7 @@ function Dashboard() {
       });
   }, [myEmail]);
   return (
+   
     <div className="Dashboard">
       <EmailGetter onGetEmail={setMyEmail} />
       <div className="Dashboard__Left">
@@ -140,11 +141,7 @@ function Dashboard() {
                     <td className="white-rec">
                       {x.nominee} has been recognized for '{x.reason}'!
                     </td>
-                    <td>
-                      <a href="mailto:example@yourdomain.com">
-                        <img src={email} alt="logo" className="message-img" />
-                      </a>
-                    </td>
+                    
                   </tr>
                 </tbody>
               </table>

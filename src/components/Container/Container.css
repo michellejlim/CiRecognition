@@ -10,7 +10,7 @@
   font-family: Futura, sans-serif;
   letter-spacing: 0.15em;
   font-size: 18px;
-  padding: 100px;
+  padding:100px;
 }
 
 .Container__NavItem--active {
@@ -19,15 +19,16 @@
   text-size: 100;
 }
 .navbar-expand-md .navbar-nav .nav-link {
-  margin-right: 40px;
+  margin-right: 30px;
 }
 
 .Container__Logo {
   margin-left: 40px;
   padding: 30px;
-  width: 30%;
+  width: 25%;
   height: auto;
 }
+
 
 /* Position and sizing of burger button */
 .bm-burger-button {
@@ -35,7 +36,7 @@
   width: 36px;
   height: 30px;
   left: 20px;
-  top: 20px;
+  top: 30px;
 }
 
 /* Color/shape of burger icon bars */
@@ -100,11 +101,24 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
-
+.mr-auto, .mx-auto {
+  padding-top:20px;
+}
+.logo-title {
+  width: 500px;
+  height: 100px;
+  
+  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+  
+}
 .notification_badge {
   position: relative;
   display: inline-block;
-  padding-top: .2em ;
+  padding-top: .3em ;
   padding-left: .4em;
   padding-right: .4em;
   padding-bottom: .2em;

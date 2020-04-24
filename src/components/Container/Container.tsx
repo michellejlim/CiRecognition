@@ -3,7 +3,10 @@ import { Navbar, Nav, NavItem, NavLink } from "reactstrap";
 import "./Container.css";
 import { push as Menu } from "react-burger-menu";
 import logo from "../../images/logo.jpg";
+import bu from "../../images/bigups.jpg";
+
 import EmailGetter from "../EmailGetter";
+
 import { getApiUrl, toJson, Employee } from "../../fetching";
 import { getAnswer } from "../Review/fetching";
 
@@ -97,7 +100,10 @@ function Container(props: Props) {
         </Navbar>
         <mgt-login id="myLoginControl"></mgt-login>
       </div>
+      
+    
       <div className="Container__Content">{props.children}</div>
+
     </div>
   );
 }
